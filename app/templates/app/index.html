@@ -1,0 +1,67 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h2>{{ title }}.</h2>
+<h3>{{ message }}</h3>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>
+                        This application is for downloading the bibliographic data of decisions taken by the Boards of Appeal of the European Patent Office.                                
+                    </p>
+                </div>
+
+                <div class="col-sm-6">
+                    <h4> State of the database </h4>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th> Decison type </th>
+                            <th> Number of cases </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td> T </td>
+                            <td> {{ TCount }} </td>
+                          </tr>
+                          <tr>
+                            <td> G </td>
+                            <td> {{ GCount }} </td>
+                          </tr>
+                          <tr>
+                            <td> R </td>
+                            <td> {{ RCount }} </td>
+                          </tr>
+                          <tr>
+                            <td> J </td>
+                            <td> {{ JCount }} </td>
+                          </tr>
+                          <tr>
+                            <td> W </td>
+                            <td> {{ WCount }} </td>
+                          </tr>
+                          <tr>
+                            <td> D </td>
+                            <td> {{ DCount }} </td>
+                          </tr>
+                          <tr>
+                            <td> Total </td>
+                            <td> {{ TotalCount }} </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <p> Earliest decision downloaded: {{ Earliest }} from {{ EarliestDate }} </p>                
+                <p> Latest decision downloaded: {{ Latest }} from {{ LatestDate }}. </p>
+            </div>
+        </div>
+
+{% endblock %}
