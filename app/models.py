@@ -34,6 +34,15 @@ class DecisionGeneric:
             'LinkFR',
             'PDFLink',
             }
+    LIST_ATTRIBUTES = {
+        'Opponents',
+        'Respondents',
+        'IPC',
+        'Articles',
+        'Rules',
+        'CitedCases',
+        }
+
 
 
 
@@ -95,6 +104,10 @@ class DecisionBibliographyManager(models.Manager):
     def GetAllFromCaseNumber(self, caseNumber):
         result = self.filter(CaseNumber = caseNumber)
         return result
+
+    def IsListAttribute(self, attribute):
+        return attribute in DecisionGeneric.LIST_ATTRIBUTES
+
 
 
 

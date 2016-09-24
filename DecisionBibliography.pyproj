@@ -51,13 +51,17 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\tests.py" />
-    <Compile Include="app\views.py" />
-    <Compile Include="app\__init__.py" />
-    <Compile Include="setupconsole.py">
+    <Compile Include="ViewModels\BoardVM.py" />
+    <Compile Include="ViewModels\DbStateVM.py" />
+    <Compile Include="ViewModels\DecisionVM.py" />
+    <Compile Include="ViewModels\TimeLinesVM.py" />
+    <Compile Include="ViewModels\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\views.py" />
+    <Compile Include="app\__init__.py" />
     <Compile Include="manage.py" />
-    <Compile Include="DecisionBibliography\__init__.py" />
+    <Compile Include="DecisionBibliography\____init__.py" />
     <Compile Include="DecisionBibliography\settings.py" />
     <Compile Include="DecisionBibliography\urls.py" />
     <Compile Include="DecisionBibliography\wsgi.py" />
@@ -67,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
+    <Folder Include="ViewModels\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\app\" />
     <Folder Include="app\static\app\content\" />
@@ -77,6 +82,7 @@
     <Folder Include="DecisionBibliography\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\templates\app\board.html" />
     <Content Include="app\templates\app\boardtimelines.html" />
     <Content Include="app\templates\app\decisionbibliography.html" />
     <Content Include="requirements.txt" />

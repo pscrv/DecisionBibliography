@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^decision/(?P<cn>.+)/$', views.decision, name='decision'),
     url(r'^search', views.search, name='search'),
     url(r'^boardtimelines/$', views.boardtimelines, name='boardtimelines'),
+    url(r'^board/(?P<bd>.+)/$', views.board, name='board'),
     
     url(r'^login/$',
         login,

@@ -2,14 +2,35 @@ import datetime
 from . models import DecisionBibliographyModel
 from . import DateHelpers
 
+
 class Analyser(object):
+    def GetAttributeFrequency(self, attribute, decisions):
+        if not attribute in vars(DecisionBibliographyModel):
+            return None
+        result = {}
+        for decision in decisions:
+            value = decision.__dict__[attribute]
+            if DecisionBibliographyModel.objects.IsListAttribute(attribute):
+                values = [x.strip() for x in value.split(',')]
+            else:
+                values = [value.strip()]
+            for v in values:
+                result[v] = result.get(v, 0) + 1
+        return result
+
+
+
+class PublishedDecisionTimelineAnalyser(Analyser):
     """description of class"""
     
-    def Analyse(self):
-        self.ObjectCount = self.__dbobjects.count()
+    def AnalysePublishedDecisionTimelines(self):
+        if self.__analysed:
+            return
 
-        startDate = self.__dbobjects.order_by('DecisionDate').first().DecisionDate
-        endDate = self.__dbobjects.order_by('-DecisionDate').first().DecisionDate
+        self.ObjectCount = self.__dbobjects.count()
+        orderedObjects = self.__dbobjects.order_by('DecisionDate')
+        startDate = orderedObjects.first().DecisionDate
+        endDate = orderedObjects.last().DecisionDate
 
         # get all boards and their timelines
         boards = []
@@ -36,22 +57,22 @@ class Analyser(object):
         self.__latestdate = endDate
         self.__analysed = True
 
-    def AnalyseBoard(self, board):
+    def AnalyseBoardPublishedDecisionTimeline(self, board):
         if not self.__analysed:
-            self.Analyse()
+            self.AnalysePublishedDecisionTimelines()
         if board not in self.__boards:
             return None
-        return BoardAnalysis(board, self. __timelines[board])
+        return BoardTimelineAnalysis(board, self. __timelines[board])
 
-    def AnalyseAllBoards(self):
+    def AnalyseAllBoardsPublishedDecisionTimeline(self):
         boarddanalyses = []
         for board in self.__boards:
-            analysis = self.AnalyseBoard(board)
+            analysis = self.AnalyseBoardPublishedDecisionTimeline(board)
             boarddanalyses.append(analysis)
         return boarddanalyses
 
     def GetBoardTimeline(self, board):
-        analysis = self.AnalyseBoard(board)
+        analysis = self.AnalyseBoardPublishedDecisionTimeline(board)
         if analysis == None: 
             return None
         start = analysis.FirstDecisionDate
@@ -67,7 +88,7 @@ class Analyser(object):
         boardanalyses = {}
         tls = {}
         for board in self.__boards:
-            boardanalyses[board] = self.AnalyseBoard(board)
+            boardanalyses[board] = self.AnalyseBoardPublishedDecisionTimeline(board)
             tls[board] = []
         tls['years'] = []
 
@@ -88,7 +109,7 @@ class Analyser(object):
         self.__latestdate = None
 
 
-class BoardAnalysis(object):
+class BoardTimelineAnalysis(object):
 
     def __init__(self, board, timeline):
         self.Board = board
@@ -122,11 +143,30 @@ class BoardAnalysis(object):
         return decisions.first().CaseNumber, decisions.first().DecisionDate
 
 
+class IPCAnalyser(Analyser):
 
+    def IpcFrequency(self, decisions):
+        return self.GetAttributeFrequency('IPC', decisions)
 
+    def IpcFrequencyForBoard(self, board):
+        decisions = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(Board = board)
+        return self.IpcFrequency(decisions)
+        
 
+class ProvisionAnalyser(Analyser):
 
+    def ArticleFrequency(self, decisions):
+        return self.GetAttributeFrequency('Articles', decisions)
 
+    def ArticleFrequencyForBoard(self, board):
+        decisions = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(Board = board)
+        return self.ArticleFrequency(decisions)
+    
+    def RuleFrequency(self, decisions):
+        return self.GetAttributeFrequency('Rules', decisions)
 
+    def RuleFrequencyForBoard(self, board):
+        decisions = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(Board = board)
+        return self.RuleFrequency(decisions)
 
 

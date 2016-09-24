@@ -1,0 +1,103 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h2>{{ title }}</h2>
+<h4>{{ count }} decisions </h4>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>  </h4>              
+            </div>
+        </div>   
+        <div class="row">
+
+               <div class="col-md-6">
+                <h4> The first five cases </h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th> Case </th>
+                        <th> Date </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for decision in earliest %}
+                            <tr>                                
+                                <td>  <a href="{% url 'decision' cn=decision.CaseNumber %}"> {{ decision.CaseNumber }}   </a> </td>
+                                <td> {{ decision.DecisionDate }} </td>
+                            </tr>
+                        {% endfor %}                          
+                    </tbody>
+                </table> 
+                
+                <h4> The lastest decisions </h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th> Decisions </th>
+                        <th> Date </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for decision in latest %}
+                            <tr>
+                                <td> <a href="{% url 'decision' cn=decision.CaseNumber %}"> {{ decision.CaseNumber }}   </a> </td>
+                                <td> {{ decision.DecisionDate }} </td>
+                            </tr>
+                        {% endfor %}                          
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="col-md-6">
+                <h4> The most common IPC classes </h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th> Class </th>
+                        <th> Number of decisions </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cl, fr, pc in ipc %}
+                            <tr>
+                                <td> {{ cl }} </td>
+                                <td> {{ fr }} </td>
+                                <td> {{ pc }}% </td>
+                            </tr>
+                        {% endfor %}                          
+                    </tbody>
+                </table> 
+                
+                <h4> The most common Articles </h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th> Article </th>
+                        <th> Number of decisions </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pr, fr, pc in provisions %}
+                            <tr>
+                                <td> {{ pr }} </td>
+                                <td> {{ fr }} </td>
+                                <td> {{ pc }}% </td>
+                            </tr>
+                        {% endfor %}                          
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-6">
+               
+                    
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
