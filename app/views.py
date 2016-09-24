@@ -50,11 +50,6 @@ def decision(request, cn):
     assert isinstance(request, HttpRequest)
 
     decision = DecisionBibliographyModel.objects.GetFromCaseNumber(cn)
-    decisionText = DecisionTextModel.objects.filter(decision = decision).first()
-    #if not decisionText:
-    #    textGetter = DBPopulator.TextGetter()
-    #    decisionText = textGetter.Get_Text(decision)
-
     viewModel = DecisionVM.SingleDecisionViewModel(decision)
     return render(
         request,

@@ -26,21 +26,32 @@
                 {% if decision.Rules %} <p class="articles+rules"> Rules {{ decision.Rules }} </p> {% endif %}
                 <p class="keywords"> Keywords: {{ decision.Keywords }} </p>
 
-                {% if citedDecisions %}
-                    Cited decisions: 
-                    {% for cited in citedDecisions %}
-                        <a href="{% url 'decision' cn=cited.CaseNumber %}"> {{ cited.CaseNumber }}   </a>
-                    {% endfor %}                      
-                {% endif %}
+                <p>
+                    {% if citedDecisions %}
+                        Cited decisions: 
+                        {% for cited in citedDecisions %}
+                            <a href="{% url 'decision' cn=cited.CaseNumber %}"> {{ cited.CaseNumber }}   </a>
+                        {% endfor %}                      
+                    {% endif %}
+                </p>
 
+                
                 {% if citingCount %}
-                    <p> This decision is cited in {{ citingCount }} cases: </p> 
-                    {% for citing in citingDecisions %}
-                        <a href="{% url 'decision' cn=citing.CaseNumber %}"> {{ citing.CaseNumber }}   </a>
-                    {% endfor %}
+                    <p>
+                        Cited in {{ citingCount }} 
+                            {% if citingCount == 1 %}
+                                case: 
+                            {% else %}
+                                cases:
+                            {% endif %} 
+                        {% for citing in citingDecisions %}
+                            <a href="{% url 'decision' cn=citing.CaseNumber %}"> {{ citing.CaseNumber }}   </a>
+                        {% endfor %}
+                    </p>
                 {% else %}
                     <p> This decision is not cited by other decisions. </p>                  
                 {% endif %}
+                
 
             </div>
             {% endif %}

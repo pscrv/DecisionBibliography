@@ -1,6 +1,6 @@
 import re
 from app.models import DecisionBibliographyModel as DB
-from app.DBAnalyser import IPCAnalyser, ProvisionAnalyser
+from app.DBAnalyser import IPCAnalyser, ProvisionAnalyser, CitationAnalyser
 
 class  BoardViewModel(object):
     
@@ -17,8 +17,11 @@ class  BoardViewModel(object):
 
         provisionAnalyser = ProvisionAnalyser()
         articleFrequencies = provisionAnalyser.ArticleFrequencyForBoard(bd)
-        ruleFrequencies = provisionAnalyser.RuleFrequencyForBoard(bd)
         articleTop5 = self.__topNFromDictionaryWithPercentage(articleFrequencies, 5, count)
+
+        citationAnalyser = CitationAnalyser()
+        citationFrequencies = citationAnalyser.CitationFrequencyForBoard(bd)
+        citationTop5 = self.__topNFromDictionary(citationFrequencies, 5)
 
         self.Context = {
             'board' : bd,
@@ -27,6 +30,7 @@ class  BoardViewModel(object):
             'latest': late,
             'ipc' : ipcTop5,
             'provisions': articleTop5,
+            'citations': citationTop5,
             'title': 'Board ' + bd
             }
 

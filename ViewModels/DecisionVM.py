@@ -49,7 +49,7 @@ class SingleDecisionViewModel(object):
         return citedDecisions
 
     def __getCitingDecisions(self, decision):
-        citing = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(CitedCases=decision.CaseNumber).all()
+        citing = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(CitedCases__contains=decision.CaseNumber).all()
         return citing
 
     def __downloadText(self, decision):   

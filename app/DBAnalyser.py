@@ -170,3 +170,19 @@ class ProvisionAnalyser(Analyser):
         return self.RuleFrequency(decisions)
 
 
+class CitationAnalyser(Analyser):
+    
+    def CitationFrequency(self, decisions):
+        result = {}
+        for decision in decisions:
+            result[decision] = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(CitedCases__contains = decision.CaseNumber).count()
+        return result
+
+    def CitationFrequencyForBoard(self, board):
+        decisions = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(Board = board)
+        return self.CitationFrequency(decisions)
+
+
+
+
+
