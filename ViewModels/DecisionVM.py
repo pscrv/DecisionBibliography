@@ -5,11 +5,14 @@ class SingleDecisionViewModel(object):
         message = msg
         if message == '' and not decision:
             message = 'Not found'
+        citingDecisions = self.__getCitingDecisions(decision)
         self.Context = {
             'title': 'DecisionView',
             'message': message,
             'decision': decision,
             'citedDecisions': self.__getCitedDecisions(decision),
+            'citingDecisions': citingDecisions,
+            'citingCount': citingDecisions.count(),
             }
         
     def __getCitedDecisions(self, decision):
@@ -24,3 +27,11 @@ class SingleDecisionViewModel(object):
             if dec:
                 citedDecisions.append(dec)
         return citedDecisions
+
+    def __getCitingDecisions(self, decision):
+        citing = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(CitedCases=decision.CaseNumber).all()
+        return citing
+
+
+
+

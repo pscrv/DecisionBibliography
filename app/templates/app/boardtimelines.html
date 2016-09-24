@@ -22,12 +22,14 @@
                     <tbody>
 
                         {% for board, amounts in boardtls %}
-                            <tr>
-                            <td> {{ board }} </td>
-                                  
-                            {% for amount in amounts %}
-                                <td> {{ amount }} </td>
-                            {% endfor %}
+                            <tr>                         
+                                <td> 
+                                    <a href="{% url 'board' bd=board %}"> {{ board }}   </a> 
+                                </td>
+                                                                  
+                                {% for amount in amounts %}
+                                    <td> {{ amount }} </td>
+                                {% endfor %}
                             </tr>
                         {% endfor %}
                     </tbody>

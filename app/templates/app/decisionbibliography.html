@@ -7,7 +7,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-4" id="bibl-display-parent">
+        <div class="col-md-4" id="bibl-display-parent">
 
             {% if decision %}
             <div class="bibl-display" id="bibl-display-div">
@@ -36,14 +36,15 @@
             {% endif %}
         </div>  
 
-        <div class="col-sm-3 col-sm-offset-4">
-            <div class="row">
-                <form method="POST" action="{% url 'search' %}" class="post-form pull-right">
-                    {% csrf_token %}
-                    <input name="q" placeholder="Case number" class="searchfield" type="text" id="searchbox">
-                    <button type="submit" class="search btn btn-default">Search</button>
-                </form>
-            </div>
+        <div class="col-md-4">               
+            {% if citingCount %}
+                <p> This decision is cited in {{ citingCount }} cases: </p> 
+                {% for citing in citingDecisions %}
+                    <a href="{% url 'decision' cn=citing.CaseNumber %}"> {{ citing.CaseNumber }}   </a>
+                {% endfor %}
+            {% else %}
+                <p> This decision is not cited by other decisions. </p>                  
+            {% endif %}
         </div>
 
             

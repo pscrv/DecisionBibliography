@@ -45,7 +45,6 @@ class DecisionGeneric:
 
 
 
-
 class DecisionBibliographyManager(models.Manager):
     
     def create_or_update(
@@ -110,7 +109,6 @@ class DecisionBibliographyManager(models.Manager):
 
 
 
-
 class DecisionBibliographyModel(models.Model):
     objects = DecisionBibliographyManager()
     
@@ -171,6 +169,22 @@ class DecisionBibliographyModel(models.Model):
             setattr(self, attribute, value)
         
         self.save()
+
+
+class DecisionTextModel(models.Model):
+
+    decision = models.ForeignKey(DecisionBibliographyModel)
+    
+    FactsHeader = models.TextField(default = "")
+    Facts = models.TextField(default = "")
+    ReasonsHeader = models.TextField(default = "")
+    Reasons = models.TextField(default = "")
+    OrderHeader = models.TextField(default = "")
+    Order= models.TextField(default = "")
+
+    
+    def __str__(self):
+        return self.decision.CaseNumber
 
 
 

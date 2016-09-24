@@ -12,6 +12,7 @@ from ViewModels import DbStateVM
 from ViewModels import DecisionVM 
 from ViewModels import TimeLinesVM 
 from ViewModels import BoardVM 
+from app import Formatters
 
 
 def home(request):
@@ -57,7 +58,7 @@ def decision(request, cn):
 
 def search(request):
     """Searches the DB by case number."""
-    
+    from app import Formatters
     if not request.method == 'POST':
         return redirect(request.META['HTTP_REFERER'])
         
