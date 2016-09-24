@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>{{ title }}.</h2>
+<h2>{{ title }}</h2>
 <h3>{{ message }}</h3>
 
 <div class="container">
@@ -12,7 +12,7 @@
             {% if decision %}
             <div class="bibl-display" id="bibl-display-div">
                 <h1 class="casenumber" > {{ decision.CaseNumber}} </h1>
-                <p class="headword"> {{ decision.Headword}}</p>
+                <h4 class="headword">({{ decision.Headword}})</h4>
                 <p class="ECLI"> {{ decision.ECLI}} </p>
                 <p class="date+board"> {{decision.DecisionDate}} by board {{ decision.Board }}
                     {% if decision.OnlineDate %}
@@ -20,11 +20,11 @@
                     {% endif %}
                 </p>
                 <h4 class="title"> {{ decision.Title }} </h4>
-                <p class="applicant"> {{ decision.Applicant }} </p>
+                <p class="applicant"> Applicant: {{ decision.Applicant }} </p>
                 {% if decision.Opponents %} <p class="opponents">Opponents: {{ decision.Opponents}} </p> {% endif %}
                 {% if decision.Articles %} <p class="articles+rules"> Article(s) {{ decision.Articles }} </p> {% endif %}
                 {% if decision.Rules %} <p class="articles+rules"> Rules {{ decision.Rules }} </p> {% endif %}
-                <p class="keywords"> {{ decision.Keywords }} </p>
+                <p class="keywords"> Keywords: {{ decision.Keywords }} </p>
 
                 {% if citedDecisions %}
                     Cited decisions: 

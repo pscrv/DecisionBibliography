@@ -6,24 +6,24 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.template import RequestContext
 
-from . models import DecisionBibliographyModel
+from . models import DecisionBibliographyModel, DecisionTextModel
 from ViewModels import BoardVM
 from ViewModels import DbStateVM
 from ViewModels import DecisionVM 
 from ViewModels import TimeLinesVM 
 from ViewModels import BoardVM 
-from app import Formatters
+from app import Formatters, DBPopulator
 
 
 def home(request):
 
     #region experiement
-    from . models import DecisionTextModel
-    from . DBPopulator import TextGetter
-    dec = DecisionBibliographyModel.objects.GetFromCaseNumber('J 0001/78')
-    textGetter = TextGetter()
-    txt = textGetter.Get_Text(dec)
-    x = 1
+    #from . models import DecisionTextModel
+    #from . DBPopulator import TextGetter
+    #dec = DecisionBibliographyModel.objects.GetFromCaseNumber('J 0001/78')
+    #textGetter = TextGetter()
+    #txt = textGetter.Get_Text(dec)
+    #x = 1
     #endregion
 
     # region comment out this, if db is not being populated
@@ -50,10 +50,15 @@ def decision(request, cn):
     assert isinstance(request, HttpRequest)
 
     decision = DecisionBibliographyModel.objects.GetFromCaseNumber(cn)
+    decisionText = DecisionTextModel.objects.filter(decision = decision).first()
+    #if not decisionText:
+    #    textGetter = DBPopulator.TextGetter()
+    #    decisionText = textGetter.Get_Text(decision)
+
     viewModel = DecisionVM.SingleDecisionViewModel(decision)
     return render(
         request,
-        'app/decisionbibliography.html',
+        'app/decision.html',
         viewModel.Context,
     )        
 

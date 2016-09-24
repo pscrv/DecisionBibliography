@@ -1,14 +1,25 @@
 from app.models import DecisionBibliographyModel, DecisionTextModel
+from app.DBPopulator import TextGetter
 
 class SingleDecisionViewModel(object):
     def __init__(self, decision, msg = ''):
         message = msg
+
         if message == '' and not decision:
             message = 'Not found'
+
+        if not decision:
+            self.Context = {
+                'title': 'DecisionView',
+                'message': message,
+                }
+            return
+
         citingDecisions = self.__getCitingDecisions(decision)
         text = DecisionTextModel.objects.filter(decision = decision).first()
         if not text:
-            text = DecisionTextModel()  # empty
+            text = self.__downloadText(decision)  
+
         self.Context = {
             'title': 'DecisionView',
             'message': message,
@@ -40,6 +51,10 @@ class SingleDecisionViewModel(object):
     def __getCitingDecisions(self, decision):
         citing = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(CitedCases=decision.CaseNumber).all()
         return citing
+
+    def __downloadText(self, decision):   
+        textGetter = TextGetter()
+        return textGetter.Get_Text(decision)
 
 
 

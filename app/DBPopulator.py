@@ -52,6 +52,7 @@ class BibliographyGetter(object):
             else:
                 case.save()
 
+
 class TextGetter(object):
 
     def Get_Text(self, decision):
@@ -65,7 +66,7 @@ class TextGetter(object):
             decisionText.Language = decision.ProcedureLanguage
         except Exception as ex:
             t = type(ex)      
-            return
+            return None
 
         inDB = DecisionTextModel.objects.filter(
                 decision = decision,
