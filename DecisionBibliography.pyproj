@@ -47,7 +47,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\forms.py" />
-    <Compile Include="app\GetDecisionBibliographies.py">
+    <Compile Include="app\DBPopulator.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\tests.py" />

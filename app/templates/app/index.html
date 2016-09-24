@@ -59,8 +59,14 @@
             </div>
 
             <div class="row">
-                <p> Earliest decision downloaded: {{ Earliest }} from {{ EarliestDate }} </p>                
-                <p> Latest decision downloaded: {{ Latest }} from {{ LatestDate }}. </p>
+                <p> Earliest decision: 
+                    <a href="{% url 'decision' cn=Earliest %}"> {{ Earliest }}  </a> 
+                    from {{ EarliestDate }} 
+                </p>
+                <p> Latest decision: 
+                    <a href="{% url 'decision' cn=Latest %}"> {{ Latest }}  </a> 
+                    from {{ LatestDate }} 
+                </p> 
             </div>
         </div>
 

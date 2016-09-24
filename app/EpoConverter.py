@@ -3,7 +3,7 @@ import re
 import string
 import datetime
 from bs4 import BeautifulSoup, element
-from . models import DecisionBibliographyModel
+from . models import DecisionBibliographyModel, DecisionTextModel
 from . EpoSearchFacade import EpoSearchFacade
 
 class EpoConverter(object):
@@ -134,10 +134,12 @@ class EpoConverter(object):
             return v
 
     #region Text extraction  - not yet re-worked
-    def TextToDecision(self, response, caseNumber, procedureLanguage):
+    def ResponseToDecisionText(self, response):
     
         textDictionary = self._parseToTextDictionary(response)
-        decision = DecisionBibliographyModel.objects.create_or_update(caseNumber, **textDictionary)
+        decision = DecisionTextModel()
+        for attribute, value in textDictionary.items():
+            setattr(decision, attribute, value)
         return decision
 
 
@@ -185,19 +187,17 @@ class EpoConverter(object):
                 'Reasons': self._parasToString(textSection.find_all('p')),
                 'OrderHeader': "See Reasons",
                 'Order': "",
-                'TextDownloaded': True,
                 'HasSplitText': False,
                 }          
         
         else:
             parseDictionary = {
                 'FactsHeader': headers[0].string,
-                'Facts': self._parasToString(_loopToHeader([], headers[0].parent.nextSibling)),
+                'Facts': self._parasToString(self._loopToHeader([], headers[0].parent.nextSibling)),
                 'ReasonsHeader': headers[1].string,
-                'Reasons': self._parasToString(_loopToHeader([], headers[1].parent.nextSibling)),
+                'Reasons': self._parasToString(self._loopToHeader([], headers[1].parent.nextSibling)),
                 'OrderHeader': headers[2].string,
-                'Order': self._parasToString(_loopToHeader([], headers[2].parent.nextSibling)),
-                'TextDownloaded': True,
+                'Order': self._parasToString(self._loopToHeader([], headers[2].parent.nextSibling)),
                 'HasSplitText': True,
                 }
 

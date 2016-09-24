@@ -1,11 +1,14 @@
-from app.models import DecisionBibliographyModel
+from app.models import DecisionBibliographyModel, DecisionTextModel
 
 class SingleDecisionViewModel(object):
-    def __init__(self,decision, msg = ''):
+    def __init__(self, decision, msg = ''):
         message = msg
         if message == '' and not decision:
             message = 'Not found'
         citingDecisions = self.__getCitingDecisions(decision)
+        text = DecisionTextModel.objects.filter(decision = decision).first()
+        if not text:
+            text = DecisionTextModel()  # empty
         self.Context = {
             'title': 'DecisionView',
             'message': message,
@@ -13,6 +16,12 @@ class SingleDecisionViewModel(object):
             'citedDecisions': self.__getCitedDecisions(decision),
             'citingDecisions': citingDecisions,
             'citingCount': citingDecisions.count(),
+            'factsHeder': text.FactsHeader,
+            'facts': text.Facts.split('\n\n'),
+            'reasonsHeader': text.ReasonsHeader,
+            'reasons': text.Reasons.split('\n\n'),
+            'orderHeader': text.OrderHeader,
+            'order': text.Order.split('\n\n'),
             }
         
     def __getCitedDecisions(self, decision):

@@ -180,7 +180,9 @@ class DecisionTextModel(models.Model):
     ReasonsHeader = models.TextField(default = "")
     Reasons = models.TextField(default = "")
     OrderHeader = models.TextField(default = "")
-    Order= models.TextField(default = "")
+    Order = models.TextField(default = "")
+    Language =  models.CharField(choices = DecisionGeneric.LANGUAGES, max_length = 2, default = "")
+    HasSplitText = models.BooleanField(default = False)
 
     
     def __str__(self):

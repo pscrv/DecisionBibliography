@@ -32,21 +32,56 @@
                         <a href="{% url 'decision' cn=cited.CaseNumber %}"> {{ cited.CaseNumber }}   </a>
                     {% endfor %}                      
                 {% endif %}
+
+                {% if citingCount %}
+                    <p> This decision is cited in {{ citingCount }} cases: </p> 
+                    {% for citing in citingDecisions %}
+                        <a href="{% url 'decision' cn=citing.CaseNumber %}"> {{ citing.CaseNumber }}   </a>
+                    {% endfor %}
+                {% else %}
+                    <p> This decision is not cited by other decisions. </p>                  
+                {% endif %}
+
             </div>
             {% endif %}
         </div>  
+        
+                <div class="col-sm-8">
+                    <ul class="nav nav-tabs">
+                      <li><a data-toggle="tab" href="#procedure">Procedure</a></li>
+                      <li class="active"><a data-toggle="tab" href="#reasons">Reasons</a></li>
+                      <li><a data-toggle="tab" href="#outcome">Outcome</a></li>
+                      <li><a data-toggle="tab" href="#comments">Comments</a></li>
+                    </ul>
 
-        <div class="col-md-4">               
-            {% if citingCount %}
-                <p> This decision is cited in {{ citingCount }} cases: </p> 
-                {% for citing in citingDecisions %}
-                    <a href="{% url 'decision' cn=citing.CaseNumber %}"> {{ citing.CaseNumber }}   </a>
-                {% endfor %}
-            {% else %}
-                <p> This decision is not cited by other decisions. </p>                  
-            {% endif %}
-        </div>
+                    <div class="tab-content">
+                      <div id="procedure" class="tab-pane fade">
+                        <h4> {{ factsHeader }} </h4>
+                        {% for para in facts %}
+                            <p> {{ para }} </p>
+                        {% endfor %}
+                      </div>
+                      <div id="reasons" class="tab-pane fade in active">
+                        <h4> {{ reasonsHeader }} </h4>
+                        {% for para in reasons %}
+                            <p> {{ para }} </p>
+                        {% endfor %}
+                      </div>
+                      <div id="outcome" class="tab-pane fade">
+                        <h4> {{ orderHeader }} </h4>
+                        {% for para in order %}
+                            <p> {{ para }} </p>
+                        {% endfor %}
+                      </div>
+                      <div id="comments" class="tab-pane fade">
+                        <h4> Comments </h4>
+                        <p> There might be comments, one day. </p>
+                      </div>
+                    </div>
 
+
+
+                </div>
             
     </div>
 

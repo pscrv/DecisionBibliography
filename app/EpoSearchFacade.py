@@ -71,6 +71,6 @@ class EpoSearchFacade(object):
         return requests.get(self.SEARCHURL, params=payload)
 
 
-    def SearchDecisionText(url):
+    def SearchDecisionText(self, url):
         return requests.get(url)
 

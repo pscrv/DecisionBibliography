@@ -18,18 +18,19 @@ from app import Formatters
 def home(request):
 
     #region experiement
-    #from . import DBAnalyser
-    #analyser = DBAnalyser.ProvisionAnalyser()
-    #x = analyser.ArticleFrequencyForBoard('3.5.01')
-    #y = analyser.RuleFrequencyForBoard('3.5.01')
-    #z = 1
+    from . models import DecisionTextModel
+    from . DBPopulator import TextGetter
+    dec = DecisionBibliographyModel.objects.GetFromCaseNumber('J 0001/78')
+    textGetter = TextGetter()
+    txt = textGetter.Get_Text(dec)
+    x = 1
     #endregion
 
     # region comment out this, if db is not being populated
     #start = datetime(1990, 1, 1)
     #end = datetime(1999, 12, 31)
 
-    #from . GetDecisionBibliographies import BibliographyGetter
+    #from . DBPopulator import BibliographyGetter
     #bg = BibliographyGetter()
     #bg.Get_FromDate_ToDate(start, end) 
     # endregion
