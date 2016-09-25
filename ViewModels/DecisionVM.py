@@ -63,7 +63,16 @@ class SingleDecisionViewModel(object):
 
     def __downloadText(self, decision):   
         textGetter = TextGetter()
-        return textGetter.Get_Text(decision)
+        text = textGetter.Get_Text(decision)
+        if not text:
+            text = DecisionTextModel(
+            FactsHeader = "Decision text unavailable.",
+            Facts = "",
+            ReasonsHeader = "Decision text unavailable.",
+            Reasons = "",
+            OrderHeader = "Decision text unavailable.",
+            Order = "")
+        return text
 
 
 

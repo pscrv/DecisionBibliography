@@ -121,7 +121,10 @@ class BoardAnalyser(Analyser):
         boardDecisions =  DB.objects.FilterOnlyPrLanguage(Board = board).order_by('DecisionDate')
         count = boardDecisions.count()
         early = boardDecisions[:5]
-        late = boardDecisions[count-5:]
+        if count >= 5:
+            late = boardDecisions[count-5:]
+        else:
+            late = boardDecisions
 
         ipcAnalyser = IPCAnalyser()
         ipcFrequencies = ipcAnalyser.IpcFrequencyForBoard(board)
