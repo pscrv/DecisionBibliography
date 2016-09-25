@@ -19,6 +19,15 @@ class SingleDecisionViewModel(object):
         text = DecisionTextModel.objects.filter(decision = decision).first()
         if not text:
             text = self.__downloadText(decision)  
+        if not text:
+            text = DecisionTextModel()
+            text.FactsHeader = "Decision text unavailable."
+            text.Facts = ""
+            text.ReasonsHeader = "Decision text unavailable."
+            text.Reasons = ""
+            text.OrderHeader = "Decision text unavailable."
+            text.Order = ""
+
 
         self.Context = {
             'title': 'DecisionView',
@@ -27,7 +36,7 @@ class SingleDecisionViewModel(object):
             'citedDecisions': self.__getCitedDecisions(decision),
             'citingDecisions': citingDecisions,
             'citingCount': citingDecisions.count(),
-            'factsHeder': text.FactsHeader,
+            'factsHeader': text.FactsHeader,
             'facts': text.Facts.split('\n\n'),
             'reasonsHeader': text.ReasonsHeader,
             'reasons': text.Reasons.split('\n\n'),

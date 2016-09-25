@@ -1,16 +1,18 @@
 import datetime
-from . models import DecisionBibliographyModel
+import re
+from decimal import Decimal
+from . models import DecisionBibliographyModel as DB
 from . import DateHelpers
 
 
 class Analyser(object):
     def GetAttributeFrequency(self, attribute, decisions):
-        if not attribute in vars(DecisionBibliographyModel):
+        if not attribute in vars(DB):
             return None
         result = {}
         for decision in decisions:
             value = decision.__dict__[attribute]
-            if DecisionBibliographyModel.objects.IsListAttribute(attribute):
+            if DB.objects.IsListAttribute(attribute):
                 values = [x.strip() for x in value.split(',')]
             else:
                 values = [value.strip()]
@@ -100,13 +102,117 @@ class PublishedDecisionTimelineAnalyser(Analyser):
 
 
     def __init__(self):
-        self.__dbobjects = DecisionBibliographyModel.objects
+        self.__dbobjects = DB.objects
         self.__count = 0
         self.__boards = []
         self.__timelines = {}
         self.__analysed = False
         self.__earliestdate = None
         self.__latestdate = None
+
+
+
+class BoardAnalyser(Analyser):
+
+    def AnalyseBoard(self, board):
+        if board in self.cache:
+            return self.cache[board]
+        
+        boardDecisions =  DB.objects.FilterOnlyPrLanguage(Board = board).order_by('DecisionDate')
+        count = boardDecisions.count()
+        early = boardDecisions[:5]
+        late = boardDecisions[count-5:]
+
+        ipcAnalyser = IPCAnalyser()
+        ipcFrequencies = ipcAnalyser.IpcFrequencyForBoard(board)
+        ipcMainFrequencies = self.__ipcToIpcMain(ipcFrequencies)
+        ipcTop5 = self.__topNFromDictionaryWithPercentage(ipcMainFrequencies, 5, count)
+
+        provisionAnalyser = ProvisionAnalyser()
+        articleFrequencies = provisionAnalyser.ArticleFrequencyForBoard(board)
+        articleTop5 = self.__topNFromDictionaryWithPercentage(articleFrequencies, 5, count)
+
+        citationAnalyser = CitationAnalyser()
+        citationFrequencies = citationAnalyser.CitationFrequencyForBoard(board)
+        citationTop5 = self.__topNFromDictionary(citationFrequencies, 5)
+
+        self.cache[board] =  {
+            'count': count, 
+            'early': early, 
+            'late': late, 
+            'ipctop': ipcTop5, 
+            'articletop': articleTop5, 
+            'citationtop': citationTop5
+            }
+        return self.cache[board]
+
+    def __ipcToIpcMain(self, ipcdict):
+        mainFrequencies = {}
+        finder = re.compile(r'(.*)/(.*)')
+        for cl in ipcdict:
+            found = re.search(finder, cl)
+            if not found:
+                continue
+            main = found.group(1)
+            mainFrequencies[main] = mainFrequencies.get(main, 0) + ipcdict[cl]
+        return mainFrequencies
+    
+    def __topNFromDictionaryWithPercentage(self, dict, n, total):
+        keyList = sorted(dict.keys(), key=(lambda k: dict[k]), reverse = True)[:n]
+        return [ (k, dict[k], round(Decimal(100 * dict[k] / total), 2)) for k in keyList]
+
+    def __topNFromDictionary(self, dict, n):    
+        keyList = sorted(dict.keys(), key=(lambda k: dict[k]), reverse = True)[:n]
+        return [ (k, dict[k]) for k in keyList]
+
+    def __appendPercentage (self, pairList, total):
+        return [ (x, y, round(Decimal(100 *y / total), 2)) for (x, y) in pairList]
+
+
+    def __init__(self):
+        self.cache = {}
+
+
+class IPCAnalyser(Analyser):
+
+    def IpcFrequency(self, decisions):
+        return self.GetAttributeFrequency('IPC', decisions)
+
+    def IpcFrequencyForBoard(self, board):
+        decisions = DB.objects.FilterOnlyPrLanguage(Board = board)
+        return self.IpcFrequency(decisions)
+
+        
+
+class ProvisionAnalyser(Analyser):
+
+    def ArticleFrequency(self, decisions):
+        return self.GetAttributeFrequency('Articles', decisions)
+
+    def ArticleFrequencyForBoard(self, board):
+        decisions = DB.objects.FilterOnlyPrLanguage(Board = board)
+        return self.ArticleFrequency(decisions)
+    
+    def RuleFrequency(self, decisions):
+        return self.GetAttributeFrequency('Rules', decisions)
+
+    def RuleFrequencyForBoard(self, board):
+        decisions = DB.objects.FilterOnlyPrLanguage(Board = board)
+        return self.RuleFrequency(decisions)
+
+
+class CitationAnalyser(Analyser):
+    
+    def CitationFrequency(self, decisions):
+        result = {}
+        for decision in decisions:
+            result[decision] = DB.objects.FilterOnlyPrLanguage(CitedCases__contains = decision.CaseNumber).count()
+        return result
+
+    def CitationFrequencyForBoard(self, board):
+        decisions = DB.objects.FilterOnlyPrLanguage(Board = board)
+        return self.CitationFrequency(decisions)
+
 
 
 class BoardTimelineAnalysis(object):
@@ -135,52 +241,12 @@ class BoardTimelineAnalysis(object):
         sorter = 'DecisionDate'
         if descending: 
             sorter = '-DecisionDate'
-        decisions = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(
+        decisions = DB.objects.FilterOnlyPrLanguage(
            Board = self.Board,
            DecisionDate__range = (
               DateHelpers.FirstOfThisMonth(dt), 
               DateHelpers.EndOfThisMonth(dt))).order_by(sorter)
         return decisions.first().CaseNumber, decisions.first().DecisionDate
-
-
-class IPCAnalyser(Analyser):
-
-    def IpcFrequency(self, decisions):
-        return self.GetAttributeFrequency('IPC', decisions)
-
-    def IpcFrequencyForBoard(self, board):
-        decisions = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(Board = board)
-        return self.IpcFrequency(decisions)
-        
-
-class ProvisionAnalyser(Analyser):
-
-    def ArticleFrequency(self, decisions):
-        return self.GetAttributeFrequency('Articles', decisions)
-
-    def ArticleFrequencyForBoard(self, board):
-        decisions = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(Board = board)
-        return self.ArticleFrequency(decisions)
-    
-    def RuleFrequency(self, decisions):
-        return self.GetAttributeFrequency('Rules', decisions)
-
-    def RuleFrequencyForBoard(self, board):
-        decisions = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(Board = board)
-        return self.RuleFrequency(decisions)
-
-
-class CitationAnalyser(Analyser):
-    
-    def CitationFrequency(self, decisions):
-        result = {}
-        for decision in decisions:
-            result[decision] = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(CitedCases__contains = decision.CaseNumber).count()
-        return result
-
-    def CitationFrequencyForBoard(self, board):
-        decisions = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(Board = board)
-        return self.CitationFrequency(decisions)
 
 
 
