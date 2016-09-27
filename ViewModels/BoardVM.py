@@ -1,6 +1,3 @@
-import re
-from app.models import DecisionBibliographyModel as DB
-#from app.DBAnalyser import IPCAnalyser, ProvisionAnalyser, CitationAnalyser
 from app.DBAnalyser import BoardAnalyser
 
 class  BoardViewModel(object):

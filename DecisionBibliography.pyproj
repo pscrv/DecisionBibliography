@@ -54,6 +54,9 @@
     <Compile Include="ViewModels\BoardVM.py" />
     <Compile Include="ViewModels\DbStateVM.py" />
     <Compile Include="ViewModels\DecisionVM.py" />
+    <Compile Include="ViewModels\IndexVM.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ViewModels\TimeLinesVM.py" />
     <Compile Include="ViewModels\__init__.py">
       <SubType>Code</SubType>
@@ -83,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\templates\app\board.html" />
+    <Content Include="app\templates\app\boardmenu.html" />
     <Content Include="app\templates\app\boardtimelines.html" />
     <Content Include="app\templates\app\decision.html" />
     <Content Include="requirements.txt" />
@@ -109,9 +113,9 @@
     <Content Include="app\static\app\scripts\respond.js" />
     <Content Include="app\static\app\scripts\respond.min.js" />
     <Content Include="app\static\app\scripts\_references.js" />
-    <Content Include="app\templates\app\about.html" />
-    <Content Include="app\templates\app\contact.html" />
     <Content Include="app\templates\app\index.html" />
+    <Content Include="app\templates\app\contact.html" />
+    <Content Include="app\templates\app\about.html" />
     <Content Include="app\templates\app\layout.html" />
     <Content Include="app\templates\app\login.html" />
     <Content Include="app\templates\app\loginpartial.html" />

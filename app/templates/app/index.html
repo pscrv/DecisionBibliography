@@ -2,72 +2,28 @@
 
 {% block content %}
 
-<h2>{{ title }}</h2>
+<h2>{{ title }}.</h2>
 <h3>{{ message }}</h3>
 
+<p>To get you going, here are the latest decisions in the database.</p>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>
-                        This application is for displaying the decisions of the Boards of Appeal of the European Patent Office.                                
-                    </p>
-                </div>
-
-                <div class="col-sm-6">
-                    <h4> State of the database </h4>
-                    <table class="table">
-                        <thead>
-                          <tr>
-                            <th> Decison type </th>
-                            <th> Number of cases </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td> T </td>
-                            <td> {{ TCount }} </td>
-                          </tr>
-                          <tr>
-                            <td> G </td>
-                            <td> {{ GCount }} </td>
-                          </tr>
-                          <tr>
-                            <td> R </td>
-                            <td> {{ RCount }} </td>
-                          </tr>
-                          <tr>
-                            <td> J </td>
-                            <td> {{ JCount }} </td>
-                          </tr>
-                          <tr>
-                            <td> W </td>
-                            <td> {{ WCount }} </td>
-                          </tr>
-                          <tr>
-                            <td> D </td>
-                            <td> {{ DCount }} </td>
-                          </tr>
-                          <tr>
-                            <td> Total </td>
-                            <td> {{ TotalCount }} </td>
-                          </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="row">
-                        <p> Earliest decision: 
-                            <a href="{% url 'decision' cn=Earliest %}"> {{ Earliest }}  </a> 
-                            from {{ EarliestDate }} 
-                        </p>
-                        <p> Latest decision: 
-                            <a href="{% url 'decision' cn=Latest %}"> {{ Latest }}  </a> 
-                            from {{ LatestDate }} 
-                        </p> 
-                        <p> {{ TotalTxtCount}} decision texts have been downloaded. </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th> Decision </th>
+            <th> Board </th>
+            <th> Date </th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for dec in decisions %}
+        <tr>
+            <td> <a href="{% url 'decision' cn=dec %}"> {{ dec }}   </a> </td>
+            <td> {{ dec.Board }} </td>
+            <td> {{ dec.DecisionDate }} </td>
+        </tr>
+    {% endfor %}                          
+    </tbody>
+</table>
 
 {% endblock %}

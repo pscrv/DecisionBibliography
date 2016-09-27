@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^search', views.search, name='search'),
     url(r'^boardtimelines/$', views.boardtimelines, name='boardtimelines'),
     url(r'^board/(?P<bd>.+)/$', views.board, name='board'),
+    url(r'^about', views.about, name = 'about'),
     
     url(r'^login/$',
         login,
@@ -33,6 +34,7 @@ urlpatterns = [
             }
         },
         name='login'),
+
     url(r'^logout$',
         logout,
         {

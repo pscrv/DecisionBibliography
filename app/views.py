@@ -12,6 +12,7 @@ from ViewModels import DbStateVM
 from ViewModels import DecisionVM 
 from ViewModels import TimeLinesVM 
 from ViewModels import BoardVM 
+from ViewModels import IndexVM
 from app import Formatters, DBPopulator
 
 
@@ -38,12 +39,13 @@ def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
 
-    viewModel = DbStateVM.DbStateViewModel()
+    viewModel = IndexVM.IndexViewModel()
     return render(
         request,
         'app/index.html',
         viewModel.Context,
     )
+
 
 def decision(request, cn):
     """Renders a single decision."""
@@ -75,8 +77,7 @@ def boardtimelines(request):
         request,
         'app/boardtimelines.html',
         viewModel.Context,
-        )
-        
+        )        
 
 def board(request, bd):
     """Renders a view of board information."""
@@ -87,6 +88,36 @@ def board(request, bd):
         'app/board.html',
         viewModel.Context,
         )
+
+def about(request):
+
+    #region experiement
+    #from . models import DecisionTextModel
+    #from . DBPopulator import TextGetter
+    #dec = DecisionBibliographyModel.objects.GetFromCaseNumber('J 0001/78')
+    #textGetter = TextGetter()
+    #txt = textGetter.Get_Text(dec)
+    #x = 1
+    #endregion
+
+    # region comment out this, if db is not being populated
+    #start = datetime(1990, 1, 1)
+    #end = datetime(1999, 12, 31)
+
+    #from . DBPopulator import BibliographyGetter
+    #bg = BibliographyGetter()
+    #bg.Get_FromDate_ToDate(start, end) 
+    # endregion
+
+    """Renders the home page."""
+    assert isinstance(request, HttpRequest)
+
+    viewModel = DbStateVM.DbStateViewModel()
+    return render(
+        request,
+        'app/about.html',
+        viewModel.Context,
+    )
 
 
 

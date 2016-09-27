@@ -184,7 +184,6 @@ class IPCAnalyser(Analyser):
     def IpcFrequencyForBoard(self, board):
         decisions = DB.objects.FilterOnlyPrLanguage(Board = board)
         return self.IpcFrequency(decisions)
-
         
 
 class ProvisionAnalyser(Analyser):
