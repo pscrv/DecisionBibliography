@@ -36,6 +36,9 @@
     <Compile Include="app\DBAnalyser.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\DBProxy.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\EpoConverter.py" />
     <Compile Include="app\EpoSearchFacade.py">
       <SubType>Code</SubType>
@@ -50,7 +53,7 @@
     <Compile Include="app\DBPopulator.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\tests.py" />
+    <Compile Include="app\Tests\test_models.py" />
     <Compile Include="ViewModels\BoardVM.py" />
     <Compile Include="ViewModels\DbStateVM.py" />
     <Compile Include="ViewModels\DecisionVM.py" />
@@ -74,6 +77,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
+    <Folder Include="app\Tests\" />
+    <Folder Include="__old__toDelete\" />
     <Folder Include="ViewModels\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\app\" />
@@ -85,10 +90,13 @@
     <Folder Include="DecisionBibliography\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\app\content\DVStyle.css" />
+    <Content Include="app\static\app\content\NavbarFooter.css" />
     <Content Include="app\templates\app\board.html" />
     <Content Include="app\templates\app\boardmenu.html" />
     <Content Include="app\templates\app\boardtimelines.html" />
     <Content Include="app\templates\app\decision.html" />
+    <Content Include="__old__toDelete\decision_old.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

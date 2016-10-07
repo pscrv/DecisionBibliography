@@ -1,0 +1,84 @@
+﻿body{
+    font-family: Segoe UI, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #013010;
+}
+
+a, a:focus {
+    color: #8F2D7F;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    color: #cb05ac;
+    background-color: gainsboro;
+    text-decoration: none;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 500;
+    line-height: 72px;
+    color: #013010;
+}
+
+h1{
+    font-size: 30px;
+}
+
+h2{
+    font-size: 28px;
+}
+
+h3{
+    font-size: 24px;
+}
+
+h4{
+    font-size: 24px;
+    font-weight: normal;
+    line-height: normal;
+}
+
+.table thead > tr > th {
+    border-bottom: solid 2px darkgreen
+}
+
+.table tbody > tr > td {
+    border-top: solid 1px darkseagreen
+}
+
+.body-content{
+    padding: 0px 15px 50px 15px
+}
+
+.text-display{
+    font-size: 17px;
+    font-weight: 100;
+}
+
+.text-display p {
+    padding-bottom: 20px;
+}
+
+.nav-tabs{
+    border-bottom 2px solid darkgreen;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+	border: 1px solid darkgreen;
+	border-bottom-color: transparent;
+}
+
+.citation-timeline {
+    position: fixed;
+    height: 100px;
+    bottom: 100px;
+    width: 80%;
+    padding: 10px;
+    overflow: auto;
+    background-color: white;
+    border: solid 2px darkgreen;
+    border-radius: 5px;
+    -webkit-box-shadow: 2px 2px 5px darkgreen;
+}

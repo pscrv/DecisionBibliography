@@ -4,7 +4,7 @@ class  IndexViewModel(object):
 
     def __init__(self):
 
-        decisions = DB.objects.order_by('-DecisionDate')[:5]
+        decisions = DB.objects.FilterOnlyPrLanguage().order_by('-DecisionDate')[:5]
 
         self.Context = {
             'decisions': decisions,

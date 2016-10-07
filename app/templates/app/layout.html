@@ -7,11 +7,13 @@
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/NavbarFooter.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/DVStyle.css' %}" />
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
 </head>
 
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-dv navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -29,9 +31,9 @@
                     </div>                   
                 </form>
                 <ul class="nav navbar-nav">
-                    <li><a href="{% url 'boardtimelines' %}">Timelines</a></li>
-                    {% include 'app/boardmenu.html' %}                       
-                    <li><a href="{% url 'about'  %}">About</a></li>                  
+                    {% include 'app/boardmenu.html' %}
+                    <li><a href="{% url 'boardtimelines' %}">Timelines</a></li>                       
+                    <li><a href="{% url 'about'  %}">About</a></li>                 
                 </ul>
                 {% include 'app/loginpartial.html' %}
             </div>
@@ -40,10 +42,10 @@
 
     <div class="container body-content">
 
-{% block content %}{% endblock %}
+        {% block content %}{% endblock %}
         
+        <footer class="text-muted">
         <hr/>
-        <footer>
             <p>DecisionView &copy; 2016 - pscrv </p>
             <p>Decision data &copy; European Patent Organisation</p>
         </footer>
@@ -52,7 +54,7 @@
     <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
     <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
     <script src="{% static 'app/scripts/respond.js' %}"></script>
-{% block scripts %}{% endblock %}
+    {% block scripts %}{% endblock %}
 
 </body>
 </html>

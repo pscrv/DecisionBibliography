@@ -14,7 +14,7 @@ def formatCaseNumber(input:str):
     if search == "":
         return input
 
-    finder = re.compile(r'(.*)([DGJRTW]) *(\d*)/(\d*)(.*)') #newlines are unlikely to matter
+    finder = re.compile(r'(.*)([DGJRTW])\s*(\d*)/(\d*)(.*)') #newlines are unlikely to matter
     found = re.search(finder, search)
 
     if found is None:

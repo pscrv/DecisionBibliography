@@ -46,18 +46,19 @@ def home(request):
         viewModel.Context,
     )
 
+      
 
 def decision(request, cn):
     """Renders a single decision."""
     assert isinstance(request, HttpRequest)
 
-    decision = DecisionBibliographyModel.objects.GetFromCaseNumber(cn)
+    decision = DecisionBibliographyModel.objects.GetFromCaseNumber(Formatters.formatCaseNumber(cn))
     viewModel = DecisionVM.SingleDecisionViewModel(decision)
     return render(
         request,
         'app/decision.html',
         viewModel.Context,
-    )        
+    ) 
 
 def search(request):
     """Searches the DB by case number."""
@@ -65,7 +66,8 @@ def search(request):
     if not request.method == 'POST':
         return redirect(request.META['HTTP_REFERER'])
         
-    query = Formatters.formatCaseNumber(request.POST.get('q', None))
+    #query = Formatters.formatCaseNumber(request.POST.get('q', None))
+    query = request.POST.get('q', None)
     return redirect (decision, query)
 
 def boardtimelines(request):
@@ -118,6 +120,8 @@ def about(request):
         'app/about.html',
         viewModel.Context,
     )
+
+
 
 
 
