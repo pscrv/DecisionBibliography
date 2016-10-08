@@ -1,18 +1,19 @@
 import datetime
 import re
 from decimal import Decimal
-from . models import DecisionBibliographyModel as DB
+from app.DBProxy import DecisionModelProxy
 from . import DateHelpers
 
 
 class Analyser(object):
     def GetAttributeFrequency(self, attribute, decisions):
-        if not attribute in vars(DB):
+        #if not attribute in vars(DB):
+        if not attribute in DecisionModelProxy.GetBibliographyAttributeList():
             return None
         result = {}
         for decision in decisions:
             value = decision.__dict__[attribute]
-            if DB.objects.IsListAttribute(attribute):
+            if DecisionModelProxy.GetIsListAttribute(attribute):
                 values = [x.strip() for x in value.split(',')]
             else:
                 values = [value.strip()]
@@ -29,8 +30,8 @@ class PublishedDecisionTimelineAnalyser(Analyser):
         if self.__analysed:
             return
 
-        self.ObjectCount = self.__dbobjects.count()
-        orderedObjects = self.__dbobjects.order_by('DecisionDate')
+        self.ObjectCount = DecisionModelProxy.GetBibliographyCount()
+        orderedObjects = DecisionModelProxy.GetAllOrderedByDecisionDate()
         startDate = orderedObjects.first().DecisionDate
         endDate = orderedObjects.last().DecisionDate
 
@@ -39,7 +40,7 @@ class PublishedDecisionTimelineAnalyser(Analyser):
         timelines = {}
         count = 0
         for dt in DateHelpers.MonthIterator(startDate, endDate):
-            cases = self.__dbobjects.FilterOnlyPrLanguage(DecisionDate__range = (dt, DateHelpers.EndOfThisMonth(dt)))
+            cases = DecisionModelProxy.GetAllInDateRange(dt, DateHelpers.EndOfThisMonth(dt))
                                 
             for case in cases:
                 bd = case.Board
@@ -102,8 +103,6 @@ class PublishedDecisionTimelineAnalyser(Analyser):
 
 
     def __init__(self):
-        self.__dbobjects = DB.objects
-        self.__count = 0
         self.__boards = []
         self.__timelines = {}
         self.__analysed = False
@@ -118,7 +117,7 @@ class BoardAnalyser(Analyser):
         if board in self.cache:
             return self.cache[board]
         
-        boardDecisions =  DB.objects.FilterOnlyPrLanguage(Board = board).order_by('DecisionDate')
+        boardDecisions = DecisionModelProxy.GetAllForBoardOrderedByDecisionDate(board)
         count = boardDecisions.count()
         early = boardDecisions[:5]
         if count >= 5:
@@ -182,7 +181,7 @@ class IPCAnalyser(Analyser):
         return self.GetAttributeFrequency('IPC', decisions)
 
     def IpcFrequencyForBoard(self, board):
-        decisions = DB.objects.FilterOnlyPrLanguage(Board = board)
+        decisions = DecisionModelProxy.GetAllForBoard(board)
         return self.IpcFrequency(decisions)
         
 
@@ -192,14 +191,14 @@ class ProvisionAnalyser(Analyser):
         return self.GetAttributeFrequency('Articles', decisions)
 
     def ArticleFrequencyForBoard(self, board):
-        decisions = DB.objects.FilterOnlyPrLanguage(Board = board)
+        decisions = DecisionModelProxy.GetAllForBoard(board)
         return self.ArticleFrequency(decisions)
     
     def RuleFrequency(self, decisions):
         return self.GetAttributeFrequency('Rules', decisions)
 
     def RuleFrequencyForBoard(self, board):
-        decisions = DB.objects.FilterOnlyPrLanguage(Board = board)
+        decisions = DecisionModelProxy.GetAllForBoard(board)
         return self.RuleFrequency(decisions)
 
 
@@ -208,11 +207,11 @@ class CitationAnalyser(Analyser):
     def CitationFrequency(self, decisions):
         result = {}
         for decision in decisions:
-            result[decision] = DB.objects.FilterOnlyPrLanguage(CitedCases__contains = decision.CaseNumber).count()
+            result[decision] = DecisionModelProxy.GetCitingCasesFromCaseNumber(decision.CaseNumber).count()
         return result
 
     def CitationFrequencyForBoard(self, board):
-        decisions = DB.objects.FilterOnlyPrLanguage(Board = board)
+        decisions = DecisionModelProxy.GetAllForBoard(board)
         return self.CitationFrequency(decisions)
 
 
@@ -243,7 +242,7 @@ class BoardTimelineAnalysis(object):
         sorter = 'DecisionDate'
         if descending: 
             sorter = '-DecisionDate'
-        decisions = DB.objects.FilterOnlyPrLanguage(
+        decisions = DecisionModelProxy.GetFiltered(
            Board = self.Board,
            DecisionDate__range = (
               DateHelpers.FirstOfThisMonth(dt), 

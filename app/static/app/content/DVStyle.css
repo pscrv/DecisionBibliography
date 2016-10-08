@@ -55,6 +55,7 @@ h4{
 .text-display{
     font-size: 17px;
     font-weight: 100;
+    padding-left: 15px;
 }
 
 .text-display p {

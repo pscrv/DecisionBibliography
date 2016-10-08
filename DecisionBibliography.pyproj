@@ -71,7 +71,7 @@
     <Compile Include="DecisionBibliography\settings.py" />
     <Compile Include="DecisionBibliography\urls.py" />
     <Compile Include="DecisionBibliography\wsgi.py" />
-    <Compile Include="app\Timeline.py">
+    <Compile Include="__old__toDelete\Timeline.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -96,6 +96,7 @@
     <Content Include="app\templates\app\boardmenu.html" />
     <Content Include="app\templates\app\boardtimelines.html" />
     <Content Include="app\templates\app\decision.html" />
+    <Content Include="app\templates\app\decisionversionlist.html" />
     <Content Include="__old__toDelete\decision_old.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />

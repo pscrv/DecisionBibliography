@@ -7,6 +7,7 @@ from django.http import HttpRequest
 from django.template import RequestContext
 
 from . models import DecisionBibliographyModel, DecisionTextModel
+from app.DBProxy import DecisionModelProxy
 from ViewModels import BoardVM
 from ViewModels import DbStateVM
 from ViewModels import DecisionVM 
@@ -48,12 +49,24 @@ def home(request):
 
       
 
-def decision(request, cn):
+def decision(request, pk):
     """Renders a single decision."""
     assert isinstance(request, HttpRequest)
 
-    decision = DecisionBibliographyModel.objects.GetFromCaseNumber(Formatters.formatCaseNumber(cn))
-    viewModel = DecisionVM.SingleDecisionViewModel(decision)
+    decision, others = DecisionModelProxy.GetDefaultAndOthersFromPrimaryKey(pk)
+    viewModel = DecisionVM.SingleDecisionViewModel(decision, others)
+    return render(
+        request,
+        'app/decision.html',
+        viewModel.Context,
+    ) 
+
+def decisionFromCaseNumber(request, cn):
+    """Renders a single decision."""
+    assert isinstance(request, HttpRequest)
+
+    decision, others = DecisionModelProxy.GetDefaultAndOthersFromCaseNumber(Formatters.formatCaseNumber(cn))
+    viewModel = DecisionVM.SingleDecisionViewModel(decision, others)
     return render(
         request,
         'app/decision.html',
@@ -66,9 +79,8 @@ def search(request):
     if not request.method == 'POST':
         return redirect(request.META['HTTP_REFERER'])
         
-    #query = Formatters.formatCaseNumber(request.POST.get('q', None))
     query = request.POST.get('q', None)
-    return redirect (decision, query)
+    return redirect (decisionFromCaseNumber, query)
 
 def boardtimelines(request):
     """Renders a view of board timelines."""
