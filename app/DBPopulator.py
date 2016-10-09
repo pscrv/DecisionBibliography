@@ -60,7 +60,7 @@ class TextGetter(object):
         converter = EpoConverter()
         
         try:
-            response = searcher.SearchDecisionText(self.__getTextLink(decision))
+            response = searcher.SearchDecisionText(decision.Link)
             decisionText = converter.ResponseToDecisionText(response)
             decisionText.decision = decision
             decisionText.Language = decision.ProcedureLanguage
@@ -79,18 +79,6 @@ class TextGetter(object):
 
         return decisionText
 
-
-    def __getTextLink(self, decision):
-        language = decision.ProcedureLanguage
-        if language == 'DE':
-            link = decision.LinkDE
-        elif language == 'EN':
-            link = decision.LinkEN
-        elif language == 'FR':
-            link = decision.LinkFR
-        else:
-            link = None
-        return link
            
 
 

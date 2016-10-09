@@ -49,6 +49,7 @@ class EpoConverter(object):
 
     
     # delete _metaToBibliography if we decide to keep _metatoBibliographyList?
+    # I think this is no longer used  - check and delete if possible
     def _metaToBibliography(self, response):    
         soup = BeautifulSoup(response.text, "html.parser")
 
@@ -115,7 +116,8 @@ class EpoConverter(object):
             'Distribution': self._parseMeta(tag, 'dg3DecisionDistributionKey'),
             'ProcedureLanguage': self._parseMeta(tag, 'dg3DecisionPRL'),
             'PDFLink': self._parseMeta(tag, 'dg3DecisionPDF'),
-            'Link' + self._parseMeta(tag, 'dg3DecisionLang'): tag.u.string,
+            'Link': tag.u.string,
+            #'Link' + self._parseMeta(tag, 'dg3DecisionLang'): tag.u.string,
             }        
 
         return metaDictionary

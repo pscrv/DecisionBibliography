@@ -53,6 +53,9 @@
     <Compile Include="app\DBPopulator.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="modelMapper.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\Tests\test_models.py" />
     <Compile Include="ViewModels\BoardVM.py" />
     <Compile Include="ViewModels\DbStateVM.py" />

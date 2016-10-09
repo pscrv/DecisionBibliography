@@ -105,18 +105,12 @@ def board(request, bd):
 
 def about(request):
 
-    #region experiement
-    #from . models import DecisionTextModel
-    #from . DBPopulator import TextGetter
-    #dec = DecisionBibliographyModel.objects.GetFromCaseNumber('J 0001/78')
-    #textGetter = TextGetter()
-    #txt = textGetter.Get_Text(dec)
-    #x = 1
-    #endregion
+
 
     # region comment out this, if db is not being populated
-    #start = datetime(1990, 1, 1)
-    #end = datetime(1999, 12, 31)
+    #import datetime
+    #start = datetime.date(1990, 1, 1)
+    #end = datetime.date(1999, 12, 31)
 
     #from . DBPopulator import BibliographyGetter
     #bg = BibliographyGetter()

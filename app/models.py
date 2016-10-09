@@ -29,6 +29,7 @@ class DecisionGeneric:
             'Catchwords',
             'ProcedureLanguage',
             'DecisionLanguage',
+            'Link',
             'LinkDE',
             'LinkEN',
             'LinkFR',
@@ -150,6 +151,7 @@ class DecisionBibliographyModel(models.Model):
     LinkDE = models.URLField(max_length = 100, default = "")
     LinkEN = models.URLField(max_length = 100, default = "")
     LinkFR = models.URLField(max_length = 100, default = "")
+    Link = models.URLField(max_length = 100, default = "")
     PDFLink = models.URLField(max_length = 100, default = "")
     #endregion
 
