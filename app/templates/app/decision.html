@@ -12,8 +12,13 @@
 
             {% if decision %}
             <div>
-                <h1> {{ decision.CaseNumber}} </h1>
-                {% if decision.Headword %}
+                <h1 class="hdr-inline"> {{ decision.CaseNumber}} </h1> 
+                <span> 
+                    {% for version in languageversions %}
+                      <a href="{% url 'decision' pk=version.pk %}"> {{ version.DecisionLanguage }} </a>
+                    {% endfor %} 
+                </span>
+                {% if decision.Headword %} 
                     <h4 class="headword">({{ decision.Headword}})</h4>
                 {% endif %}
                 <p> {{ decision.ECLI}} </p>
@@ -21,19 +26,23 @@
                     {% if decision.OnlineDate %}
                         (online since {{ decision.OnlineDate }})
                     {% endif %}
+                
+                    {% if otherversions %}
+                        {% include 'app/decisionversionlist.html' %}
+                    {% endif %}
                 </p>
                 <h4> {{ decision.Title }} </h4>
                 <p> <strong>Applicant:</strong> {{ decision.Applicant }} </p>
                 {% if decision.Opponents %} <p><strong>Opponents:</strong> {{ decision.Opponents}} </p> {% endif %}
                 {% if decision.Articles %} <p> <strong>Article(s)</strong> {{ decision.Articles }} </p> {% endif %}
-                {% if decision.Rules %} <p> <strong>Rules {{ decision.Rules }}y</strong> </p> {% endif %}
+                {% if decision.Rules %} <p> <strong>Rules {{ decision.Rules }}</strong> </p> {% endif %}
                 <p> <strong>Keywords:</strong> {{ decision.Keywords }} </p>
 
                 <p>
                     {% if citedDecisions %}
                         This decision refers to the following earlier decisions:
                         {% for cited in citedDecisions %}
-                            <a href="{% url 'decision' cn=cited.CaseNumber %}"> {{ cited.CaseNumber }}   </a>
+                           <a href="{% url 'decision' cn=cited.CaseNumber %}"> {{ cited.CaseNumber }}   </a>
                         {% endfor %}                      
                     {% endif %}
                 </p>
@@ -59,16 +68,13 @@
             {% endif %}
         </div>  
         
-        <div class="col-sm-8 bibl-display">
+        <div class="col-sm-8">
                 
             <ul class="nav nav-tabs">
                 <li><a data-toggle="tab" href="#procedure">Procedure</a></li>
                 <li class="active"><a data-toggle="tab" href="#reasons">Reasons</a></li>
                 <li><a data-toggle="tab" href="#outcome">Outcome</a></li>
                 <li><a data-toggle="tab" href="#comments">Comments</a></li>
-                {% if otherversions %}
-                    <li class="pull-right"><a data-toggle="tab" href="#otherversions">Other versions</a></li>
-                {% endif %}
             </ul>
 
             <div class="tab-content text-display">
@@ -93,10 +99,6 @@
                     <div id="comments" class="tab-pane fade">
                         <h4> Comments </h4>
                         <p> There might be comments, one day. </p>
-                    </div>
-                    <div id="otherversions" class="tab-pane fade">
-                        <h4> The following decisions have been published with this case number </h4>
-                        {% include 'app/decisionversionlist.html' %}
                     </div>
             </div>
         </div>

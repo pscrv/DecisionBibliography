@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.template import RequestContext
 
-from . models import DecisionBibliographyModel, DecisionTextModel
+#from app.models import DecisionBibliographyModel, DecisionTextModel
 from app.DBProxy import DecisionModelProxy
 from ViewModels import BoardVM
 from ViewModels import DbStateVM
@@ -20,12 +20,7 @@ from app import Formatters, DBPopulator
 def home(request):
 
     #region experiement
-    #from . models import DecisionTextModel
-    #from . DBPopulator import TextGetter
-    #dec = DecisionBibliographyModel.objects.GetFromCaseNumber('J 0001/78')
-    #textGetter = TextGetter()
-    #txt = textGetter.Get_Text(dec)
-    #x = 1
+    #x = DecisionModelProxy.GetCasesWithMoreVersions()
     #endregion
 
     # region comment out this, if db is not being populated
@@ -53,8 +48,8 @@ def decision(request, pk):
     """Renders a single decision."""
     assert isinstance(request, HttpRequest)
 
-    decision, others = DecisionModelProxy.GetDefaultAndOthersFromPrimaryKey(pk)
-    viewModel = DecisionVM.SingleDecisionViewModel(decision, others)
+    decisions = DecisionModelProxy.GetDecisionListFromPrimaryKey(pk)
+    viewModel = DecisionVM.DecisionListViewModel(decisions, pk)
     return render(
         request,
         'app/decision.html',
@@ -65,8 +60,8 @@ def decisionFromCaseNumber(request, cn):
     """Renders a single decision."""
     assert isinstance(request, HttpRequest)
 
-    decision, others = DecisionModelProxy.GetDefaultAndOthersFromCaseNumber(Formatters.formatCaseNumber(cn))
-    viewModel = DecisionVM.SingleDecisionViewModel(decision, others)
+    decisions = DecisionModelProxy.GetDecisionListFromCaseNumber(Formatters.formatCaseNumber(cn))
+    viewModel = DecisionVM.DecisionListViewModel(decisions)
     return render(
         request,
         'app/decision.html',

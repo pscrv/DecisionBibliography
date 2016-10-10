@@ -148,9 +148,6 @@ class DecisionBibliographyModel(models.Model):
     #endregion
 
     #region links
-    LinkDE = models.URLField(max_length = 100, default = "")
-    LinkEN = models.URLField(max_length = 100, default = "")
-    LinkFR = models.URLField(max_length = 100, default = "")
     Link = models.URLField(max_length = 100, default = "")
     PDFLink = models.URLField(max_length = 100, default = "")
     #endregion

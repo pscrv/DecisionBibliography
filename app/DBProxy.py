@@ -16,11 +16,11 @@ class DBProxy(ABC):
         pass
 
     @abstractmethod
-    def GetDefaultAndOthersFromPrimaryKey(pk):
+    def GetDecisionListFromPrimaryKey(pk):
         pass
 
     @abstractmethod
-    def GetDefaultAndOthersFromCaseNumber(cn):
+    def GetDecisionListFromCaseNumber(cn):
         pass
 
     @abstractmethod
@@ -100,18 +100,15 @@ class DecisionModelProxy(DBProxy):
     def GetRepresentativeForCaseNumber(cn):
         return  DecisionBibliographyModel.objects.FilterOnlyPrLanguage(CaseNumber=cn).first()
 
-    def GetDefaultAndOthersFromPrimaryKey(pk):
+    def GetDecisionListFromPrimaryKey(pk):
         default = DecisionBibliographyModel.objects.filter(pk = pk).first()
         decisionList = DecisionBibliographyModel.objects.filter(CaseNumber = default.CaseNumber)
-        others = decisionList.exclude(pk = default.pk)
-        return default, others
+        return decisionList
 
 
-    def GetDefaultAndOthersFromCaseNumber(cn):
+    def GetDecisionListFromCaseNumber(cn):
         decisionList = DecisionBibliographyModel.objects.filter(CaseNumber = cn)
-        default = decisionList.filter(DecisionLanguage =  F('ProcedureLanguage')).first()
-        others = decisionList.exclude(pk = default.pk)
-        return default, others
+        return decisionList
 
     def GetCitingCasesFromCaseNumber(cn):
         return DecisionBibliographyModel.objects.FilterOnlyPrLanguage(CitedCases__contains=cn).all()
@@ -129,10 +126,22 @@ class DecisionModelProxy(DBProxy):
         return DecisionBibliographyModel.objects.FilterOnlyPrLanguage(DecisionDate__range = (startDate, endDate))
 
     def GetEarliestByDecisionDate(howmany = 1):
-        return DecisionBibliographyModel.objects.order_by('DecisionDate')[:howmany]
+        return DecisionBibliographyModel.objects.FilterOnlyPrLanguage().order_by('DecisionDate')[:howmany]
 
     def GetLatestByDecisionDate(howmany = 1):
-        return DecisionBibliographyModel.objects.order_by('-DecisionDate')[:howmany]
+        return DecisionBibliographyModel.objects.FilterOnlyPrLanguage().order_by('-DecisionDate')[:howmany]
+
+    # temporary method  - delete for production
+    def GetCasesWithMoreVersions():
+        caseList = []
+        decisionList = []
+        for obj in DecisionBibliographyModel.objects.order_by('DecisionDate'):
+            if obj.CaseNumber not in caseList:
+                caseList.append(obj.CaseNumber)
+                decisions = DecisionBibliographyModel.objects.filter(CaseNumber = obj.CaseNumber)
+                if decisions.count() > 3:
+                    decisionList.append(obj)
+        return decisionList
     #endregion
 
     #region Text getters
