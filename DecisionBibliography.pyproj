@@ -56,7 +56,7 @@
     <Compile Include="modelMapper.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\Tests\test_models.py" />
+    <Compile Include="app\Tests\test_1.py" />
     <Compile Include="ViewModels\BoardVM.py" />
     <Compile Include="ViewModels\DbStateVM.py" />
     <Compile Include="ViewModels\DecisionVM.py" />

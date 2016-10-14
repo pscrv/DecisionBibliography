@@ -8,11 +8,15 @@ class DBProxy(ABC):
     
     #region Bibliography getters
     @abstractmethod
-    def GetFiltered(**kwargs):
+    def GetBibliographyFiltered(**kwargs):
         pass
 
     @abstractmethod
     def GetRepresentativeForCaseNumber(cn):
+        pass
+
+    @abstractmethod
+    def GetDecisionFromPrimaryKey(pk):
         pass
 
     @abstractmethod
@@ -68,9 +72,23 @@ class DBProxy(ABC):
     @abstractmethod
     def GetCasetypeCount(typeletter):
         pass
-    
+        
+        # no longer used?
+        # check and delete if possible
     @abstractmethod
     def GetBibliographyCount():
+        pass
+        
+    @abstractmethod
+    def GetDistinctBibliographiesCount():
+        pass
+
+    @abstractmethod
+    def GetDistinctAttributeValueList():
+        pass
+
+    @abstractmethod
+    def GetBoardList():
         pass
     
     @abstractmethod
@@ -93,12 +111,15 @@ class DecisionModelProxy(DBProxy):
     """proxy class for accessing DecisionBibliographyModel and DecisionTextModel """
 
     #region Bibliography getters
-    def GetFiltered(**kwargs):
+    def GetBibliographyFiltered(**kwargs):
         return DecisionBibliographyModel.objects.FilterOnlyPrLanguage(**kwargs)
 
 
     def GetRepresentativeForCaseNumber(cn):
         return  DecisionBibliographyModel.objects.FilterOnlyPrLanguage(CaseNumber=cn).first()
+
+    def GetDecisionFromPrimaryKey(pk):
+        return DecisionBibliographyModel.objects.filter(pk = pk).first()
 
     def GetDecisionListFromPrimaryKey(pk):
         default = DecisionBibliographyModel.objects.filter(pk = pk).first()
@@ -161,9 +182,20 @@ class DecisionModelProxy(DBProxy):
     #region Bibliography meta
     def GetCasetypeCount(typeletter):
          return DecisionBibliographyModel.objects.filter(CaseNumber__startswith=typeletter).count()     
-
+          
+        # no longer used?
+        # check and delete if possible
     def GetBibliographyCount():
-        return DecisionBibliographyModel.objects.count();
+        return DecisionBibliographyModel.objects.count
+
+    def GetDistinctBibliographiesCount():
+        return DecisionBibliographyModel.objects.FilterOnlyPrLanguage().count()
+
+    def GetDistinctAttributeValueList(attribute):
+        return list(DecisionBibliographyModel.objects.values_list(attribute, flat = True).distinct())
+
+    def GetBoardList():
+        return list(DecisionBibliographyModel.objects.values_list('Board', flat = True).distinct())
 
     def GetIsListAttribute(attribute):
         return DecisionBibliographyModel.objects.IsListAttribute(attribute)

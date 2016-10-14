@@ -1,7 +1,10 @@
+from abc import ABC
 from datetime import datetime
 from django.db import models
 from django.db.models import F
 
+
+#region decision models
 
 class DecisionGeneric:
     
@@ -35,6 +38,7 @@ class DecisionGeneric:
             'LinkFR',
             'PDFLink',
             }
+
     LIST_ATTRIBUTES = {
         'Opponents',
         'Respondents',
@@ -43,7 +47,6 @@ class DecisionGeneric:
         'Rules',
         'CitedCases',
         }
-
 
 
 class DecisionBibliographyManager(models.Manager):
@@ -109,7 +112,6 @@ class DecisionBibliographyManager(models.Manager):
         return attribute in DecisionGeneric.LIST_ATTRIBUTES
 
 
-
 class DecisionBibliographyModel(models.Model):
     objects = DecisionBibliographyManager()
     
@@ -150,15 +152,10 @@ class DecisionBibliographyModel(models.Model):
     #region links
     Link = models.URLField(max_length = 100, default = "")
     PDFLink = models.URLField(max_length = 100, default = "")
-    #endregion
+    #endregion       
+    
 
-    
-    
     #region methods
-    def __str__(self):
-        return self.CaseNumber
-    
-
     def update(self, **kwargs):        
     
         for attribute, value in kwargs.items():
@@ -168,6 +165,10 @@ class DecisionBibliographyModel(models.Model):
             setattr(self, attribute, value)
         
         self.save()
+    #endregion
+
+    def __str__(self):
+        return self.CaseNumber
 
 
 class DecisionTextModel(models.Model):
@@ -186,6 +187,32 @@ class DecisionTextModel(models.Model):
     
     def __str__(self):
         return self.decision.CaseNumber
+#endregion
+
+
+
+#region analysis models
+class AnalysisModel(models.Model):
+    LastUpdate = models.DateField(auto_now = True)
+
+
+class BoardAnalysisModel(AnalysisModel):
+    
+    Board = models.CharField(max_length = 16, default = "")
+    Count = models.IntegerField(default = 0)
+    EarliestFive = models.CharField(max_length = 50)
+    LatestFive = models.CharField(max_length = 50)
+    IPC_TopFive = models.CharField(max_length = 120, default = "")
+    Article_TopFive = models.CharField(max_length = 120, default = "")
+    Cited_TopFive = models.CharField(max_length = 120, default = "")
+    Timeline = models.TextField(default = "")    
+
+    
+
+
+
+#endregion
+
 
 
 

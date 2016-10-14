@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.template import RequestContext
 
-#from app.models import DecisionBibliographyModel, DecisionTextModel
+from app import Formatters, DBPopulator
 from app.DBProxy import DecisionModelProxy
 from ViewModels import BoardVM
 from ViewModels import DbStateVM
@@ -14,13 +14,15 @@ from ViewModels import DecisionVM
 from ViewModels import TimeLinesVM 
 from ViewModels import BoardVM 
 from ViewModels import IndexVM
-from app import Formatters, DBPopulator
 
 
 def home(request):
 
     #region experiement
-    #x = DecisionModelProxy.GetCasesWithMoreVersions()
+
+    from app.DBAnalyser import PersistentAnalyser
+    analyser = PersistentAnalyser()
+    x = 1
     #endregion
 
     # region comment out this, if db is not being populated
