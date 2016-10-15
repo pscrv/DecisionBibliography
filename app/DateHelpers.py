@@ -14,7 +14,7 @@ def FirstOfThisMonth(dt:datetime):
 
 def MonthIterator(fromdt:datetime, todt:datetime):
     current = FirstOfThisMonth(fromdt)
-    while current < todt:
+    while current <= todt:
         yield current
         current = FirstOfNextMonth(current)
 
@@ -29,7 +29,7 @@ def EndOfThisYear(dt:datetime):
 
 def YearIterator(fromdt:datetime, todt:datetime):
     current = FirstOfThisYear(fromdt)
-    while current < todt:
+    while current <= todt:
         yield current
         current = FirstOfNextYear(current)
 

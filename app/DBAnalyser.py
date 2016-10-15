@@ -26,7 +26,7 @@ class PersistentAnalyser(Analyser):
 
     def __init__(self):
         self.__boardList = DecisionModelProxy.GetBoardList()
-        self.__boardAnalyser = None
+        self.__boardAnalyser = BoardAnalyser()
         self.__timelineAnalyser = None
         self.__boardAnalyses = {}
 
@@ -37,12 +37,14 @@ class PersistentAnalyser(Analyser):
 
     def GetBoardAnalysis(self, board):
         if not board in self.__boardList:
-            return None
+            return {}
 
         # delete this soon
+        # --- it is only for populating the DB with analyses, for testing
+        # --- should be handled elsewhere
         #for board in self.__boardList:
         #    self.__analyseAndStoreOneBoard(board)
-        self.__analyseAndStoreOneBoard(board)
+        #self.__analyseAndStoreOneBoard('3.5.01')
 
         recoveredAnalysis, created = BoardAnalysisModel.objects.get_or_create(Board = board)
         if created:
@@ -57,6 +59,7 @@ class PersistentAnalyser(Analyser):
         self.__setAnalysersIfNeeded()
         self.__boardAnalyses[board] = self.__boardAnalyser.GetBoardAnalysis(board)        
         self.__storeOneBoard(board)
+        return self.__boardAnalyses[board]
 
     def __setAnalysersIfNeeded(self):
         if not self.__timelineAnalyser:
@@ -130,6 +133,37 @@ class PersistentAnalyser(Analyser):
         return timeline
 
 
+    def GetAllBoardTimelines(self):
+        self.__setAnalysersIfNeeded()
+
+        boardanalyses = {}
+        tls = {}
+        earliest = datetime.date.max
+        latest = datetime.date.min
+        for board in self.__boardList:
+
+            #working here
+            recoveredAnalysis, created = BoardAnalysisModel.objects.get_or_create(Board = board)
+            if created:
+                self.__analyseAndStoreOneBoard(board)
+                recoveredAnalysis, create = BoardAnalysisModel.objects.get_or_create(Board = board)
+                
+            timeline = self.__timelineAnalyser.GetBoardTimelineFromString(recoveredAnalysis.Timeline)            
+            boardanalyses[board] = timeline
+            tls[board] = []
+            early = min(timeline)
+            earliest = min(early, earliest)
+            late = max(timeline)
+            latest = max(late, latest)
+
+        tls['years'] = []
+        for year in DateHelpers.YearIterator(earliest, latest):
+            tls['years'].append(year)
+            for board in self.__boardList:
+                tls[board].append(boardanalyses[board].get(year, ' '))
+        return tls
+
+
             
 
 
@@ -143,7 +177,7 @@ class TimelineAnylser(Analyser):
         self.__earliestdate = None
         self.__latestdate = None
         self.__analysed = False
-        self.AnalysePublishedDecisionTimelines()
+        #self.AnalysePublishedDecisionTimelines()
             
     def AnalysePublishedDecisionTimelines(self):
         if self.__analysed:
@@ -289,6 +323,8 @@ class BoardAnalyser(Analyser):
 
         analysis = self.__analyseBoard(board)
         self.__cache[board] = analysis
+        return analysis
+
 
     def __analyseBoard(self, board):
         
@@ -314,6 +350,7 @@ class BoardAnalyser(Analyser):
         citationTop5 = self.__topNFromDictionary(citationFrequencies, 5)
 
         result =  {
+            'board': board,
             'count': count, 
             'early': early, 
             'late': late, 
@@ -363,6 +400,7 @@ class BoardAnalyser(Analyser):
         citationString = self.__stringIntToString(citationList)
 
         result =  {
+            'board': board,
             'count': analysis['count'], 
             'early': earlySavable, 
             'late': lateSavable, 
@@ -392,6 +430,7 @@ class BoardAnalyser(Analyser):
         citationList = self.__stringIntFromString(savableAnalysis['citationtop'])
 
         result =  {
+            'board': savableAnalysis['board'],
             'count': savableAnalysis['count'], 
             'early': self.__decisionListFromPkString(savableAnalysis['early']), 
             'late': self.__decisionListFromPkString(savableAnalysis['late']), 
@@ -441,7 +480,7 @@ class BoardAnalyser(Analyser):
             if not pair:
                 continue
             pairList = pair.split(',')
-            resultList.append((pairList[0], int(pair[1])))
+            resultList.append((pairList[0], int(pairList[1])))
         return resultList
 
 
@@ -514,6 +553,7 @@ class PublishedDecisionTimelineAnalyser(Analyser):
             yearlist.append(year)
             timeline.append(analysis.YearlyDecisions.get(year, ' '))
         return { 'years': yearlist, 'amount': timeline }
+
 
     def GetAllBoardTimelines(self):
         boardanalyses = {}

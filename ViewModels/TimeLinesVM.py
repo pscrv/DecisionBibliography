@@ -1,13 +1,14 @@
-from app.DBAnalyser import PublishedDecisionTimelineAnalyser
+from app.DBAnalyser import PublishedDecisionTimelineAnalyser, PersistentAnalyser
 
 
 class TimeLinesViewModel(object):
         
-    analyser = PublishedDecisionTimelineAnalyser()
+    #__analyser = PublishedDecisionTimelineAnalyser()
+    __analyser = PersistentAnalyser()
 
     def __init__(self):       
-        self.analyser.AnalysePublishedDecisionTimelines()
-        timelines = self.analyser.GetAllBoardTimelines()
+        #self.__analyser.AnalysePublishedDecisionTimelines()
+        timelines = self.__analyser.GetAllBoardTimelines()
 
         yearline = timelines['years']
         timelines.pop('')
