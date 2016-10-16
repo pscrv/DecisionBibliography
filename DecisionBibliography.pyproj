@@ -30,10 +30,28 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="app\Analysers\AnalysisHelpers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\Analysers\Attributes.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\Analysers\Boards.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\Analysers\Persistent.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\Analysers\Timelines.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\Analysers\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\DateHelpers.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\DBAnalyser.py">
+    <Compile Include="__old__toDelete\DBAnalyser.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\DBProxy.py">
@@ -77,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
+    <Folder Include="app\Analysers\" />
     <Folder Include="app\Tests\" />
     <Folder Include="__old__toDelete\" />
     <Folder Include="ViewModels\" />

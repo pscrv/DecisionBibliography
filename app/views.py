@@ -20,7 +20,7 @@ def home(request):
 
     #region experiement
 
-    from app.DBAnalyser import PersistentAnalyser
+    from app.Analysers.Persistent import PersistentAnalyser
     analyser = PersistentAnalyser()
     x = 1
     #endregion

@@ -78,13 +78,13 @@ class test_DBAnalyser(TestCase):
         django.setup()
 
     def test_PersistentAnalyser(self):
-        from app.DBAnalyser import PersistentAnalyser
+        from app.Analysers import Persistent
         pass
 
     def test_GetBoardAnalysis(self):
-        from app.DBAnalyser import PersistentAnalyser
+        from app.Analysers import Persistent
         board = '3.5.01'
-        analyser = PersistentAnalyser()
+        analyser = Persistent.PersistentAnalyser()
         analysis = analyser.GetBoardAnalysis(board)
         analyser.AnalyseBoard(board)
         analysis = analyser.GetBoardAnalysis(board)
@@ -92,10 +92,10 @@ class test_DBAnalyser(TestCase):
 
 
     def test_timelineFromString(self):
-        from app.DBAnalyser import PersistentAnalyser
-        analyser = PersistentAnalyser()
+        from app.Analysers.Timelines import TimelineAnylser
+        analyser = TimelineAnylser()
         string = "1992/02/01::13;1997/03/31::2;"
-        timeline = analyser.TimelineFromString(string)
+        timeline = analyser.GetBoardTimelineFromString(string)
 
         date1 = datetime.date(1992, 2, 1)
         date2 = datetime.date(1997, 3, 31)

@@ -54,6 +54,10 @@ class DBProxy(ABC):
     @abstractmethod
     def GetLatestByDecisionDate(howmany = 1):
         pass
+
+    @abstractmethod
+    def GetAttributeValueAsList(attribute):
+        pass
     #endregion
 
     
@@ -152,17 +156,6 @@ class DecisionModelProxy(DBProxy):
     def GetLatestByDecisionDate(howmany = 1):
         return DecisionBibliographyModel.objects.FilterOnlyPrLanguage().order_by('-DecisionDate')[:howmany]
 
-    # temporary method  - delete for production
-    def GetCasesWithMoreVersions():
-        caseList = []
-        decisionList = []
-        for obj in DecisionBibliographyModel.objects.order_by('DecisionDate'):
-            if obj.CaseNumber not in caseList:
-                caseList.append(obj.CaseNumber)
-                decisions = DecisionBibliographyModel.objects.filter(CaseNumber = obj.CaseNumber)
-                if decisions.count() > 3:
-                    decisionList.append(obj)
-        return decisionList
     #endregion
 
     #region Text getters

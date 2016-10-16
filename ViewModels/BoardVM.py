@@ -1,9 +1,7 @@
-from app.DBAnalyser import BoardAnalyser
-from app.DBAnalyser import PersistentAnalyser
+from app.Analysers.Persistent import PersistentAnalyser
 
 class  BoardViewModel(object):
     
-    #__analyser = BoardAnalyser()
     __analyser = PersistentAnalyser()
 
     def __init__(self, board):
