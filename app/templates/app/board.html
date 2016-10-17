@@ -3,11 +3,12 @@
 {% block content %}
 
 <h2>{{ title }}</h2>
-<h4>{{ count }} decisions </h4>
-
+{% if count %}
+    <h4>{{ count }} decisions </h4>
+{% endif %}
 
     <div class="container">
-
+        {% if board %}
           <div class="col-md-12">
                     <ul class="nav nav-tabs">
                       <li class="active"><a data-toggle="tab" href="#mostcited">Influential decisions</a></li>
@@ -119,7 +120,7 @@
                       </div>                     
                     </div>
                 </div>
-            
+        {% endif %}   
          
 
     </div>

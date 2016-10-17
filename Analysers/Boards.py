@@ -1,7 +1,8 @@
 import re
 from decimal import Decimal
 from app.DBProxy import DecisionModelProxy
-from app.Analysers.AnalysisHelpers import IpcFrequencyForBoard, ArticleFrequencyForBoard, CitationFrequencyForBoard
+from Analysers import AnalysisHelpers
+#from Analysers.AnalysisHelpers import IpcFrequencyForBoard, ArticleFrequencyForBoard, CitationFrequencyForBoard
 
 
 class BoardAnalyser(object):
@@ -17,64 +18,7 @@ class BoardAnalyser(object):
         analysis = self.__analyseBoard(board)
         self.__cache[board] = analysis
         return analysis
-
-
-    def __analyseBoard(self, board):
-        
-        boardDecisions = DecisionModelProxy.GetAllForBoardOrderedByDecisionDate(board)
-        count = boardDecisions.count()
-        early = boardDecisions[:5]
-        if count >= 5:
-            late = boardDecisions[count-5:]
-        else:
-            late = boardDecisions
-
-        ipcFrequencies = IpcFrequencyForBoard(board)
-        ipcMainFrequencies = self.__ipcToIpcMain(ipcFrequencies)
-        ipcTop5 = self.__topNFromDictionaryWithPercentage(ipcMainFrequencies, 5, count)
-
-        articleFrequencies = ArticleFrequencyForBoard(board)
-        articleTop5 = self.__topNFromDictionaryWithPercentage(articleFrequencies, 5, count)
-
-        citationFrequencies = CitationFrequencyForBoard(board)
-        citationTop5 = self.__topNFromDictionary(citationFrequencies, 5)
-
-        result =  {
-            'board': board,
-            'count': count, 
-            'early': early, 
-            'late': late, 
-            'ipctop': ipcTop5, 
-            'articletop': articleTop5, 
-            'citationtop': citationTop5
-            }
-
-        return result
-
-
-    def __ipcToIpcMain(self, ipcdict):
-        mainFrequencies = {}
-        finder = re.compile(r'(.*)/(.*)')
-        for cl in ipcdict:
-            found = re.search(finder, cl)
-            if not found:
-                continue
-            main = found.group(1)
-            mainFrequencies[main] = mainFrequencies.get(main, 0) + ipcdict[cl]
-        return mainFrequencies
     
-    def __topNFromDictionaryWithPercentage(self, dict, n, total):
-        keyList = sorted(dict.keys(), key=(lambda k: dict[k]), reverse = True)[:n]
-        return [ (k, dict[k], round(Decimal(100 * dict[k] / total), 2)) for k in keyList]
-
-    def __topNFromDictionary(self, dict, n):    
-        keyList = sorted(dict.keys(), key=(lambda k: dict[k]), reverse = True)[:n]
-        return [ (k, dict[k]) for k in keyList]
-
-    def __appendPercentage (self, pairList, total):
-        return [ (x, y, round(Decimal(100 *y / total), 2)) for (x, y) in pairList]
-
-
     def GetSavableBoardAnalysis(self, board):
         analysis = self.GetBoardAnalysis(board)
 
@@ -102,20 +46,6 @@ class BoardAnalyser(object):
 
         return result
 
-    
-    def __stringIntDecimalToString(self, tripleList):
-        resultString = ''
-        for (string, integer, decimal) in tripleList:
-             resultString += string + ',' + str(integer) + ',' + str(decimal) + ';'
-        return resultString
-    
-    def __stringIntToString(self, pairList):
-        resultString = ''
-        for (string, integer) in pairList:
-             resultString += string + ',' + str(integer) + ';'
-        return resultString
-
-
     def ParseSavableBoardAnalysis(self, savableAnalysis):
         
         citationList = self.__stringIntFromString(savableAnalysis['citationtop'])
@@ -132,6 +62,44 @@ class BoardAnalyser(object):
 
         return result
 
+
+    def __analyseBoard(self, board):        
+        boardDecisions = DecisionModelProxy.GetAllForBoardOrderedByDecisionDate(board)
+        count = boardDecisions.count()
+        early = boardDecisions[:5]
+        if count >= 5:
+            late = boardDecisions[count-5:]
+        else:
+            late = boardDecisions
+
+        ipcTop5 = AnalysisHelpers.IpcMainFrequencyForBoard_TopN_withPercentage(board, 5, count)
+        articleTop5 = AnalysisHelpers.ArticleFrequencyForBoard_TopN_withPercentage(board, 5, count)
+        citationTop5 = AnalysisHelpers.ArticleFrequencyForBoard_TopN(board, 5)
+
+        result =  {
+            'board': board,
+            'count': count, 
+            'early': early, 
+            'late': late, 
+            'ipctop': ipcTop5, 
+            'articletop': articleTop5, 
+            'citationtop': citationTop5
+            }
+
+        return result
+        
+    def __stringIntDecimalToString(self, tripleList):
+        resultString = ''
+        for (string, integer, decimal) in tripleList:
+             resultString += string + ',' + str(integer) + ',' + str(decimal) + ';'
+        return resultString
+    
+    def __stringIntToString(self, pairList):
+        resultString = ''
+        for (string, integer) in pairList:
+             resultString += string + ',' + str(integer) + ';'
+        return resultString
+    
     def __decisionListFromPkString(self, string):
         if not string:
             return []
@@ -151,7 +119,6 @@ class BoardAnalyser(object):
                 result.append((decision, value))
         return result
 
-
     def __stringIntDecimalFromString(self, string):
         if not string:
             return []
@@ -161,8 +128,7 @@ class BoardAnalyser(object):
                 continue
             tripleList = triple.split(',')
             resultList.append((tripleList[0], int(tripleList[1]), Decimal(tripleList[2])))
-        return resultList
-    
+        return resultList    
 
     def __stringIntFromString(self, string):
         if not string:

@@ -3,8 +3,8 @@ import datetime
 from app import DateHelpers
 from app.DBProxy import DecisionModelProxy
 from app.models import BoardAnalysisModel
-from app.Analysers.Timelines import TimelineAnylser
-from app.Analysers.Boards import BoardAnalyser
+from Analysers.Timelines import TimelineAnylser
+from Analysers.Boards import BoardAnalyser
 
 
 class PersistentAnalyser(object):

@@ -1,13 +1,15 @@
+from ViewModels.Base import VMBase
 from app.DBProxy import DecisionModelProxy
 
-class  IndexViewModel(object):
+
+class  IndexViewModel(VMBase):
 
     def __init__(self):
+        super(IndexViewModel, self).__init__()
 
-        #decisions = DB.objects.FilterOnlyPrLanguage().order_by('-DecisionDate')[:5]
         decisions = DecisionModelProxy.GetLatestByDecisionDate(5)
 
-        self.Context = {
+        self.Context.update( {
             'decisions': decisions,
             'title': 'Welcome',
-            }
+            } )

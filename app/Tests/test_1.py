@@ -77,22 +77,18 @@ class test_DBAnalyser(TestCase):
         super(test_DBAnalyser, cls).setUpClass()
         django.setup()
 
-    def test_PersistentAnalyser(self):
-        from app.Analysers import Persistent
-        pass
 
     def test_GetBoardAnalysis(self):
-        from app.Analysers import Persistent
+        from Analysers import Persistent
         board = '3.5.01'
         analyser = Persistent.PersistentAnalyser()
         analysis = analyser.GetBoardAnalysis(board)
         analyser.AnalyseBoard(board)
         analysis = analyser.GetBoardAnalysis(board)
-        x = 1
 
 
     def test_timelineFromString(self):
-        from app.Analysers.Timelines import TimelineAnylser
+        from Analysers.Timelines import TimelineAnylser
         analyser = TimelineAnylser()
         string = "1992/02/01::13;1997/03/31::2;"
         timeline = analyser.GetBoardTimelineFromString(string)
@@ -101,3 +97,42 @@ class test_DBAnalyser(TestCase):
         date2 = datetime.date(1997, 3, 31)
         self.assertEqual(timeline[date1], 13)
         self.assertEqual(timeline[date2], 2)
+
+    def test_ipcFrequency(self):
+        from app.DBProxy import DecisionModelProxy
+        from Analysers import AnalysisHelpers
+        decisions = (DecisionModelProxy.GetBibliographyFiltered(CaseNumber = 'G 0001/97'))
+        x = AnalysisHelpers.IpcFrequency(decisions)
+        self.assertEqual(x['G04B 37/16'], 1)
+
+    def test_ipcFrequencyForBoard(self):        
+        from Analysers import AnalysisHelpers
+        x = AnalysisHelpers.IpcFrequencyForBoard('3.5.01')
+        self.assertEqual(x['H04N 1/46'], 2)
+
+    def test_articleFrequency(self):
+        from app.DBProxy import DecisionModelProxy
+        from Analysers import AnalysisHelpers
+        decisions = (DecisionModelProxy.GetBibliographyFiltered(CaseNumber = 'T 0954/98'))
+        x = AnalysisHelpers.ArticleFrequency(decisions)
+        self.assertEqual(x['131'], 1)
+        
+    def test_articleFrequencyForBoard(self):        
+        from Analysers import AnalysisHelpers
+        x = AnalysisHelpers.ArticleFrequencyForBoard('3.5.01')
+        self.assertEqual(x['56'], 237)
+        
+
+    def test_citationFrequency(self):
+        from app.DBProxy import DecisionModelProxy
+        from Analysers import AnalysisHelpers
+        decisions = DecisionModelProxy.GetAllForBoard('3.1.01')
+        x = AnalysisHelpers.CitationFrequency(decisions)
+        y = {dec.CaseNumber: count for (dec, count) in x.items()}
+        self.assertEqual(y['J 0005/80'], 23)
+        
+    def test_citationFrequencyForBoard(self):        
+        from Analysers import AnalysisHelpers
+        x = AnalysisHelpers.CitationFrequencyForBoard('3.5.01')
+        y = {dec.CaseNumber: count for (dec, count) in x.items()}
+        self.assertEqual(y['T 0441/92'], 2)

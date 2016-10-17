@@ -20,9 +20,9 @@ def home(request):
 
     #region experiement
 
-    from app.Analysers.Persistent import PersistentAnalyser
-    analyser = PersistentAnalyser()
-    x = 1
+    #from Analysers.Persistent import PersistentAnalyser
+    #analyser = PersistentAnalyser()
+    #x = 1
     #endregion
 
     # region comment out this, if db is not being populated
@@ -51,7 +51,7 @@ def decision(request, pk):
     assert isinstance(request, HttpRequest)
 
     decisions = DecisionModelProxy.GetDecisionListFromPrimaryKey(pk)
-    viewModel = DecisionVM.DecisionListViewModel(decisions, pk)
+    viewModel = DecisionVM.DecisionViewModel(decisions, pk)
     return render(
         request,
         'app/decision.html',
@@ -63,7 +63,7 @@ def decisionFromCaseNumber(request, cn):
     assert isinstance(request, HttpRequest)
 
     decisions = DecisionModelProxy.GetDecisionListFromCaseNumber(Formatters.formatCaseNumber(cn))
-    viewModel = DecisionVM.DecisionListViewModel(decisions)
+    viewModel = DecisionVM.DecisionViewModel(decisions)
     return render(
         request,
         'app/decision.html',

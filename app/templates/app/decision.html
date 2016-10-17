@@ -5,106 +5,107 @@
 <h2>{{ title }}</h2>
 <h3>{{ message }}</h3>
 
-<div class="container">
-    <div class="row">
+{% if decision %}
+    <div class="container">
+        <div class="row">
 
-        <div class="col-md-4 bibl-display">
-
-            {% if decision %}
-            <div>
-                <h1 class="hdr-inline"> {{ decision.CaseNumber}} </h1> 
-                <span> 
-                    {% for version in languageversions %}
-                      <a href="{% url 'decision' pk=version.pk %}"> {{ version.DecisionLanguage }} </a>
-                    {% endfor %} 
-                </span>
-                {% if decision.Headword %} 
-                    <h4 class="headword">({{ decision.Headword}})</h4>
-                {% endif %}
-                <p> {{ decision.ECLI}} </p>
-                <p> <strong>{{decision.DecisionDate}}</strong> by board <strong>{{ decision.Board }}</strong>
-                    {% if decision.OnlineDate %}
-                        (online since {{ decision.OnlineDate }})
+            <div class="col-md-4 bibl-display">
+                <div>
+                    <h1 class="hdr-inline"> {{ decision.CaseNumber}} </h1> 
+                    <span> 
+                        {% for version in languageversions %}
+                          <a href="{% url 'decision' pk=version.pk %}"> {{ version.DecisionLanguage }} </a>
+                        {% endfor %} 
+                    </span>
+                    {% if decision.Headword %} 
+                        <h4 class="headword">({{ decision.Headword}})</h4>
                     {% endif %}
+                    <p> {{ decision.ECLI}} </p>
+                    <p> <strong>{{decision.DecisionDate}}</strong> by board <strong>{{ decision.Board }}</strong>
+                        {% if decision.OnlineDate %}
+                            (online since {{ decision.OnlineDate }})
+                        {% endif %}
                 
-                    {% if otherversions %}
-                        {% include 'app/decisionversionlist.html' %}
-                    {% endif %}
-                </p>
-                <h4> {{ decision.Title }} </h4>
-                <p> <strong>Applicant:</strong> {{ decision.Applicant }} </p>
-                {% if decision.Opponents %} <p><strong>Opponents:</strong> {{ decision.Opponents}} </p> {% endif %}
-                {% if decision.Articles %} <p> <strong>Article(s)</strong> {{ decision.Articles }} </p> {% endif %}
-                {% if decision.Rules %} <p> <strong>Rules {{ decision.Rules }}</strong> </p> {% endif %}
-                <p> <strong>Keywords:</strong> {{ decision.Keywords }} </p>
+                        {% if otherversions %}
+                            {% include 'app/decisionversionlist.html' %}
+                        {% endif %}
+                    </p>
+                    <h4> {{ decision.Title }} </h4>
+                    <p> <strong>Applicant:</strong> {{ decision.Applicant }} </p>
+                    {% if decision.Opponents %} <p><strong>Opponents:</strong> {{ decision.Opponents}} </p> {% endif %}
+                    {% if decision.Articles %} <p> <strong>Article(s)</strong> {{ decision.Articles }} </p> {% endif %}
+                    {% if decision.Rules %} <p> <strong>Rules {{ decision.Rules }}</strong> </p> {% endif %}
+                    <p> <strong>Keywords:</strong> {{ decision.Keywords }} </p>
 
-                <p>
-                    {% if citedDecisions %}
-                        This decision refers to the following earlier decisions:
-                        {% for cited in citedDecisions %}
-                           <a href="{% url 'decision' cn=cited.CaseNumber %}"> {{ cited.CaseNumber }}   </a>
-                        {% endfor %}                      
-                    {% endif %}
-                </p>
+                    <p>
+                        {% if citedDecisions %}
+                            This decision refers to the following earlier decisions:
+                            {% for cited in citedDecisions %}
+                               <a href="{% url 'decision' cn=cited.CaseNumber %}"> {{ cited.CaseNumber }}   </a>
+                            {% endfor %}                      
+                        {% endif %}
+                    </p>
                                 
-                {% if citingCount %}
-                    <p> This decision has been cited in {{ citingCount }} other 
-                    {% if citingCount > 1 %}
-                            decisions.
+                    {% if citingCount %}
+                        <p> This decision has been cited in {{ citingCount }} other 
+                        {% if citingCount > 1 %}
+                                decisions.
+                        {% else %}
+                            decision.
+                        {% endif %}
+                        <a data-toggle="collapse" data-target="#citations">
+                            <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                        </a>
+                        </p>  
                     {% else %}
-                        decision.
+                        <p> This decision is not cited by other decisions. </p>                  
                     {% endif %}
-                    <a data-toggle="collapse" data-target="#citations">
-                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                    </a>
-                    </p>  
-                {% else %}
-                    <p> This decision is not cited by other decisions. </p>                  
-                {% endif %}
 
 
 
-            </div>
-            {% endif %}
-        </div>  
+                </div>
+            </div>  
         
-        <div class="col-sm-8">
+            <div class="col-sm-8">
                 
-            <ul class="nav nav-tabs">
-                <li><a data-toggle="tab" href="#procedure">Procedure</a></li>
-                <li class="active"><a data-toggle="tab" href="#reasons">Reasons</a></li>
-                <li><a data-toggle="tab" href="#outcome">Outcome</a></li>
-                <li><a data-toggle="tab" href="#comments">Comments</a></li>
-            </ul>
+                <ul class="nav nav-tabs">
+                    <li><a data-toggle="tab" href="#procedure">Procedure</a></li>
+                    <li class="active"><a data-toggle="tab" href="#reasons">Reasons</a></li>
+                    <li><a data-toggle="tab" href="#outcome">Outcome</a></li>
+                    <li><a data-toggle="tab" href="#comments">Comments</a></li>
+                </ul>
 
-            <div class="tab-content text-display">
-                    <div id="procedure" class="tab-pane fade">
-                    <h4> {{ factsHeader }} </h4>
-                    {% for para in facts %}
-                        <p> {{ para }} </p>
-                    {% endfor %}
-                    </div>
-                    <div id="reasons" class="tab-pane fade in active">
-                    <h4> {{ reasonsHeader }} </h4>
-                    {% for para in reasons %}
-                        <p> {{ para }} </p>
-                    {% endfor %}
-                    </div>
-                    <div id="outcome" class="tab-pane fade">
-                    <h4> {{ orderHeader }} </h4>
-                    {% for para in order %}
-                        <p> {{ para }} </p>
-                    {% endfor %}
-                    </div>
-                    <div id="comments" class="tab-pane fade">
-                        <h4> Comments </h4>
-                        <p> There might be comments, one day. </p>
-                    </div>
+                <div class="tab-content text-display">
+                        <div id="procedure" class="tab-pane fade">
+                        <h4> {{ factsHeader }} </h4>
+                        {% for para in facts %}
+                            <p> {{ para }} </p>
+                        {% endfor %}
+                        </div>
+                        <div id="reasons" class="tab-pane fade in active">
+                        <h4> {{ reasonsHeader }} </h4>
+                        {% for para in reasons %}
+                            <p> {{ para }} </p>
+                        {% endfor %}
+                        </div>
+                        <div id="outcome" class="tab-pane fade">
+                        <h4> {{ orderHeader }} </h4>
+                        {% for para in order %}
+                            <p> {{ para }} </p>
+                        {% endfor %}
+                        </div>
+                        <div id="comments" class="tab-pane fade">
+                            <h4> Comments </h4>
+                            <p> There might be comments, one day. </p>
+                        </div>
+                </div>
             </div>
-        </div>
 
         </div>            
-</div>
+    </div>
+{% endif %}
+
+
 
 <div class="row collapse citation-timeline  " id="citations">
         {% if citingCount %}

@@ -30,25 +30,26 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="app\Analysers\AnalysisHelpers.py">
+    <Compile Include="Analysers\AnalysisHelpers.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\Analysers\Attributes.py">
+    <Compile Include="Analysers\Boards.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\Analysers\Boards.py">
+    <Compile Include="Analysers\Persistent.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\Analysers\Persistent.py">
+    <Compile Include="Analysers\Timelines.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\Analysers\Timelines.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="app\Analysers\__init__.py">
+    <Compile Include="Analysers\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\DateHelpers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\Tests\test_2.py" />
+    <Compile Include="ViewModels\Base.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="__old__toDelete\DBAnalyser.py">
@@ -95,7 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
-    <Folder Include="app\Analysers\" />
+    <Folder Include="Analysers\" />
     <Folder Include="app\Tests\" />
     <Folder Include="__old__toDelete\" />
     <Folder Include="ViewModels\" />
@@ -113,6 +114,7 @@
     <Content Include="app\static\app\content\NavbarFooter.css" />
     <Content Include="app\templates\app\board.html" />
     <Content Include="app\templates\app\boardmenu.html" />
+    <Content Include="__old__toDelete\boardmenu.html" />
     <Content Include="app\templates\app\boardtimelines.html" />
     <Content Include="app\templates\app\decision.html" />
     <Content Include="app\templates\app\decisionversionlist.html" />
