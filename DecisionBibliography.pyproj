@@ -33,7 +33,13 @@
     <Compile Include="Analysers\AnalysisHelpers.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Analysers\BoardAnalysis.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Analysers\Boards.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Analysers\BoardAnalyser.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Analysers\Persistent.py">
@@ -49,10 +55,22 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\Tests\test_2.py" />
-    <Compile Include="ViewModels\Base.py">
+    <Compile Include="app\Tests\test_BoardAnalyser.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="__old__toDelete\DBAnalyser.py">
+    <Compile Include="app\Tests\test_BoardAnalysis.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\Tests\test_BoardAnalysisToDB.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectToDBConverters\BoardAnalysisToDB.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectToDBConverters\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\Base.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\DBProxy.py">
@@ -75,7 +93,7 @@
     <Compile Include="modelMapper.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\Tests\test_1.py" />
+    <Compile Include="app\Tests\test_DBs.py" />
     <Compile Include="ViewModels\BoardVM.py" />
     <Compile Include="ViewModels\DbStateVM.py" />
     <Compile Include="ViewModels\DecisionVM.py" />
@@ -98,6 +116,7 @@
     <Folder Include="app\" />
     <Folder Include="Analysers\" />
     <Folder Include="app\Tests\" />
+    <Folder Include="ObjectToDBConverters\" />
     <Folder Include="__old__toDelete\" />
     <Folder Include="ViewModels\" />
     <Folder Include="app\static\" />
@@ -114,7 +133,6 @@
     <Content Include="app\static\app\content\NavbarFooter.css" />
     <Content Include="app\templates\app\board.html" />
     <Content Include="app\templates\app\boardmenu.html" />
-    <Content Include="__old__toDelete\boardmenu.html" />
     <Content Include="app\templates\app\boardtimelines.html" />
     <Content Include="app\templates\app\decision.html" />
     <Content Include="app\templates\app\decisionversionlist.html" />

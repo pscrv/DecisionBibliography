@@ -2,7 +2,6 @@ import re
 from decimal import Decimal
 from app.DBProxy import DecisionModelProxy
 from Analysers import AnalysisHelpers
-#from Analysers.AnalysisHelpers import IpcFrequencyForBoard, ArticleFrequencyForBoard, CitationFrequencyForBoard
 
 
 class BoardAnalyser(object):
