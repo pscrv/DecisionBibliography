@@ -1,8 +1,11 @@
 from datetime import datetime
+from Analysers.AnalysisBase import TimestampBase
 
-class BoardAnalysis(object):
+class BoardAnalysis(TimestampBase):
 
     def __init__(self, board = '', count = 0, early = [], late = [], ipcTop5 = [], articleTop5 = [], citationTop5 = []):
+        super(BoardAnalysis, self).__init__()
+
         self.Board = board
         self.Count = count
         self.Early = early
@@ -10,12 +13,12 @@ class BoardAnalysis(object):
         self.IpcTop5 = ipcTop5
         self.ArticleTop5 = articleTop5
         self.CitationTop5 = citationTop5
-        self.Timestamp = datetime.now()
+        #self.Timestamp = datetime.now()
 
 
-    @property
-    def Age(self):
-        return datetime.now() - self.Timestamp
+    #@property
+    #def Age(self):
+    #    return datetime.now() - self.Timestamp
 
 
 

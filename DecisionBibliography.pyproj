@@ -30,6 +30,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Analysers\AnalyserBase.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Analysers\AnalysisBase.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Analysers\AnalysisHelpers.py">
       <SubType>Code</SubType>
     </Compile>
@@ -42,7 +48,13 @@
     <Compile Include="Analysers\BoardAnalyser.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Analysers\BoardTimelineAnalysis.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Analysers\Persistent.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Analysers\TimelineAnalysers.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Analysers\Timelines.py">
@@ -64,10 +76,10 @@
     <Compile Include="app\Tests\test_BoardAnalysisToDB.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ObjectToDBConverters\BoardAnalysisToDB.py">
+    <Compile Include="DBConverters\BoardAnalysisToDB.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ObjectToDBConverters\__init__.py">
+    <Compile Include="DBConverters\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\Base.py">
@@ -116,7 +128,7 @@
     <Folder Include="app\" />
     <Folder Include="Analysers\" />
     <Folder Include="app\Tests\" />
-    <Folder Include="ObjectToDBConverters\" />
+    <Folder Include="DBConverters\" />
     <Folder Include="__old__toDelete\" />
     <Folder Include="ViewModels\" />
     <Folder Include="app\static\" />

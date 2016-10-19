@@ -14,7 +14,7 @@ class test_BoardAnalysisToDB(TestCase):
         
 
     def test_GetBoardAnalysisFromDB(self):
-        from ObjectToDBConverters import BoardAnalysisToDB
+        from DBConverters import BoardAnalysisToDB
 
         board = '3.5.01'
         x = BoardAnalysisToDB.GetBoardAnalysisFromDB(board)
@@ -23,7 +23,7 @@ class test_BoardAnalysisToDB(TestCase):
 
 
     def test_SaveAndRetreiveBoardAnalysisfromDB(self):
-        from ObjectToDBConverters import BoardAnalysisToDB
+        from DBConverters import BoardAnalysisToDB
         from Analysers.BoardAnalyser import BoardAnalyser
 
         board = '3.5.01'
