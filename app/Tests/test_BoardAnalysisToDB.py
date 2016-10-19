@@ -27,7 +27,7 @@ class test_BoardAnalysisToDB(TestCase):
         from Analysers.BoardAnalyser import BoardAnalyser
 
         board = '3.5.01'
-        analyser = BoardAnalyser()
+        analyser= BoardAnalyser()
         before = analyser.GetAnalysis(board)
         before.Count = 1
         BoardAnalysisToDB.SaveBoardAnalysisToDB(before)

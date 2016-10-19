@@ -3,18 +3,18 @@ import unittest
 from datetime import datetime
 
 
+from Analysers.AnalysisBase import OutdatedAnalysis
 from Analysers.BoardAnalysis import *
 
 class test_BoardAnalysis(unittest.TestCase):
             
-    def test_OutdatedBoardAnalysis(self):
-        analysis = OutdatedBoardAnalysis()
-        self.assertEqual(analysis.Board, 'Outofdate')
+    def test_OutdatedAnalysis(self):
+        analysis = OutdatedAnalysis()
         self.assertEqual(analysis.Timestamp, datetime.min)        
 
     def test_OutdatedBoardAnalysisEquality(self):
-        x = OutdatedBoardAnalysis()
-        y = OutdatedBoardAnalysis()
+        x = OutdatedAnalysis()
+        y = OutdatedAnalysis()
         self.assertEqual(x, y)
 
                 
@@ -30,7 +30,7 @@ class test_BoardAnalysis(unittest.TestCase):
 
     def test_Age(self):
         newAnalysis = BoardAnalysis()
-        oldAnalysis = OutdatedBoardAnalysis()
+        oldAnalysis = OutdatedAnalysis()
         newAge = newAnalysis.Age
         oldAge = oldAnalysis.Age
         self.assertTrue(newAge.days < 1)

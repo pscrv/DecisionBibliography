@@ -48,13 +48,13 @@
     <Compile Include="Analysers\BoardAnalyser.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers\BoardTimelineAnalysis.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Analysers\Persistent.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Analysers\TimelineAnalysers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Analysers\TimelineAnalysis.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Analysers\Timelines.py">
@@ -66,7 +66,6 @@
     <Compile Include="app\DateHelpers.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\Tests\test_2.py" />
     <Compile Include="app\Tests\test_BoardAnalyser.py">
       <SubType>Code</SubType>
     </Compile>
@@ -76,7 +75,16 @@
     <Compile Include="app\Tests\test_BoardAnalysisToDB.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\Tests\test_BoardTimelineAnalysisToDB.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\Tests\test_TimelineAnalysers.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DBConverters\BoardAnalysisToDB.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DBConverters\BoardTimelineAnalysisToDB.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DBConverters\__init__.py">

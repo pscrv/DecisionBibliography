@@ -18,7 +18,6 @@ class CachingBase(ABC):
     
     
     def GetAnalysis(self, key):
-        self._removeOldFromCache()
         needToAnalyse = self._needToAnalyse(key)
         if needToAnalyse:
             analysis = self._analyseAndCache(key)
@@ -28,22 +27,8 @@ class CachingBase(ABC):
 
     
     def _needToAnalyse(self, key):
-        if not self._keyIsCached(key):
-            return True
-        if not self._cacheAge_ok(key):
-            return True
-        return False
-    
-    def _keyIsCached(self, key):
-        return key in self._cache
-
-    
-    def _cacheAge_ok(self, key):
-        cachedAnalysis = self._cache.get(key, None)
-        if not cachedAnalysis:
-            return False
-        else:
-            return cachedAnalysis.Age <= self._cacheTimeLimit
+        self._removeOldFromCache()
+        return key not in self._cache
 
     
     def _removeOldFromCache(self):

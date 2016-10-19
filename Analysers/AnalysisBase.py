@@ -11,3 +11,15 @@ class TimestampBase(ABC):
     def Age(self):
         return datetime.now() - self.Timestamp
 
+    
+class OutdatedAnalysis(TimestampBase):
+
+    def __init__(self):
+        super(OutdatedAnalysis, self).__init__()
+        self.Timestamp = datetime.min
+        
+    def __eq__(self, other):
+        if isinstance(other, OutdatedAnalysis):
+            return True
+        return False
+

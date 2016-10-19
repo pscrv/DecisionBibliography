@@ -14,7 +14,9 @@ class test_BoardAnalyser(TestCase):
         
     def setUp(self):
         from Analysers.BoardAnalyser import BoardAnalyser
+        from Analysers.AnalysisBase import OutdatedAnalysis
         self.analyser = BoardAnalyser()
+        self.outdatedAnalysis = OutdatedAnalysis()
 
     def test_GetAnalysisReturnsSomething(self):
         x = self.analyser.GetAnalysis('3.5.01')
@@ -23,9 +25,8 @@ class test_BoardAnalyser(TestCase):
     def test_GetAnalysisIsNotOutofdate(self):
         x = self.analyser.GetAnalysis('3.5.01')
         y = self.analyser.GetAnalysis('NoneExistantBoard')
-        outdated = OutdatedBoardAnalysis()
-        self.assertFalse(x == outdated)
-        self.assertFalse(y == outdated)
+        self.assertFalse(x == self.outdatedAnalysis)
+        self.assertFalse(y == self.outdatedAnalysis)
 
     def test_GetAnalysisOnlyNullForNoneBoard(self):
         realBoard = '3.5.01'

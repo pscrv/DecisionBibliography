@@ -13,27 +13,7 @@ class BoardAnalysis(TimestampBase):
         self.IpcTop5 = ipcTop5
         self.ArticleTop5 = articleTop5
         self.CitationTop5 = citationTop5
-        #self.Timestamp = datetime.now()
-
-
-    #@property
-    #def Age(self):
-    #    return datetime.now() - self.Timestamp
-
-
-
-
-class OutdatedBoardAnalysis(BoardAnalysis):
-
-    def __init__(self):
-        super(OutdatedBoardAnalysis, self).__init__(board = 'Outofdate')
-        self.Timestamp = datetime.min
-        
-    def __eq__(self, other):
-        if isinstance(other, OutdatedBoardAnalysis):
-            return True
-        return False
-    
+   
     
 class NullBoardAnalysis(BoardAnalysis):
 

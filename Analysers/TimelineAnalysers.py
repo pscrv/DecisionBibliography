@@ -1,25 +1,39 @@
+from datetime import datetime, timedelta
 
-
-class TimelineAnalyser(object):
+from app import DateHelpers
+from app.DBProxy import DecisionModelProxy
+from Analysers.TimelineAnalysis import *
+from Analysers.AnalyserBase import CachingBase
+class BoardTimelineAnalyser(CachingBase):
 
     def __init__(self, cachetimelimit:timedelta = timedelta(days=1)):
-        self.__cache = {}
-        self.__cacheTimeLimit = cachetimelimit
+        super(BoardTimelineAnalyser, self).__init__(cachetimelimit)
+                
+
+    @property
+    def CachedBoardList(self):
+        return self._cachedKeyList()
 
         
-    def GetTimelines(self):
-        self.__removeOldFromCache()
-        needToAnalyse = self.__needToAnalyse()
-        if needToAnalyse:
-            analysis = self.__analyseAndCacheBoard()
-        else:
-            analysis = self.__cache[self.__workingBoard]            
-        return analysis
+    def _analyseAndCache(self, board):
+        boardList = DecisionModelProxy.GetBoardList()
+        if board not in boardList:
+            return NullBoardTimelineAnalysis()
+        
+        boardDecisions = DecisionModelProxy.GetAllForBoardOrderedByDecisionDate(board)
+        if not boardDecisions:
+            return EmptyBoardTimelineAnalysis(board)
+
+        earliestDate = boardDecisions.first().DecisionDate
+        latestDate = boardDecisions.last().DecisionDate
+
+        yearlyCases = {}
+        for year in DateHelpers.YearIterator(earliestDate, latestDate):
+            yearCount = boardDecisions.filter(DecisionDate__range = (year, DateHelpers.EndOfThisYear(year))).count()
+            yearlyCases[year.year] = yearCount            
+        result = BoardTimelineAnalysis(board, yearlyCases)
+        self._cache[board] = result
+        return result
+
 
     
-
-    def __removeOldFromCache(self):
-        self.__cache = { board: timeline 
-                        for board, timeline 
-                        in self.__cache.items() 
-                        if timeline.Age < self.__cacheTimeLimit }
