@@ -11,7 +11,7 @@ class BibliographyGetter(object):
     def GetAll(self):
         startYear = 1979
         startMonth = 1
-        startDate = datetime(startYear, startMonth, 1)
+        startDate = datetime.datetime(startYear, startMonth, 1)
 
         now = datetime.datetime.now()
         endDate = (now - datetime.timedelta(days = now.day)).date() # last day of previous month
@@ -20,7 +20,7 @@ class BibliographyGetter(object):
         next_month = dt.replace(day=28) + datetime.timedelta(days=4)   # enough to get to the next month, no matter where we start
         return next_month - datetime.timedelta(days=next_month.day)
 
-    def Get_FromDate_ToDate(self, start:datetime, end:datetime):
+    def Get_FromDate_ToDate(self, start: datetime, end: datetime):
         currentDate = start
         while currentDate <= end:
             self._getOneMonth(currentDate)
@@ -75,7 +75,7 @@ class TextGetter(object):
         if inDB:
             pass  # already here
         else:
-            decisionText.save();
+            decisionText.save()
 
         return decisionText
 

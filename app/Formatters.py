@@ -4,7 +4,7 @@ Module for formatting elements for models
 
 import re
 
-def formatCaseNumber(input:str):
+def formatCaseNumber(input: str):
     """
     Attempts to parse input into the form "T nnnn/nn"
     and returns the result. Returns input unaltered, if 

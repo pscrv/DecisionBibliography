@@ -50,7 +50,7 @@ class TimelineAnylser(object):
         if board not in self.__boards:
             return None
         self.__analysePublishedDecisionTimelines()
-        analysis =  BoardTimelineAnalysis(board)
+        analysis = BoardTimelineAnalysis(board)
         analysis.MakeFromTimeline(self.__timelines[board])
         return analysis
 

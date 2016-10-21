@@ -12,7 +12,7 @@ class EpoSearchFacade(object):
 
 
 
-    def SearchCaseNumber(self, caseNumber:str):
+    def SearchCaseNumber(self, caseNumber: str):
         response = self.Search(partial = "dg3CSNCase:" + caseNumber)
         return response
 
@@ -38,7 +38,7 @@ class EpoSearchFacade(object):
 
     def SearchByBoard(self, board, number = 1000):
         finder = re.compile(r'^(\d)\.(\d)\.(\d{2})$')
-        found =  re.match(finder, board)
+        found = re.match(finder, board)
         assert found, "parameter baord must be of the form 3.5.01"
 
         requiredString = "dg3BOAnDot:" + found.group(1) + found.group(2) + found.group(3)  

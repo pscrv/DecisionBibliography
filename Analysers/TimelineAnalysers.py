@@ -6,7 +6,7 @@ from Analysers.TimelineAnalysis import *
 from Analysers.AnalyserBase import CachingBase
 class BoardTimelineAnalyser(CachingBase):
 
-    def __init__(self, cachetimelimit:timedelta = timedelta(days=1)):
+    def __init__(self, cachetimelimit: timedelta = timedelta(days=1)):
         super(BoardTimelineAnalyser, self).__init__(cachetimelimit)
                 
 

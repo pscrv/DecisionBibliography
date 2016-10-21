@@ -88,7 +88,7 @@ class DBProxy(ABC):
         pass
 
     @abstractmethod
-    def GetDistinctAttributeValueList():
+    def GetDistinctAttributeValueList(attribute):
         pass
 
     @abstractmethod
@@ -174,7 +174,7 @@ class DecisionModelProxy(DBProxy):
 
     #region Bibliography meta
     def GetCasetypeCount(typeletter):
-         return DecisionBibliographyModel.objects.filter(CaseNumber__startswith=typeletter).count()     
+        return DecisionBibliographyModel.objects.filter(CaseNumber__startswith=typeletter).count()     
           
         # no longer used?
         # check and delete if possible
@@ -199,5 +199,5 @@ class DecisionModelProxy(DBProxy):
 
     #region Text meta
     def GetTextCount():
-        return DecisionTextModel.objects.count();
+        return DecisionTextModel.objects.count()
     #endregion

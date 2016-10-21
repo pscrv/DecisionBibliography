@@ -20,7 +20,7 @@ class test_BoardAnalyser(TestCase):
 
     def test_GetAnalysisReturnsSomething(self):
         x = self.analyser.GetAnalysis('3.5.01')
-        self.assertFalse(x == None)
+        self.assertFalse(x is None)
 
     def test_GetAnalysisIsNotOutofdate(self):
         x = self.analyser.GetAnalysis('3.5.01')

@@ -13,6 +13,7 @@ class BoardAnalysis(TimestampBase):
         self.IpcTop5 = ipcTop5
         self.ArticleTop5 = articleTop5
         self.CitationTop5 = citationTop5
+
    
     
 class NullBoardAnalysis(BoardAnalysis):
@@ -24,6 +25,13 @@ class NullBoardAnalysis(BoardAnalysis):
         if isinstance(other, NullBoardAnalysis):
             return True
         return False
+
+    @property
+    def IsValid(self):
+        return False
+
+
+
 
 
 

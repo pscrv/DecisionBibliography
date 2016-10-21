@@ -6,26 +6,26 @@ from Analysers.BoardAnalysis import BoardAnalysis, NullBoardAnalysis
 
 def SaveBoardAnalysisToDB(analysis):
 
-        earlyList = [str(x.pk) for x in analysis.Early]
-        earlySavable = ','.join(earlyList)
+    earlyList = [str(x.pk) for x in analysis.Early]
+    earlySavable = ','.join(earlyList)
 
-        lateList = [str(x.pk) for x in analysis.Late]
-        lateSavable = ','.join(lateList)
+    lateList = [str(x.pk) for x in analysis.Late]
+    lateSavable = ','.join(lateList)
 
-        ipcString = __stringIntDecimalToString(analysis.IpcTop5)
-        articleString = __stringIntDecimalToString(analysis.ArticleTop5)
+    ipcString = __stringIntDecimalToString(analysis.IpcTop5)
+    articleString = __stringIntDecimalToString(analysis.ArticleTop5)
 
-        citationList = [(str(x.pk), y) for (x, y) in analysis.CitationTop5]
-        citationString = __stringIntToString(citationList)
+    citationList = [(str(x.pk), y) for (x, y) in analysis.CitationTop5]
+    citationString = __stringIntToString(citationList)
         
-        dbAnalysis, created = BoardAnalysisModel.objects.get_or_create(Board = analysis.Board)
-        dbAnalysis.Count = analysis.Count
-        dbAnalysis.EarliestFive = earlySavable
-        dbAnalysis.LatestFive = lateSavable
-        dbAnalysis.IPC_TopFive = ipcString
-        dbAnalysis.Article_TopFive = articleString
-        dbAnalysis.Cited_TopFive = citationString
-        dbAnalysis.save()
+    dbAnalysis, created = BoardAnalysisModel.objects.get_or_create(Board = analysis.Board)
+    dbAnalysis.Count = analysis.Count
+    dbAnalysis.EarliestFive = earlySavable
+    dbAnalysis.LatestFive = lateSavable
+    dbAnalysis.IPC_TopFive = ipcString
+    dbAnalysis.Article_TopFive = articleString
+    dbAnalysis.Cited_TopFive = citationString
+    dbAnalysis.save()
 
 
 def GetBoardAnalysisFromDB(board):
@@ -47,6 +47,7 @@ def GetBoardAnalysisFromDB(board):
 
     return analysis
 
+    
 
     
 def __stringIntDecimalToString(tripleList):
@@ -58,7 +59,7 @@ def __stringIntDecimalToString(tripleList):
 def __stringIntToString(pairList):
     resultString = ''
     for (string, integer) in pairList:
-            resultString += string + ',' + str(integer) + ';'
+        resultString += string + ',' + str(integer) + ';'
     return resultString
 
 def __stringIntFromString(string):

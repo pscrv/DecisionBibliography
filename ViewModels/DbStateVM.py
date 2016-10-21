@@ -9,7 +9,7 @@ class DbStateViewModel(VMBase):
         super(DbStateViewModel, self).__init__()
         
         earliest = DecisionModelProxy.GetEarliestByDecisionDate()[0]
-        latest =DecisionModelProxy.GetLatestByDecisionDate()[0]
+        latest = DecisionModelProxy.GetLatestByDecisionDate()[0]
         self.Context.update ( {
             'title':'About',
             'GCount': DecisionModelProxy.GetCasetypeCount('G'),

@@ -51,6 +51,9 @@
     <Compile Include="Analysers\Persistent.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Analysers\Coordinators.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Analysers\TimelineAnalysers.py">
       <SubType>Code</SubType>
     </Compile>
@@ -78,16 +81,22 @@
     <Compile Include="app\Tests\test_BoardTimelineAnalysisToDB.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\Tests\test_Coordinators.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\Tests\test_TimelineAnalysers.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DBConverters\BoardAnalysisToDB.py">
+    <Compile Include="AnalysisStorers\BoardAnalysisToDB.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DBConverters\BoardTimelineAnalysisToDB.py">
+    <Compile Include="AnalysisStorers\BoardTimelineAnalysisToDB.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DBConverters\__init__.py">
+    <Compile Include="AnalysisStorers\ToDBBase.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AnalysisStorers\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\Base.py">
@@ -136,7 +145,7 @@
     <Folder Include="app\" />
     <Folder Include="Analysers\" />
     <Folder Include="app\Tests\" />
-    <Folder Include="DBConverters\" />
+    <Folder Include="AnalysisStorers\" />
     <Folder Include="__old__toDelete\" />
     <Folder Include="ViewModels\" />
     <Folder Include="app\static\" />

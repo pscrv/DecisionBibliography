@@ -33,7 +33,7 @@ class BoardAnalyser(object):
         citationList = [(str(x.pk), y) for (x, y) in analysis['citationtop']]
         citationString = self.__stringIntToString(citationList)
 
-        result =  {
+        result = {
             'board': board,
             'count': analysis['count'], 
             'early': earlySavable, 
@@ -49,7 +49,7 @@ class BoardAnalyser(object):
         
         citationList = self.__stringIntFromString(savableAnalysis['citationtop'])
 
-        result =  {
+        result = {
             'board': savableAnalysis['board'],
             'count': savableAnalysis['count'], 
             'early': self.__decisionListFromPkString(savableAnalysis['early']), 
@@ -75,7 +75,7 @@ class BoardAnalyser(object):
         articleTop5 = AnalysisHelpers.ArticleFrequencyForBoard_TopN_withPercentage(board, 5, count)
         citationTop5 = AnalysisHelpers.ArticleFrequencyForBoard_TopN(board, 5)
 
-        result =  {
+        result = {
             'board': board,
             'count': count, 
             'early': early, 
@@ -90,13 +90,13 @@ class BoardAnalyser(object):
     def __stringIntDecimalToString(self, tripleList):
         resultString = ''
         for (string, integer, decimal) in tripleList:
-             resultString += string + ',' + str(integer) + ',' + str(decimal) + ';'
+            resultString += string + ',' + str(integer) + ',' + str(decimal) + ';'
         return resultString
     
     def __stringIntToString(self, pairList):
         resultString = ''
         for (string, integer) in pairList:
-             resultString += string + ',' + str(integer) + ';'
+            resultString += string + ',' + str(integer) + ';'
         return resultString
     
     def __decisionListFromPkString(self, string):

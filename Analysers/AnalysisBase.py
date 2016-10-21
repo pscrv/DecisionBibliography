@@ -11,6 +11,10 @@ class TimestampBase(ABC):
     def Age(self):
         return datetime.now() - self.Timestamp
 
+    @property
+    def IsValid(self):
+        return True
+
     
 class OutdatedAnalysis(TimestampBase):
 

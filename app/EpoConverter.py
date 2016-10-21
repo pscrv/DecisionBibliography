@@ -207,8 +207,8 @@ class EpoConverter(object):
 
 
     def _parasToString(self, paraList):                
-            text = "\n\n".join(para.string.strip() for para in paraList if not para.string.strip(string.whitespace + string.punctuation) == "")
-            return text  
+        text = "\n\n".join(para.string.strip() for para in paraList if not para.string.strip(string.whitespace + string.punctuation) == "")
+        return text  
     #endregion      
     
 

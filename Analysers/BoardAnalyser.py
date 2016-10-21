@@ -9,7 +9,7 @@ from Analysers.BoardAnalysis import *
 from Analysers.AnalyserBase import CachingBase
 class BoardAnalyser(CachingBase):
     
-    def __init__(self, cachetimelimit:timedelta = timedelta(days=1)):
+    def __init__(self, cachetimelimit: timedelta = timedelta(days=1)):
         super(BoardAnalyser, self).__init__(cachetimelimit)
 
 
@@ -17,6 +17,9 @@ class BoardAnalyser(CachingBase):
     def CachedBoardList(self):
         return self._cachedKeyList()
 
+    def BoardIsCached(self, board):
+        return board in self.CachedBoardList
+    
 
     def _analyseAndCache(self, board):
         boardList = DecisionModelProxy.GetBoardList()

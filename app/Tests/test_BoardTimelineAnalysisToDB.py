@@ -17,9 +17,9 @@ class test_BoarTimelinedAnalysisToDB(TestCase):
 
 
     def test_GetRealBoard(self):
-        from DBConverters import BoardTimelineAnalysisToDB
+        from AnalysisStorers import BoardTimelineAnalysisToDB
         retreived = BoardTimelineAnalysisToDB.GetBoardTimelineAnalysisFromDB(self.realBoard)
-        to1999 = [v for k,v in retreived.YearlyDecisions.items() if v <= 1999]        
+        to1999 = [v for k, v in retreived.YearlyDecisions.items() if v <= 1999]        
         countYears = [year for year in retreived.YearlyDecisions if year <= 1999]
         self.assertEqual(retreived.Board, self.realBoard)
         self.assertEqual(sum(to1999), 321)
@@ -27,10 +27,10 @@ class test_BoarTimelinedAnalysisToDB(TestCase):
 
 
     def test_GetUnrealBoard(self):
-        from DBConverters import BoardTimelineAnalysisToDB
+        from AnalysisStorers import BoardTimelineAnalysisToDB
         from Analysers.TimelineAnalysis import NullBoardTimelineAnalysis
         retreived = BoardTimelineAnalysisToDB.GetBoardTimelineAnalysisFromDB(self.falseBoard)
-        to1999 = [v for k,v in retreived.YearlyDecisions.items() if v <= 1999]        
+        to1999 = [v for k, v in retreived.YearlyDecisions.items() if v <= 1999]        
         countYears = [year for year in retreived.YearlyDecisions if year <= 1999]
         self.assertEqual(retreived.Board, 'Nosuchboard')
         self.assertEqual(sum(to1999), 0)
@@ -40,7 +40,7 @@ class test_BoarTimelinedAnalysisToDB(TestCase):
 
         
     def test_SaveAndRetreive(self):
-        from DBConverters import BoardTimelineAnalysisToDB
+        from AnalysisStorers import BoardTimelineAnalysisToDB
         from Analysers.TimelineAnalysers import BoardTimelineAnalyser
 
         board = '3.5.01'

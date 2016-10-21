@@ -21,7 +21,7 @@ class test_BoardTimelineAnalyser(TestCase):
 
     def test_GetAnalysisReturnsSomething(self):
         x = self.analyser.GetAnalysis(self.realBoard)
-        self.assertFalse(x == None)
+        self.assertFalse(x is None)
 
     def test_AnalysisIsNotOutofdate(self):
         x = self.analyser.GetAnalysis(self.realBoard)
@@ -46,7 +46,7 @@ class test_BoardTimelineAnalyser(TestCase):
         
     def test_TotalDecisionsCountFor3501_to1999(self):
         real = self.analyser.GetAnalysis(self.realBoard)
-        to1999 = [v for k,v in real.YearlyDecisions.items() if v <= 1999]
+        to1999 = [v for k, v in real.YearlyDecisions.items() if v <= 1999]
         self.assertEqual(sum(to1999), 321)
 
     def test_AnalysesAreCached(self):

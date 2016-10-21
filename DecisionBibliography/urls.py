@@ -4,8 +4,8 @@ Definition of urls for DecisionBibliography.
 
 from datetime import datetime
 from django.conf.urls import url
-from app.forms import BootstrapAuthenticationForm
 from django.contrib.auth.views import login, logout
+from app.forms import BootstrapAuthenticationForm
 from app import views
 
 # Uncomment the next lines to enable the admin:

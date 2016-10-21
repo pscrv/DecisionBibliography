@@ -1,4 +1,4 @@
-from abc import ABC
+
 from datetime import datetime
 from django.db import models
 from django.db.models import F
@@ -6,7 +6,7 @@ from django.db.models import F
 
 #region decision models
 
-class DecisionGeneric:
+class DecisionGeneric(object):
     
     LANGUAGES = [('DE', 'DE'), ('EN', 'EN'), ('FR', 'FR')]
     DISTRIBUTION_CODES = [('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'), ('', 'unknown'),]
@@ -53,9 +53,9 @@ class DecisionBibliographyManager(models.Manager):
     
     def create_or_update(
             self, 
-            caseNumber:str,
-            decisionDate:datetime,
-            decisionLanguage:str,
+            caseNumber: str,
+            decisionDate: datetime,
+            decisionLanguage: str,
             **kwargs):
         """ 
         creates and returns a new decision, with the given CaseNumber, 
@@ -160,7 +160,7 @@ class DecisionBibliographyModel(models.Model):
     
         for attribute, value in kwargs.items():
             assert attribute in DecisionGeneric.ALLOWED_ATTRIBUTES, "Attribute " + attribute + " not allowed."
-            if (isinstance(value, str)):
+            if isinstance(value, str):
                 value = value.strip()
             setattr(self, attribute, value)
         
@@ -181,7 +181,7 @@ class DecisionTextModel(models.Model):
     Reasons = models.TextField(default = "")
     OrderHeader = models.TextField(default = "")
     Order = models.TextField(default = "")
-    Language =  models.CharField(choices = DecisionGeneric.LANGUAGES, max_length = 2, default = "")
+    Language = models.CharField(choices = DecisionGeneric.LANGUAGES, max_length = 2, default = "")
     HasSplitText = models.BooleanField(default = False)
 
     

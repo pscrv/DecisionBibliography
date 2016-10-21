@@ -4,16 +4,17 @@ from datetime import datetime, timedelta
 class CachingBase(ABC):
 
     @abstractmethod
-    def _analyseAndCache(key):
+    def _analyseAndCache(self, key):
         pass
 
 
-    def __init__(self, cachetimelimit:timedelta = timedelta(days=1)):
+    def __init__(self, cachetimelimit: timedelta = timedelta(days=1)):
         self._cache = {}
         self._cacheTimeLimit = cachetimelimit
 
     
     def _cachedKeyList(self):
+        self._removeOldFromCache()
         return [key for key in self._cache]
     
     
