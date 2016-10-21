@@ -16,11 +16,17 @@ class NullBoardTimelineAnalysis(BoardTimelineAnalysis):
 
     def __init__(self):
         super(NullBoardTimelineAnalysis, self).__init__(board = 'Nosuchboard')
-        
+
+
     def __eq__(self, other):
         if isinstance(other, NullBoardTimelineAnalysis):
             return True
         return False
+
+    @property
+    def IsValid(self):
+        return False
+
 
 
         

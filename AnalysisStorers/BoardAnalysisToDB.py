@@ -32,7 +32,7 @@ def GetBoardAnalysisFromDB(board):
 
     dbAnalysis, created = BoardAnalysisModel.objects.get_or_create(Board = board)
     if created:
-        return NullBoardAnalysis
+        return NullBoardAnalysis()
 
     citationList = __stringIntFromString(dbAnalysis.Cited_TopFive)
 

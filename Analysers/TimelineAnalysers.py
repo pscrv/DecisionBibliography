@@ -13,7 +13,9 @@ class BoardTimelineAnalyser(CachingBase):
     @property
     def CachedBoardList(self):
         return self._cachedKeyList()
-
+    
+    def BoardIsCached(self, board):
+        return board in self.CachedBoardList
         
     def _analyseAndCache(self, board):
         boardList = DecisionModelProxy.GetBoardList()
