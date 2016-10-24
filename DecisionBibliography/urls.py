@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^boardtimelines/$', views.boardtimelines, name='boardtimelines'),
     url(r'^board/(?P<bd>.+)/$', views.board, name='board'),
     url(r'^about', views.about, name = 'about'),
+    url(r'^textsearch', views.textsearch, name = 'textsearch'),
 
     
     #url(r'^decisionTL/(?P<cn>.+)/$', views.decisionTL, name='decisionTL'),

@@ -42,13 +42,43 @@
     <Compile Include="Analysers\BoardAnalysis.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers\Boards.py">
+    <Compile Include="Analysers\IssueAnalysers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Analysers\IssueAnalysis.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Issues\Issue.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Issues\IssuesProvider.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Issues\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\test_IssueAnalysers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\test_Issues.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\test_simpleTextSearch.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TextSearch\SimpleSearch.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\TextSearchVM.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="__old__toDelete\Boards.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Analysers\BoardAnalyser.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers\Persistent.py">
+    <Compile Include="__old__toDelete\Persistent.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Analysers\Coordinators.py">
@@ -60,7 +90,7 @@
     <Compile Include="Analysers\TimelineAnalysis.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers\Timelines.py">
+    <Compile Include="__old__toDelete\Timelines.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Analysers\__init__.py">
@@ -69,22 +99,22 @@
     <Compile Include="app\DateHelpers.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\Tests\test_BoardAnalyser.py">
+    <Compile Include="Tests\test_BoardAnalyser.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\Tests\test_BoardAnalysis.py">
+    <Compile Include="Tests\test_BoardAnalysis.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\Tests\test_BoardAnalysisToDB.py">
+    <Compile Include="Tests\test_BoardAnalysisToDB.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\Tests\test_BoardTimelineAnalysisToDB.py">
+    <Compile Include="Tests\test_BoardTimelineAnalysisToDB.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\Tests\test_Coordinators.py">
+    <Compile Include="Tests\test_Coordinators.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\Tests\test_TimelineAnalysers.py">
+    <Compile Include="Tests\test_TimelineAnalysers.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AnalysisStorers\BoardAnalysisToDB.py">
@@ -122,7 +152,7 @@
     <Compile Include="modelMapper.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\Tests\test_DBs.py" />
+    <Compile Include="Tests\test_DBs.py" />
     <Compile Include="ViewModels\BoardVM.py" />
     <Compile Include="ViewModels\DbStateVM.py" />
     <Compile Include="ViewModels\DecisionVM.py" />
@@ -144,7 +174,9 @@
   <ItemGroup>
     <Folder Include="app\" />
     <Folder Include="Analysers\" />
-    <Folder Include="app\Tests\" />
+    <Folder Include="Issues\" />
+    <Folder Include="TextSearch\" />
+    <Folder Include="Tests\" />
     <Folder Include="AnalysisStorers\" />
     <Folder Include="__old__toDelete\" />
     <Folder Include="ViewModels\" />
@@ -165,6 +197,7 @@
     <Content Include="app\templates\app\boardtimelines.html" />
     <Content Include="app\templates\app\decision.html" />
     <Content Include="app\templates\app\decisionversionlist.html" />
+    <Content Include="app\templates\app\textsearch.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

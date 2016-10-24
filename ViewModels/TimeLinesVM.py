@@ -1,42 +1,45 @@
 from datetime import date
 from ViewModels.Base import VMBase
-#from Analysers.Persistent import PersistentAnalyser
 from Analysers.Coordinators import PersistentTimelineAnalysisCoordinator
 from app.DBProxy import DecisionModelProxy
 
 class TimeLinesViewModel(VMBase):
         
-    #__analyser = PersistentAnalyser()
     __analyser = PersistentTimelineAnalysisCoordinator()
+
 
     def __init__(self):
         super(TimeLinesViewModel, self).__init__()
-
-        boardList = DecisionModelProxy.GetBoardList()
-        boardanalyses = {}
-        timelines = {}
-        earliest = date.max.year
-        latest = date.min.year
-        for board in boardList:           
-            timeline = self.__analyser.GetAnalysis(board)            
-            boardanalyses[board] = timeline
-            timelines[board] = []
-            earliest = min(min(timeline.YearlyDecisions), earliest)
-            latest = max(max(timeline.YearlyDecisions), latest)
-
-        timelines['years'] = []
-        for year in range(earliest, latest + 1):
-            timelines['years'].append(year)
-            for board in boardList:
-                timelines[board].append(boardanalyses[board].YearlyDecisions.get(year, ' '))
-             
-
-
-        yearline = timelines['years']
-        timelines.pop('')
-        timelines.pop('years')    
+        self.__getAllAnalyses_andEarliestAndLatestYears()            
+        self.__assembleYearline_andTimelines()
 
         self.Context.update( {
-            'years': yearline, 
-            'boardtls': sorted(timelines.items())
+            'years': self.__yearLine,
+            'boardtls': sorted(self.__timelines.items())
             } )
+
+
+    def __getAllAnalyses_andEarliestAndLatestYears(self):
+
+        self.__boardList = DecisionModelProxy.GetBoardList()
+        self.__boardanalyses = {}
+        self.__timelines = {}
+        self.__earliest = date.max.year
+        self.__latest = date.min.year
+
+        for board in self.__boardList:           
+            timeline = self.__analyser.GetAnalysis(board)            
+            self.__boardanalyses[board] = timeline
+            self.__timelines[board] = []
+            self.__earliest = min(min(timeline.YearlyDecisions), self.__earliest)
+            self.__latest = max(max(timeline.YearlyDecisions), self.__latest)
+
+
+    def __assembleYearline_andTimelines(self):
+        self.__yearLine = []
+        for year in range(self.__earliest, self.__latest + 1):
+            self.__yearLine.append(year)
+            for board in self.__boardList:
+                self.__timelines[board].append(self.__boardanalyses[board].YearlyDecisions.get(year, ' '))
+        
+        self.__timelines.pop('')

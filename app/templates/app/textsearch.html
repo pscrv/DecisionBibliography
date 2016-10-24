@@ -1,0 +1,30 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h2>{{ title }}</h2>
+<h3>{{ message }}</h3>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4 bibl-display">
+                <form class="navbar-form navbar-left" role="search" method="post" action="{% url 'textsearch' %}">
+                    <div class="form-group">
+                        {% csrf_token %}
+                        <input name="q" placeholder="{{searchterms}}" class="form-control" type="text" id="textsearchbox">
+                    </div>  
+                </form>
+            </div>  
+        
+            <div class="col-sm-8">  
+               
+                {% for result in results %}
+                    <p> {{ result }} </p>
+                {% endfor %}
+                              
+            </div>
+
+        </div>            
+    </div>
+{% endblock %}

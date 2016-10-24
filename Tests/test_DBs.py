@@ -76,28 +76,8 @@ class test_DBAnalyser(TestCase):
     def setUpClass(cls):    
         super(test_DBAnalyser, cls).setUpClass()
         django.setup()
-
-
-    def test_GetBoardAnalysis(self):
-        from Analysers import Persistent
-        board = '3.5.01'
-        analyser = Persistent.PersistentAnalyser()
-        analysis = analyser.GetBoardAnalysis(board)
-        analyser.AnalyseBoard(board)
-        analysis = analyser.GetBoardAnalysis(board)
-
-
-    def test_timelineFromString(self):
-        from Analysers.Timelines import TimelineAnylser
-        analyser = TimelineAnylser()
-        string = "1992/02/01::13;1997/03/31::2;"
-        timeline = analyser.GetBoardTimelineFromString(string)
-
-        date1 = datetime.date(1992, 2, 1)
-        date2 = datetime.date(1997, 3, 31)
-        self.assertEqual(timeline[date1], 13)
-        self.assertEqual(timeline[date2], 2)
-
+        
+        
     def test_ipcFrequency(self):
         from app.DBProxy import DecisionModelProxy
         from Analysers import AnalysisHelpers
@@ -120,8 +100,7 @@ class test_DBAnalyser(TestCase):
     def test_articleFrequencyForBoard(self):        
         from Analysers import AnalysisHelpers
         x = AnalysisHelpers.ArticleFrequencyForBoard('3.5.01')
-        self.assertEqual(x['56'], 237)
-        
+        self.assertEqual(x['56'], 237)        
 
     def test_citationFrequency(self):
         from app.DBProxy import DecisionModelProxy

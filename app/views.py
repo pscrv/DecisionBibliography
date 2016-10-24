@@ -14,15 +14,13 @@ from ViewModels import DecisionVM
 from ViewModels import TimeLinesVM 
 from ViewModels import BoardVM 
 from ViewModels import IndexVM
+from ViewModels import TextSearchVM
 
 
 def home(request):
 
     #region experiement
 
-    #from Analysers.Persistent import PersistentAnalyser
-    #analyser = PersistentAnalyser()
-    #x = 1
     #endregion
 
     # region comment out this, if db is not being populated
@@ -101,8 +99,8 @@ def board(request, bd):
         )
 
 def about(request):
-
-
+    """Renders the home page."""
+    assert isinstance(request, HttpRequest)
 
     # region comment out this, if db is not being populated
     #import datetime
@@ -114,15 +112,29 @@ def about(request):
     #bg.Get_FromDate_ToDate(start, end) 
     # endregion
 
-    """Renders the home page."""
-    assert isinstance(request, HttpRequest)
-
     viewModel = DbStateVM.DbStateViewModel()
     return render(
         request,
         'app/about.html',
         viewModel.Context,
     )
+
+def textsearch(request):
+    """Renders the text search page."""
+    assert isinstance(request, HttpRequest)
+
+    if request.method == 'POST':
+        query = request.POST.get('q', '')
+    else:
+        query = ''
+
+    viewModel = TextSearchVM.TextSearchViewModel(query)
+    return render(
+        request,
+        'app/textsearch.html',
+        viewModel.Context
+    )
+
 
 
 

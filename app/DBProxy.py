@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 
-from django.db.models import F
+import operator
+from functools import reduce
+from django.db.models import F, Q
 from app.models import DecisionBibliographyModel, DecisionTextModel
 
 class DBProxy(ABC):
@@ -25,6 +27,10 @@ class DBProxy(ABC):
 
     @abstractmethod
     def GetDecisionListFromCaseNumber(cn):
+        pass
+
+    @abstractmethod
+    def GetDecisionListFromTextSearchANDTermList(termList):
         pass
 
     @abstractmethod
@@ -68,6 +74,10 @@ class DBProxy(ABC):
     
     @abstractmethod
     def GetErrorText():
+        pass
+
+    @abstractmethod
+    def GetTextsFiltered(self, **kwargs):
         pass
     #endregion
 
@@ -133,6 +143,15 @@ class DecisionModelProxy(DBProxy):
 
     def GetDecisionListFromCaseNumber(cn):
         decisionList = DecisionBibliographyModel.objects.filter(CaseNumber = cn)
+
+    # Only used in IssueAnalyser
+    # Experiment
+    # Candidate for deletion
+    def GetDecisionListFromTextSearchANDTermList(termList):
+        factsResults = DecisionTextModel.objects.filter(reduce(operator.and_, (Q(Facts__contains = x) for x in termList)))
+        reasonsResults = DecisionTextModel.objects.filter(reduce(operator.and_, (Q(Reasons__contains = x) for x in termList)))
+        orderResults = DecisionTextModel.objects.filter(reduce(operator.and_, (Q(Order__contains = x) for x in termList)))
+        return factsResults | reasonsResults | orderResults
         return decisionList
 
     def GetCitingCasesFromCaseNumber(cn):
@@ -170,6 +189,9 @@ class DecisionModelProxy(DBProxy):
             Reasons = "",
             OrderHeader = "Decision text unavailable.",
             Order = "")
+
+    def GetTextsFiltered(**kwargs):
+        return DecisionTextModel.objects.filter(**kwargs)
     #endregion
 
     #region Bibliography meta

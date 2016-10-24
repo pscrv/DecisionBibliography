@@ -10,30 +10,29 @@ class CachingBase(ABC):
 
     def __init__(self, cachetimelimit: timedelta = timedelta(days=1)):
         self._cache = {}
-        self._cacheTimeLimit = cachetimelimit
+        self.__cacheTimeLimit = cachetimelimit
 
     
     def _cachedKeyList(self):
-        self._removeOldFromCache()
+        self.__removeOldFromCache()
         return [key for key in self._cache]
     
     
     def GetAnalysis(self, key):
-        needToAnalyse = self._needToAnalyse(key)
-        if needToAnalyse:
+        if self.__needToAnalyse(key):
             analysis = self._analyseAndCache(key)
         else:
             analysis = self._cache[key]            
         return analysis
 
     
-    def _needToAnalyse(self, key):
-        self._removeOldFromCache()
+    def __needToAnalyse(self, key):
+        self.__removeOldFromCache()
         return key not in self._cache
 
     
-    def _removeOldFromCache(self):
+    def __removeOldFromCache(self):
         self._cache = { key: value 
                         for key, value 
                         in self._cache.items() 
-                        if value.Age < self._cacheTimeLimit }
+                        if value.Age < self.__cacheTimeLimit }
