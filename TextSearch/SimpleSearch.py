@@ -10,12 +10,13 @@ class SimpleTextSearcher(object):
         self.__terms = terms
 
         from app.DBProxy import DecisionModelProxy
-        self.__result = DecisionModelProxy.GetTextsFiltered()        
+        textResult = DecisionModelProxy.GetTextsFiltered()        
         for term in self.__terms:
-            self.__result = self.__result.filter(
+            textResult = textResult.filter(
                 (Q(Facts__contains = term) |
                  Q(Reasons__contains = term) |
                  Q(Order__contains = term)))
+        self.__result = [result.decision for result in textResult]
 
     @property
     def Result(self):

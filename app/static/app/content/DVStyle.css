@@ -98,3 +98,9 @@ h4{
     border-radius: 5px;
     -webkit-box-shadow: 2px 2px 5px darkgreen;
 }
+
+.well{
+    background-color: #c2d4c9;
+    border: 1px solid #013010;
+    margin-top: 30px;
+}

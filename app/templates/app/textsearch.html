@@ -2,17 +2,17 @@
 
 {% block content %}
 
-<h2>{{ title }}</h2>
-<h3>{{ message }}</h3>
 
     <div class="container">
         <div class="row">
 
             <div class="col-md-4 bibl-display">
+                <h2>{{ title }}</h2>
+                <h4>{{ message }}</h4>
                 <form class="navbar-form navbar-left" role="search" method="post" action="{% url 'textsearch' %}">
                     <div class="form-group">
                         {% csrf_token %}
-                        <input name="q" placeholder="{{searchterms}}" class="form-control" type="text" id="textsearchbox">
+                        <input name="q" placeholder="One, two" class="form-control" type="text" id="textsearchbox">
                     </div>  
                 </form>
             </div>  
@@ -20,7 +20,30 @@
             <div class="col-sm-8">  
                
                 {% for result in results %}
-                    <p> {{ result }} </p>
+                <div class="well">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6"> 
+                                <a href="{% url 'decision' pk=result.Decision.pk %}"> {{ result.Decision.CaseNumber }} </a> 
+                                {% if result.Decision.Headword %} 
+                                    ({{ result.Decision.Headword}})
+                                {% endif %}
+
+                            </div>
+                            <div class="col-md-3">
+                                {{ result.Decision.Board}}
+                            </div>
+                            <div class="col-md-3">
+                                {{ result.Decision.DecisionDate }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{ result.TextExtract }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {% endfor %}
                               
             </div>

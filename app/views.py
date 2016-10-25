@@ -69,7 +69,6 @@ def decisionFromCaseNumber(request, cn):
     ) 
 
 def search(request):
-    """Searches the DB by case number."""
     from app import Formatters
     if not request.method == 'POST':
         return redirect(request.META['HTTP_REFERER'])

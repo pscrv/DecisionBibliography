@@ -143,6 +143,7 @@ class DecisionModelProxy(DBProxy):
 
     def GetDecisionListFromCaseNumber(cn):
         decisionList = DecisionBibliographyModel.objects.filter(CaseNumber = cn)
+        return decisionList
 
     # Only used in IssueAnalyser
     # Experiment
@@ -152,7 +153,6 @@ class DecisionModelProxy(DBProxy):
         reasonsResults = DecisionTextModel.objects.filter(reduce(operator.and_, (Q(Reasons__contains = x) for x in termList)))
         orderResults = DecisionTextModel.objects.filter(reduce(operator.and_, (Q(Order__contains = x) for x in termList)))
         return factsResults | reasonsResults | orderResults
-        return decisionList
 
     def GetCitingCasesFromCaseNumber(cn):
         return DecisionBibliographyModel.objects.FilterOnlyPrLanguage(CitedCases__contains=cn).all()
