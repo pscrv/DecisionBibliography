@@ -17,7 +17,7 @@ class SimpleTextSearcher(object):
         self.__resultsDictionary = {}
         self.__haveAllTerms = {}
         self.__results = {}
-        self.__locationCounts = {}   #todo: change this, once we know the return type
+        self.__locationCounts = {}
                 
         if terms == None or terms == []:
             return
@@ -51,8 +51,11 @@ class SimpleTextSearcher(object):
     def __makeSetFromText(self, kw, term):
         return {x.decision.pk for x in DecisionModelProxy.GetTextsFiltered(**{kw + '__contains': term })}
 
+
+
     def __collectResults(self):
         self.__haveAllTerms = set.intersection(*[self.__resultsDictionary[x].InAny for x in self.__resultsDictionary])
+
 
     def __countLocations(self):
         for term in self.__resultsDictionary:

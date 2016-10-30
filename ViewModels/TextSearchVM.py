@@ -8,7 +8,7 @@ class TextSearchViewModel(VMBase):
 
     def __init__(self, query):
         super(TextSearchViewModel, self).__init__()
-        self.__query = query.lower().split(',')
+        self.__query = [x.strip() for x in query.lower().split(',')]   
         self.__sorts = ['Catchwords', 'Keywords', 'Reasons', 'Facts', 'Order']
 
         if self.__query == ['']:
@@ -19,22 +19,36 @@ class TextSearchViewModel(VMBase):
             self.__setFullcontext()
         
 
+
+    def __setMiniContext(self):
+        self.Context.update( {
+            'title': 'Text Search',
+            'message': '',  
+            'results': [],
+            'highlightterms': []
+            } )
+
+    def __setFullcontext(self):
+        self.Context.update( {
+            'title': 'Text Search',
+            'message': ','.join(self.__query) + ': ' + str(len(self.__results)) + ' results',
+            'results': self.__extractedResults,
+            'highlightterms': self.__query
+            } )
+
+
     
     def __getSearchResults(self):
-        searchTerms = [x for x in self.__query]
-        searcher = SimpleTextSearcher(searchTerms)
+        searcher = SimpleTextSearcher(self.__query)
         self.__results = searcher.Results
-
         self.__collatedResults = {x: [] for x in self.__sorts}
-
         for result in self.__results:
             for sort in self.__sorts:
                 if self.__results[result][sort] > 0:
                     self.__collatedResults[sort].append(result)
                     break
 
-
-
+                
     def __extractResults(self):
         self.__extractedResults = []
         for sort in self.__sorts:
@@ -81,24 +95,6 @@ class TextSearchViewModel(VMBase):
             return text.Order
         return ''
 
-
-
-
-    def __setMiniContext(self):
-        self.Context.update( {
-            'title': 'Text Search',
-            'message': '',  
-            'results': [],
-            'highlightterms': []
-            } )
-
-    def __setFullcontext(self):
-        self.Context.update( {
-            'title': 'Text Search',
-            'message': ','.join(self.__query) + ': ' + str(len(self.__results)) + ' results',
-            'results': self.__extractedResults,
-            'highlightterms': self.__query
-            } )
 
 
 class TextSearchResult(object):
