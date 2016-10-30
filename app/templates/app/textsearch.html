@@ -21,7 +21,7 @@
             <div class="col-sm-8">  
                
                 {% for result in results %}
-                <a href="{% url 'decision' pk=result.Decision.pk %}">
+                <a href="{% url 'decision_with_highlight' pk=result.Decision.pk highlightterms=highlightterms %}">
                     <div class="well text-search-result">
                     <div class="container">
                         <div class="row">

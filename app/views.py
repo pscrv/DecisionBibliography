@@ -44,12 +44,14 @@ def home(request):
 
       
 
-def decision(request, pk):
+def decision(request, pk, highlightterms):
     """Renders a single decision."""
     assert isinstance(request, HttpRequest)
+    from ast import literal_eval
 
     decisions = DecisionModelProxy.GetDecisionListFromPrimaryKey(pk)
-    viewModel = DecisionVM.DecisionViewModel(decisions, pk)
+    hlterms = literal_eval(highlightterms)
+    viewModel = DecisionVM.DecisionViewModel(decisions, pk=pk, highlightterms=hlterms)
     return render(
         request,
         'app/decision.html',

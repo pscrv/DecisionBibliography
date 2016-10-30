@@ -17,6 +17,7 @@ from app import views
 urlpatterns = [ 
     url(r'^$', views.home, name='home'),
     url(r'^decisionFromCaseNumber/(?P<cn>.+)/$', views.decisionFromCaseNumber, name='decision'),
+    url(r'^decision/(?P<pk>\d+)(?P<highlightterms>.+)/$', views.decision, name='decision_with_highlight'),
     url(r'^decision/(?P<pk>.+)/$', views.decision, name='decision'),
     url(r'^search', views.search, name='search'),
     url(r'^boardtimelines/$', views.boardtimelines, name='boardtimelines'),
@@ -24,8 +25,6 @@ urlpatterns = [
     url(r'^about', views.about, name = 'about'),
     url(r'^textsearch', views.textsearch, name = 'textsearch'),
 
-    
-    #url(r'^decisionTL/(?P<cn>.+)/$', views.decisionTL, name='decisionTL'),
     
     url(r'^login/$',
         login,

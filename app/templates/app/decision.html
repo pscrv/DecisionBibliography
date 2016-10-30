@@ -1,4 +1,5 @@
 ﻿{% extends "app/layout.html" %}
+{% load highlight_filters %}
 
 {% block content %}
 
@@ -35,7 +36,10 @@
                     {% if decision.Opponents %} <p><strong>Opponents:</strong> {{ decision.Opponents}} </p> {% endif %}
                     {% if decision.Articles %} <p> <strong>Article(s)</strong> {{ decision.Articles }} </p> {% endif %}
                     {% if decision.Rules %} <p> <strong>Rules {{ decision.Rules }}</strong> </p> {% endif %}
-                    <p> <strong>Keywords:</strong> {{ decision.Keywords }} </p>
+                    {% if decision.Catchwords%}
+                        <p> <strong> Catchwords:</strong> {{ decision.Catchwords|highlight:highlighterms}} </p>
+                    {% endif %}
+                    <p> <strong>Keywords:</strong> {{ decision.Keywords|highlight:highlightterms }} </p>
 
                     <p>
                         {% if citedDecisions %}
@@ -79,19 +83,19 @@
                         <div id="procedure" class="tab-pane fade">
                         <h4> {{ factsHeader }} </h4>
                         {% for para in facts %}
-                            <p> {{ para }} </p>
+                            <p> {{ para|highlight:highlightterms }} </p>
                         {% endfor %}
                         </div>
                         <div id="reasons" class="tab-pane fade in active">
                         <h4> {{ reasonsHeader }} </h4>
                         {% for para in reasons %}
-                            <p> {{ para }} </p>
+                            <p> {{ para|highlight:highlightterms }} </p>
                         {% endfor %}
                         </div>
                         <div id="outcome" class="tab-pane fade">
                         <h4> {{ orderHeader }} </h4>
                         {% for para in order %}
-                            <p> {{ para }} </p>
+                            <p> {{ para|highlight:highlightterms }} </p>
                         {% endfor %}
                         </div>
                         <div id="comments" class="tab-pane fade">

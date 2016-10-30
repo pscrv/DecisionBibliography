@@ -6,13 +6,14 @@ from app.DBPopulator import TextGetter
 
 class DecisionViewModel(VMBase):
 
-    def __init__(self, decisions, pk = None, msg = ''):
+    def __init__(self, decisions, pk = None, msg = '', highlightterms = []):
         super(DecisionViewModel, self).__init__()
 
         self._decisions = decisions
         self._pk = pk
         self._message = msg
         self._decisionToShow = None
+        self._highlightterms = highlightterms
 
         self._setup()
 
@@ -65,6 +66,7 @@ class DecisionViewModel(VMBase):
             'order': text.Order.split('\n\n'),
             'languageversions': otherLanguages,
             'otherversions': otherVersions,
+            'highlightterms': self._highlightterms,
             } )
         
 
