@@ -44,6 +44,12 @@ h4{
     line-height: normal;
 }
 
+.form-control:focus {
+  border-color: #8F2D7F;
+  box-shadow: inset 0 1px 1px #FFFFFF, 0 0 8px #8F2D7F;
+}
+
+
 .tiny-reference {
     text-align: right;
     font-size: 12px;
@@ -99,8 +105,23 @@ h4{
     -webkit-box-shadow: 2px 2px 5px darkgreen;
 }
 
-.well{
+
+.text-search-result {
     background-color: #c2d4c9;
     border: 1px solid #013010;
     margin-top: 30px;
+}
+
+.text-search-result a {
+    font-size: 17px
+}
+
+.result-extract {
+    margin: 10px;
+    font-weight: 100;
+}
+
+.highlight{
+    font-weight: bold;
+    color: #cb05ac
 }

@@ -1,3 +1,6 @@
+import re
+
+from app.DBProxy import DecisionModelProxy
 from ViewModels.Base import VMBase
 from TextSearch.SimpleSearch import SimpleTextSearcher
 
@@ -5,9 +8,10 @@ class TextSearchViewModel(VMBase):
 
     def __init__(self, query):
         super(TextSearchViewModel, self).__init__()
-        self.__query = query.lower()
+        self.__query = query.lower().split(',')
+        self.__sorts = ['Catchwords', 'Keywords', 'Reasons', 'Facts', 'Order']
 
-        if self.__query == '':
+        if self.__query == ['']:
             self.__setMiniContext()
         else:
             self.__getSearchResults()
@@ -17,33 +21,65 @@ class TextSearchViewModel(VMBase):
 
     
     def __getSearchResults(self):
-        searchTerms = [x for x in self.__query.split(',')]
+        searchTerms = [x for x in self.__query]
         searcher = SimpleTextSearcher(searchTerms)
-        self.__results = searcher.Result
+        self.__results = searcher.Results
+
+        self.__collatedResults = {x: [] for x in self.__sorts}
+
+        for result in self.__results:
+            for sort in self.__sorts:
+                if self.__results[result][sort] > 0:
+                    self.__collatedResults[sort].append(result)
+                    break
+
 
 
     def __extractResults(self):
-        self.__extractedResults = [
-            TextSearchResult(
-                result, 
-                self.__getTextExtracts(result)) for result in self.__results]
+        self.__extractedResults = []
+        for sort in self.__sorts:
+            for result in self.__collatedResults[sort]:
+                decision = DecisionModelProxy.GetDecisionFromPrimaryKey(result)
+                extract = self.__getTextExtract(decision, sort)
+                self.__extractedResults.append(
+                    TextSearchResult(
+                        decision,
+                        extract,
+                        )
+                    )
 
 
-    def __getTextExtracts(self, decision):
-        from app.DBProxy import DecisionModelProxy
-        import re
-        terms = '|'.join(self.__query.split(','))
-        finder = re.compile(r'((?:\w+\W+){,7})(' + terms + ')\W+((?:\w+\W+){,7})', re.IGNORECASE)
 
-        text = DecisionModelProxy.GetTextFromDecision(decision)
-        fullText = '\n\n'.join([text.Facts, text.Reasons, text.Order])
-        
-        found = re.search(finder, fullText)
+    def __getTextExtract(self, decision, sort):
+        searchText = self.__getSearchText(decision, sort)
+
+        terms = '|'.join([x.strip() for x in (self.__query)] )
+        finder = re.compile(r'(\S+\s+){0,11}(' + terms + r'(?:\S*))(\s+\S+){0,11}', re.IGNORECASE)
+        found = re.search(finder, searchText)
+
         if found:
-            extract = '... ' + ' '.join([ x.strip() for x in found.groups()]) + ' ...'
+            result = '[' + sort + '] ... ' + found.group() + ' ...'
         else:
-            extract = ''
-        return extract
+            result = '[' + sort + '] ... something went wrong ...'
+        return result
+
+
+    def __getSearchText(self, decision, sort):
+        if sort == 'Catchwords':
+            return decision.Catchwords
+        if sort == 'Keywords':
+            return decision.Keywords
+        
+        text = DecisionModelProxy.GetTextFromDecision(decision)
+        if not text:
+            return ''
+        if sort == 'Facts':
+            return text.Facts
+        if sort == 'Reasons':
+            return text.Reasons
+        if sort == 'Order':
+            return text.Order
+        return ''
 
 
 
@@ -52,20 +88,22 @@ class TextSearchViewModel(VMBase):
         self.Context.update( {
             'title': 'Text Search',
             'message': '',  
-            'result': [],
+            'results': [],
+            'highlightterms': []
             } )
 
     def __setFullcontext(self):
         self.Context.update( {
             'title': 'Text Search',
-            'message': self.__query + ': ' + str(len(self.__results)) + ' results',
+            'message': ','.join(self.__query) + ': ' + str(len(self.__results)) + ' results',
             'results': self.__extractedResults,
+            'highlightterms': self.__query
             } )
 
 
 class TextSearchResult(object):
 
-    def __init__(self, decision, text):
+    def __init__(self, decision, extract):
         self.Decision = decision
-        self.TextExtract = text
+        self.TextExtract = extract
 

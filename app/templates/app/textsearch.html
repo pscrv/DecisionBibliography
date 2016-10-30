@@ -1,4 +1,5 @@
 ﻿{% extends "app/layout.html" %}
+{% load highlight_filters %}
 
 {% block content %}
 
@@ -20,11 +21,12 @@
             <div class="col-sm-8">  
                
                 {% for result in results %}
-                <div class="well">
+                <a href="{% url 'decision' pk=result.Decision.pk %}">
+                    <div class="well text-search-result">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-6"> 
-                                <a href="{% url 'decision' pk=result.Decision.pk %}"> {{ result.Decision.CaseNumber }} </a> 
+                            <div class="col-md-6">    
+                                {{ result.Decision.CaseNumber }}
                                 {% if result.Decision.Headword %} 
                                     ({{ result.Decision.Headword}})
                                 {% endif %}
@@ -38,12 +40,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12">
-                                {{ result.TextExtract }}
+                            <div class="col-sm-12 result-extract">
+                                {{ result.TextExtract|highlight:highlightterms }}
                             </div>
                         </div>
                     </div>
                 </div>
+                </a>
                 {% endfor %}
                               
             </div>

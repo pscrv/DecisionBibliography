@@ -48,6 +48,12 @@
     <Compile Include="Analysers\IssueAnalysis.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\templatetags\highlight_filters.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\templatetags\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Issues\Issue.py">
       <SubType>Code</SubType>
     </Compile>
@@ -174,6 +180,7 @@
   <ItemGroup>
     <Folder Include="app\" />
     <Folder Include="Analysers\" />
+    <Folder Include="app\templatetags\" />
     <Folder Include="Issues\" />
     <Folder Include="TextSearch\" />
     <Folder Include="Tests\" />

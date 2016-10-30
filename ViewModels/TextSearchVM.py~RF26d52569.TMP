@@ -1,0 +1,119 @@
+from ViewModels.Base import VMBase
+from TextSearch.SimpleSearch import SimpleTextSearcher
+
+class TextSearchViewModel(VMBase):
+
+    def __init__(self, query):
+        super(TextSearchViewModel, self).__init__()
+        self.__query = query.lower()
+
+        if self.__query == '':
+            self.__setMiniContext()
+        else:
+            self.__getSearchResults()
+            self.__extractResults()
+            self.__setFullcontext()
+        
+
+    
+    def __getSearchResults(self):
+        searchTerms = [x for x in self.__query.split(',')]
+        searcher = SimpleTextSearcher(searchTerms)
+        self.__results = searcher.Results
+
+        self.__collatedResults = {
+            'Catchwords': [],
+            'Keywords': [],
+            'Facts': [],
+            'Reasons': [], 
+            'Order': []
+            }
+
+
+        for result in self.__results:
+            if self.__results[result].CatchwordCount > 0:
+                self.__collatedResults['Catchwords'].append(result)
+                continue
+            if self.__results[result].KeywordCount > 0:
+                self.__collatedResults['Keywords'].append(result)
+                continue
+            if self.__results[result].ReasonsCount > 0:
+                self.__collatedResults['Reasons'].append(result)
+                continue
+            if self.__results[result].FactsCount > 0:
+                self.__collatedResults['Facts'].append(result)
+                continue
+            if self.__results[result].OrderCount > 0:
+                self.__collatedResults['Order'].append(result)
+                continue
+
+        x = 1
+
+        #self.__collatedResults['Catchwords'] =  [
+        #    x for x in self.__results 
+        #        if self.__results[x].Catchwordcount > 0 
+        #        ]
+        #for result in self.__collatedResults[sort]:
+        #    self.__results.pop(result)
+
+
+        #for sort in sorts:
+        #    self.__collatedResults[sort] = [
+        #            x for x in self.__results 
+        #              if self.__results[x].Catchwordcount > 0 
+        #             ]
+        #    for result in self.__collatedResults[sort]:
+        #        self.__results.pop(result)
+
+
+    def __extractResults(self):
+        self.__extractedResults = [
+            TextSearchResult(
+                result, 
+                self.__getTextExtracts(result)) for result in self.__results]
+
+
+    def __getTextExtracts(self, decision):
+        from app.DBProxy import DecisionModelProxy
+        import re
+        terms = '|'.join([x.strip() for x in (self.__query.split(','))] )
+        finder = re.compile(r'((?:\w+\W+){,7})(' + terms + ')\W+((?:\w+\W+){,7})', re.IGNORECASE)
+
+        text = DecisionModelProxy.GetTextFromDecision(decision)
+        fullText = '\n\n'.join([text.Facts, text.Reasons, text.Order])
+        
+        found = re.search(finder, fullText)
+
+
+        if found:
+            left = '... ' + found.group(1)
+            main = found.group(2)
+            right = found.group(3) + ' ...'
+        else:
+            left = main = right = ''
+        return left, main, right
+
+
+
+
+    def __setMiniContext(self):
+        self.Context.update( {
+            'title': 'Text Search',
+            'message': '',  
+            'result': [],
+            } )
+
+    def __setFullcontext(self):
+        self.Context.update( {
+            'title': 'Text Search',
+            'message': self.__query + ': ' + str(len(self.__results)) + ' results',
+            'results': self.__extractedResults,
+            } )
+
+
+class TextSearchResult(object):
+
+    def __init__(self, decision, textTuple):
+        self.Decision = decision
+        self.TextExtractLeft, self.TextExtractMain, self.TextExtractRight = textTuple
+
