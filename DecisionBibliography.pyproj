@@ -54,6 +54,18 @@
     <Compile Include="app\templatetags\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classifiers\Base.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\Features.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\resitutio.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Issues\Issue.py">
       <SubType>Code</SubType>
     </Compile>
@@ -185,6 +197,7 @@
     <Folder Include="Analysers\" />
     <Folder Include="app\templatetags\" />
     <Folder Include="Issues\" />
+    <Folder Include="Classifiers\" />
     <Folder Include="TextSearch\" />
     <Folder Include="Tests\" />
     <Folder Include="AnalysisStorers\" />

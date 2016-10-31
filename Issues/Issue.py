@@ -5,7 +5,6 @@ class Issue(object):
 
     def __init__(self, name: str):
         self.__name = name
-        self.__textSearchTerms = []
 
     @property
     def Name(self):
@@ -16,11 +15,6 @@ class Issue(object):
         return True
 
 
-    def SetTextsearchTerms(self, termList):
-        self.__textSearchTerms = termList
-
-    def GetTextSearchTerms(self):
-        return self.__textSearchTerms
 
 
 

@@ -44,7 +44,7 @@ def home(request):
 
       
 
-def decision(request, pk, highlightterms):
+def decision(request, pk, highlightterms = '[]'):
     """Renders a single decision."""
     assert isinstance(request, HttpRequest)
     from ast import literal_eval
