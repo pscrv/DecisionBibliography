@@ -60,10 +60,22 @@
     <Compile Include="Classifiers\Features.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classifiers\resitutio.py">
+    <Compile Include="Classifiers\restitutio.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\TrainingData\Restitutio.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\TrainingData\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classifiers\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\TextHelpers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Issues\Issue.py">
@@ -73,6 +85,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Issues\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\test_Bayes.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\test_IssueAnalysers.py">
@@ -196,8 +211,10 @@
     <Folder Include="app\" />
     <Folder Include="Analysers\" />
     <Folder Include="app\templatetags\" />
+    <Folder Include="Classifiers\TrainingData\" />
     <Folder Include="Issues\" />
     <Folder Include="Classifiers\" />
+    <Folder Include="Helpers\" />
     <Folder Include="TextSearch\" />
     <Folder Include="Tests\" />
     <Folder Include="AnalysisStorers\" />
