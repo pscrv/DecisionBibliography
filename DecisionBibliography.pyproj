@@ -60,7 +60,13 @@
     <Compile Include="Classifiers\Features.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classifiers\restitutio.py">
+    <Compile Include="Classifiers\Bayesian.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\TrainingData\Base.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\TrainingData\MathematicalMethod.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classifiers\TrainingData\Restitutio.py">
