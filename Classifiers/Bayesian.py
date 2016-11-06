@@ -5,20 +5,11 @@ from Classifiers.Base import ClassifierBase
 class BayesianClassifier(ClassifierBase):
     
     def __init__(self, trainingData):
-        self.__trainingData = trainingData
-        self.__initialiseVariables()        
-        self.__trainClassifier()
-
-
-    def __initialiseVariables(self):
+        self.__trainingData = trainingData 
         self.__classProbabilities = {}
         self.__featureProbabilitiesGivenClass = {}
-        self.__testProbabilities = {}
-        for cl in self.__trainingData.Classes:
-            self.__testProbabilities[cl] = {}
-        self.__testClassifications = {}
-
-
+        self.__trainClassifier()
+                
 
     def __trainClassifier(self):
         self.__setClassProbabilities()
