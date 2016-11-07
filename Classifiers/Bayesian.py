@@ -1,10 +1,11 @@
 
 from Helpers import TextHelpers
-from Classifiers.Base import ClassifierBase 
+from Classifiers.Base import ClassifierBase
+from Classifiers.TrainingData.Base import BinaryTrainingDataBase 
 
 class BayesianClassifier(ClassifierBase):
     
-    def __init__(self, trainingData):
+    def __init__(self, trainingData: BinaryTrainingDataBase):
         self.__trainingData = trainingData 
         self.__classProbabilities = {}
         self.__featureProbabilitiesGivenClass = {}

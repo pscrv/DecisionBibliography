@@ -62,7 +62,8 @@ def decisionFromCaseNumber(request, cn):
     """Renders a single decision."""
     assert isinstance(request, HttpRequest)
 
-    decisions = DecisionModelProxy.GetDecisionListFromCaseNumber(Formatters.formatCaseNumber(cn))
+    caseNumber = Formatters.formatCaseNumber(cn)
+    decisions = DecisionModelProxy.GetDecisionListFromCaseNumber(caseNumber)
     viewModel = DecisionVM.DecisionViewModel(decisions)
     return render(
         request,

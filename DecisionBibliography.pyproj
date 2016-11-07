@@ -84,15 +84,6 @@
     <Compile Include="Helpers\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Issues\Issue.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Issues\IssuesProvider.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Issues\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Tests\test_Bayes.py">
       <SubType>Code</SubType>
     </Compile>
@@ -114,13 +105,7 @@
     <Compile Include="ViewModels\TextSearchVM.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="__old__toDelete\Boards.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Analysers\BoardAnalyser.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="__old__toDelete\Persistent.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Analysers\Coordinators.py">
@@ -130,9 +115,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Analysers\TimelineAnalysis.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="__old__toDelete\Timelines.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Analysers\__init__.py">
@@ -218,7 +200,6 @@
     <Folder Include="Analysers\" />
     <Folder Include="app\templatetags\" />
     <Folder Include="Classifiers\TrainingData\" />
-    <Folder Include="Issues\" />
     <Folder Include="Classifiers\" />
     <Folder Include="Helpers\" />
     <Folder Include="TextSearch\" />

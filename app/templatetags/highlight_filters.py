@@ -28,18 +28,21 @@ def highlight(text, words, autoescape=True):
 
     return mark_safe(text)
        
+@register.filter(needs_autoescape=True)
+def highlight_and_link_casenumbers(text, autoescape=True): 
+
+    if autoescape:
+        esc = conditional_escape
+    else:
+        esc = lambda x: x
+   
+    finder = re.compile(r'([DGJRTW]\s*\d+/\d+)', re.IGNORECASE)
+    text = finder.sub(r'<a class="highlight" href="/decisionFromCaseNumber/\1"> \1 </a>', text)
+
+    return mark_safe(text)
+       
 
     
-
-    #finder = re.compile('|'.join(words), re.IGNORECASE)
-
-    #found = finder.search(text)
-    #if found:
-    #    wordToHighlight = found.group()
-    #else:
-    #    return text
-    #result = mark_safe(substitutedText)
-    #return result
 
 
 
