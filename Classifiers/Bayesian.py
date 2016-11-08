@@ -1,45 +1,42 @@
 
 from Helpers import TextHelpers
 from Classifiers.Base import ClassifierBase
-from Classifiers.TrainingData.Base import BinaryTrainingDataBase 
+from Classifiers.TrainingData.TrainingBase import BinaryTrainingDataBase 
 
 class BayesianClassifier(ClassifierBase):
     
     def __init__(self, trainingData: BinaryTrainingDataBase):
-        self.__trainingData = trainingData 
-        self.__classProbabilities = {}
-        self.__featureProbabilitiesGivenClass = {}
-        self.__trainClassifier()
-                
-
-    def __trainClassifier(self):
-        self.__setClassProbabilities()
-        self.__setFeatureProbabilities()
+        self.__classes = trainingData.Classes
+        self.__features = trainingData.Features
+        self.__testData = trainingData.TestData
+        self.__classProbabilities = trainingData.GetClassProbabilities()
+        self.__featureProbabilitiesGivenClass = trainingData.GetFeatureProbabilities()
+       
         
-    def __setClassProbabilities(self):
-        for cl in self.__trainingData.Classes:
-            self.__classProbabilities[cl] = self.__trainingData.GetClassProportion(cl)
-            
-    def __setFeatureProbabilities(self):  
-        for cl in self.__trainingData.Classes:
-            self.__featureProbabilitiesGivenClass[cl] = {}
 
-            for feature in self.__trainingData.Features:
-
-                aggregateText = ' '.join(self.__trainingData.GetTrainingTexts(cl))
-                totalWordCount = TextHelpers.countwords(aggregateText)
-                featureOccurences = TextHelpers.countoccurences(feature, aggregateText)
-                prob = (1 + featureOccurences) / (totalWordCount + self.__trainingData.FeatureCount)
-                self.__featureProbabilitiesGivenClass[cl][feature] = prob
-
-
+    def GetTestClassification(self):
+        testClassifications = {}
+        for text in self.__testData:
+            testClassifications[text] = self.ClassifyText(text)
+        return testClassifications
 
 
     def ClassifyText(self, text):
+        probabilities = self.__getClassProbabilities(text)
+        normaliser = sum(probabilities[z] for z in self.__classes)
+        classification = max(
+            [x for x in probabilities], 
+            key = lambda z: probabilities[z]
+            )
+        result = (classification, probabilities[classification] / normaliser)
+        return result
+
+
+    def __getClassProbabilities(self, text):
         probabilities = {}
-        for cl in self.__trainingData.Classes:
+        for cl in self.__classes:
             classProbability = 1
-            for feature in self.__trainingData.Features:
+            for feature in self.__features:
                 occurrencesInText = TextHelpers.countoccurences(feature, text)
 
                 if occurrencesInText > 0:
@@ -48,25 +45,9 @@ class BayesianClassifier(ClassifierBase):
                     featureProbability = 1 - self.__featureProbabilitiesGivenClass[cl][feature]
 
                 classProbability *= featureProbability
-
+            
             probabilities[cl] = self.__classProbabilities[cl] * classProbability
-
-        normaliser = sum(probabilities[z] for z in self.__trainingData.Classes)
-        classification = max(
-            [x for x in probabilities], 
-            key = lambda z: probabilities[z]
-            )
-        result = (classification, probabilities[classification] / normaliser)
-
-        return result
-
-
-    def GetTestClassification(self):
-        testClassifications = {}
-        for text in self.__trainingData.TestData:
-            testClassifications[text] = self.ClassifyText(text)
-        return testClassifications
-
+        return probabilities
 
 
 
