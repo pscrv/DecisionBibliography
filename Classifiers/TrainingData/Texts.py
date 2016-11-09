@@ -185,6 +185,14 @@ __texts = {
                 ]
     }
 
+__stopwords = {
+    'a', 'an', 'the', 'this', 'that', 'those', 'these',
+    'and', 'but', 'or',
+    'as', 'after', 'before', 'in', 'at', 'on', 'over', 'under', 'to', 'with', 'without', 'of', 'for', 'from', 'about',
+    'I', 'you', 'he', 'she', 'it', 'we', 'they',
+    'am', 'are', 'is', 'was', 'were', 'be',
+    'not',
+    }
 
 def GetText(keyword):
     if not keyword:
@@ -198,3 +206,6 @@ def GetText(keyword):
     else:
         result = __texts.get(keyword, [])
     return ' '.join(result)
+
+def GetStopwords():
+    return __stopwords

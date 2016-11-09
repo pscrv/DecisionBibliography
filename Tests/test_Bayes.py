@@ -44,7 +44,7 @@ class test_Bayes(unittest.TestCase):
         
         self.assertEqual(result1[0], 'restitutio')
         self.assertEqual(result2[0], 'restitutio')
-        self.assertEqual(result3[0], 'other')
+        self.assertNotEqual(result3[0], 'restitutio')
 
                 
     def test_Restitutio_withExtraction(self):
@@ -89,7 +89,7 @@ class test_Bayes(unittest.TestCase):
         
         self.assertEqual(result1[0], 'restitutio')
         self.assertEqual(result2[0], 'restitutio')
-        self.assertEqual(result3[0], 'other')
+        self.assertNotEqual(result3[0], 'restitutio')
 
 
 
@@ -131,7 +131,7 @@ class test_Bayes(unittest.TestCase):
         
         self.assertEqual(result1[0], 'mathematicalmethod')
         self.assertEqual(result2[0], 'mathematicalmethod')
-        self.assertEqual(result3[0], 'other')
+        self.assertNotEqual(result3[0], 'mathematicalmethod')
 
         
     def test_MathematicalMethod_withExtraction(self):
@@ -145,7 +145,7 @@ class test_Bayes(unittest.TestCase):
         self.assertTrue('52(2)' in restitutio[0])
 
         
-    def test_PublicPriorClassifier(self):
+    def test_PublicPriorUseClassifier(self):
         from Classifiers.Bayesian import BayesianClassifier
         from Classifiers.TrainingData.PublicPriorUse import PublicPriorUseTrainingData
 
