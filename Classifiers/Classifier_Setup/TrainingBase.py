@@ -11,7 +11,6 @@ class BinaryTrainingDataBase(SetupProvider):
         self._stopwords = self.__trainingTexts.GetStopwords()
         self._extrinsicFeatures = set()
         self._extractedFeatures = set()
-        #self._testTexts = []
                 
         self._name = keyword
         self._othername = 'other'
@@ -31,10 +30,6 @@ class BinaryTrainingDataBase(SetupProvider):
     def Features(self):
         return set.union(self._extrinsicFeatures, self._extractedFeatures)
         
-    #@property
-    #def TestData(self):
-    #    return self._testTexts    
-
     def GetTrainingTexts(self, cl):
         return self._texts.get(cl, '')
 
@@ -59,7 +54,7 @@ class BinaryTrainingDataBase(SetupProvider):
             totalDivisor = totalWordCount + featuresCount
 
             for feature in features:
-                featureOccurences = TextHelpers.countoccurences(feature, classText)
+                featureOccurences = TextHelpers.countstringoccurences(feature, classText)
                 prob = (1 + featureOccurences) / totalDivisor
                 featureProbabilitiesGivenClass[cl][feature] = prob
         return featureProbabilitiesGivenClass

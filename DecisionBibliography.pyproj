@@ -75,7 +75,13 @@
     <Compile Include="Classifiers\Classifier_Setup\TrainingTexts.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classifiers\Features.py">
+    <Compile Include="Classifiers\Issue_Extraction\BayesianFeature.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\Issue_Extraction\ClassifierSetup.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\Issue_Extraction\Features.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classifiers\Bayesian.py">
@@ -120,13 +126,13 @@
     <Compile Include="Tests\test_Bayes.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\test_ClassificationFeatures.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\test_ClassifierSetupFeatures.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\test_ExtractTexts.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Tests\test_IssueAnalysers.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Tests\test_Issues.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\test_simpleTextSearch.py">

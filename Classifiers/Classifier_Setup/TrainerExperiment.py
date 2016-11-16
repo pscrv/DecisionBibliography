@@ -47,7 +47,7 @@ class ExperimentalTrainer(SetupProvider):
             totalDivisor = totalWordCount + featuresCount
 
             for feature in features:
-                featureOccurences = TextHelpers.countoccurences(feature, classText)
+                featureOccurences = TextHelpers.countstringoccurences(feature, classText)
                 prob = (1 + featureOccurences) / totalDivisor
                 featureProbabilitiesGivenClass[cl][feature] = prob
         return featureProbabilitiesGivenClass
