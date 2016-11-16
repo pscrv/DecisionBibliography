@@ -1,19 +1,24 @@
-import abc
 from Helpers import TextHelpers
-from Classifiers.TrainingData import Texts
+from Classifiers.Classifier_Setup.TrainingTexts import TrainingTexts
+from Classifiers.Classifier_Setup.TrainingTextBase import TrainingTextProvider
+from Classifiers.Classifier_Setup.SetupBase import SetupProvider
 
-class BinaryTrainingDataBase(abc.ABC):
 
-    def __init__(self, keyword):
+class BinaryTrainingDataBase(SetupProvider):
+
+    def __init__(self, keyword, trainingTexts: TrainingTextProvider):
+        self.__trainingTexts = trainingTexts
+        self._stopwords = self.__trainingTexts.GetStopwords()
         self._extrinsicFeatures = set()
         self._extractedFeatures = set()
-        self._testTexts = []
+        #self._testTexts = []
                 
         self._name = keyword
         self._othername = 'other'
+
         self._texts = {
-            self._name: Texts.GetText(keyword),
-            self._othername: Texts.GetText('-' + keyword)
+            self._name: self.__trainingTexts.GetFeatureText(),
+            self._othername: self.__trainingTexts.GetNonFeatureText(),
             }
 
 
@@ -26,10 +31,9 @@ class BinaryTrainingDataBase(abc.ABC):
     def Features(self):
         return set.union(self._extrinsicFeatures, self._extractedFeatures)
         
-    @property
-    def TestData(self):
-        return self._testTexts
-    
+    #@property
+    #def TestData(self):
+    #    return self._testTexts    
 
     def GetTrainingTexts(self, cl):
         return self._texts.get(cl, '')
@@ -66,25 +70,12 @@ class BinaryTrainingDataBase(abc.ABC):
 
 
 class BinaryTrainingDate_WithExtraction_Base(BinaryTrainingDataBase):
-
-    @abc.abstractmethod
-    def _extractFeatures():
-        pass
     
     @property
     def Features(self):
         if not self._extractedFeatures:
             self._extractFeatures()
-        return super(BinaryTrainingDate_WithExtraction_Base, self).Features
-
-
-
-
-    #def __init__(self, keyword):
-    #    super(BinaryTrainingDate_WithExtraction_Base, self).__init__(keyword)
-        #self._extrinsicFeatures = set()
-        #self._extractedFeatures = set()
-                
+        return super(BinaryTrainingDate_WithExtraction_Base, self).Features                
 
 
     def _extractFeatures(self):
@@ -93,20 +84,17 @@ class BinaryTrainingDate_WithExtraction_Base(BinaryTrainingDataBase):
         
 
     def __extractFeaturesFromTexts(self):
-        stopwords = Texts.GetStopwords()        
-        fullTexts = {
-            'feature' : self._texts[self._name],
-            'other' : self._texts[self._othername],
-            }
-        reducedTexts = {
-            'feature' : ' '.join([x for x in self.__simpleWordSplit(fullTexts['feature']) if x.lower() not in stopwords]),
-            'other' : ' '.join([x for x in self.__simpleWordSplit(fullTexts['other']) if x.lower() not in stopwords]),
-            }
-        mostFrequent= {
-            'feature' : self.__getNMostFrequent(reducedTexts['feature'], 10),
-            'other' : self.__getNMostFrequent(reducedTexts['other'], 50)
-            }
-        self._extractedFeatures = {x for x in mostFrequent['feature'] if x not in mostFrequent['other']}
+        mostFrequentWordsInFeatureTexts = self.__getNMostFrequent(
+            ' '.join([x
+                      for x in self.__simpleWordSplit(self._texts[self._name])
+                      if x.lower() not in self._stopwords]),
+            10)
+        mostFrequentWordsOutsideFeatureTexts = self.__getNMostFrequent(
+            ' '.join([x
+                      for x in self.__simpleWordSplit(self._texts[self._othername])
+                      if x.lower() not in self._stopwords]), 
+            50)    
+        self._extractedFeatures = {x for x in mostFrequentWordsInFeatureTexts if x not in mostFrequentWordsOutsideFeatureTexts}
         
 
     def __getNMostFrequent(self, text, n = 10):
@@ -117,11 +105,11 @@ class BinaryTrainingDate_WithExtraction_Base(BinaryTrainingDataBase):
         for word in words:
             wordFrequencies[word] = wordFrequencies.get(word, 0) + 1            
         result = sorted(wordFrequencies.keys(), key=(lambda k: wordFrequencies[k]), reverse = True)[:n]
-        return result
+        return result        
     
     
     def __simpleWordSplit(self, text):
-        puncutation = ".,;:?!'/"
+        puncutation = '.,;:?!"/'
         for token in puncutation:
             text = text.replace(token, '')
         return text.split()

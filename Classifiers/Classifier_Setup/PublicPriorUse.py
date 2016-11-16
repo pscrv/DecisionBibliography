@@ -1,11 +1,11 @@
-from Classifiers.TrainingData.TrainingBase import BinaryTrainingDataBase, BinaryTrainingDate_WithExtraction_Base
-from Classifiers.TrainingData import Texts
+from Classifiers.Classifier_Setup.TrainingBase import BinaryTrainingDataBase, BinaryTrainingDate_WithExtraction_Base
+from Classifiers.Classifier_Setup.TrainingTexts import TrainingTexts
 
 
 class PublicPriorUseTrainingData(BinaryTrainingDataBase):
      
     def __init__(self):
-        super(PublicPriorUseTrainingData, self).__init__('publicprioruse')
+        super(PublicPriorUseTrainingData, self).__init__('publicprioruse', TrainingTexts('publicprioruse'))
         self._setup()
 
     def _setup(self):
@@ -19,5 +19,5 @@ class PublicPriorUseTrainingData(BinaryTrainingDataBase):
 class PublicPriorUseTrainingData_withExtraction(PublicPriorUseTrainingData, BinaryTrainingDate_WithExtraction_Base):
      
     def __init__(self):
-        BinaryTrainingDate_WithExtraction_Base.__init__(self, 'publicprioruse')
+        BinaryTrainingDate_WithExtraction_Base.__init__(self, 'publicprioruse', TrainingTexts('publicprioruse'))
         PublicPriorUseTrainingData._setup(self)

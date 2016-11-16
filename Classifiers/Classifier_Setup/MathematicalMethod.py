@@ -1,11 +1,11 @@
-from Classifiers.TrainingData.TrainingBase import BinaryTrainingDataBase, BinaryTrainingDate_WithExtraction_Base
-from Classifiers.TrainingData import Texts
+from Classifiers.Classifier_Setup.TrainingBase import BinaryTrainingDataBase, BinaryTrainingDate_WithExtraction_Base
+from Classifiers.Classifier_Setup.TrainingTexts import TrainingTexts
 
 
 class MathematicalMethodTrainingData(BinaryTrainingDataBase):
      
     def __init__(self):
-        super(MathematicalMethodTrainingData, self).__init__('mathematicalmethod')
+        super(MathematicalMethodTrainingData, self).__init__('mathematicalmethod', TrainingTexts('mathematicalmethod'))
         self._setup()
 
     def _setup(self):
@@ -19,7 +19,7 @@ class MathematicalMethodTrainingData(BinaryTrainingDataBase):
 class MathematicalMethodTrainingData_withExtraction(MathematicalMethodTrainingData, BinaryTrainingDate_WithExtraction_Base):
      
     def __init__(self):
-        BinaryTrainingDate_WithExtraction_Base.__init__(self, 'mathematicalmethod')
+        BinaryTrainingDate_WithExtraction_Base.__init__(self, 'mathematicalmethod', TrainingTexts('mathematicalmethod'))
         MathematicalMethodTrainingData._setup(self)
    
     

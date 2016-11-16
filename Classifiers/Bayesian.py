@@ -1,24 +1,38 @@
-
 from Helpers import TextHelpers
 from Classifiers.Base import ClassifierBase
-from Classifiers.TrainingData.TrainingBase import BinaryTrainingDataBase 
+from Classifiers.Classifier_Setup.SetupBase import SetupProvider 
+
 
 class BayesianClassifier(ClassifierBase):
+
+    @property
+    def Classes(self):
+        return {x for x in self.__classes}
+
+    @property
+    def Features(self):
+        return {x for x in self.__features}
     
-    def __init__(self, trainingData: BinaryTrainingDataBase):
-        self.__classes = trainingData.Classes
-        self.__features = trainingData.Features
-        self.__testData = trainingData.TestData
-        self.__classProbabilities = trainingData.GetClassProbabilities()
-        self.__featureProbabilitiesGivenClass = trainingData.GetFeatureProbabilities()
+    @property
+    def ClassProbabilities(self):
+        return {x:y for x,y in self.__classProbabilities.items()}
+        
+    @property
+    def FeatureProbabilitiesGivenClass(self):
+        return {x:y for x,y in self.__featureProbabilitiesGivenClass.items()}
+
+   
+
+
+    
+    def __init__(self, setupdata: SetupProvider):
+        self.__classes = setupdata.Classes
+        self.__features = setupdata.Features
+        self.__classProbabilities = setupdata.GetClassProbabilities()
+        self.__featureProbabilitiesGivenClass = setupdata.GetFeatureProbabilities()
        
         
 
-    def GetTestClassification(self):
-        testClassifications = {}
-        for text in self.__testData:
-            testClassifications[text] = self.ClassifyText(text)
-        return testClassifications
 
 
     def ClassifyText(self, text):

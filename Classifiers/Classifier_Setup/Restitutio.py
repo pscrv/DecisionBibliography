@@ -1,11 +1,11 @@
-from Classifiers.TrainingData.TrainingBase import BinaryTrainingDataBase, BinaryTrainingDate_WithExtraction_Base
-from Classifiers.TrainingData import Texts
+from Classifiers.Classifier_Setup.TrainingBase import BinaryTrainingDataBase, BinaryTrainingDate_WithExtraction_Base
+from Classifiers.Classifier_Setup.TrainingTexts import TrainingTexts
 
 
 class RestitutioTrainingData(BinaryTrainingDataBase):
      
     def __init__(self):
-        super(RestitutioTrainingData, self).__init__('restitutio')
+        super(RestitutioTrainingData, self).__init__('restitutio', TrainingTexts('restitutio'))
         self._setup()
 
     def _setup(self):
@@ -21,7 +21,7 @@ class RestitutioTrainingData(BinaryTrainingDataBase):
 class RestitutioTrainingData_withExtraction(RestitutioTrainingData, BinaryTrainingDate_WithExtraction_Base):
      
     def __init__(self):
-        BinaryTrainingDate_WithExtraction_Base.__init__(self, 'restitutio')
+        BinaryTrainingDate_WithExtraction_Base.__init__(self, 'restitutio', TrainingTexts('restitutio'))
         RestitutioTrainingData._setup(self)
 
 

@@ -1,4 +1,5 @@
 
+
 __texts = {
       'restitutio': [
                 """It was be concluded that the Appellant's application for re-establishment of 
@@ -209,3 +210,4 @@ def GetText(keyword):
 
 def GetStopwords():
     return __stopwords
+

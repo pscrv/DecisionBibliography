@@ -57,28 +57,55 @@
     <Compile Include="Classifiers\Base.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classifiers\Classifier_Setup\BayesianClassifierSetup.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\Classifier_Setup\SetupBase.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\Classifier_Setup\TrainerExperiment.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\Classifier_Setup\TrainingTextBase.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\Classifier_Setup\TrainingTextExperiment.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\Classifier_Setup\TrainingTexts.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Classifiers\Features.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classifiers\Bayesian.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classifiers\TrainingData\TrainingBase.py">
+    <Compile Include="Classifiers\Classifier_Setup\TrainingBase.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classifiers\TrainingData\MathematicalMethod.py">
+    <Compile Include="Classifiers\Classifier_Setup\MathematicalMethod.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classifiers\TrainingData\PublicPriorUse.py">
+    <Compile Include="Classifiers\Classifier_Setup\PublicPriorUse.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classifiers\TrainingData\Restitutio.py">
+    <Compile Include="Classifiers\Classifier_Setup\Restitutio.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classifiers\TrainingData\Texts.py">
+    <Compile Include="Classifiers\Classifier_Setup\Texts.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classifiers\TrainingData\__init__.py">
+    <Compile Include="Classifiers\Classifier_Setup\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\Issue_Extraction\TextProvider.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\Issue_Extraction\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classifiers\Serialisers.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classifiers\__init__.py">
@@ -91,6 +118,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\test_Bayes.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\test_ExtractTexts.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\test_IssueAnalysers.py">
@@ -205,8 +235,9 @@
     <Folder Include="app\" />
     <Folder Include="Analysers\" />
     <Folder Include="app\templatetags\" />
-    <Folder Include="Classifiers\TrainingData\" />
+    <Folder Include="Classifiers\Classifier_Setup\" />
     <Folder Include="Classifiers\" />
+    <Folder Include="Classifiers\Issue_Extraction\" />
     <Folder Include="Helpers\" />
     <Folder Include="TextSearch\" />
     <Folder Include="Tests\" />

@@ -1,20 +1,23 @@
 import unittest
 
 class test_Bayes(unittest.TestCase):
-        
+            
     def test_RestitutioClassifier(self):
         from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.TrainingData.Restitutio import RestitutioTrainingData 
+        from Classifiers.Classifier_Setup.Restitutio import RestitutioTrainingData 
+
+        test1 = """This paragraph is about restitutio in integrum. It refers to Article 122 EPC:"""
+        test2 = """ Some random paragraph that talks, if of anything at all, only about itself."""
 
         classifier = BayesianClassifier(RestitutioTrainingData())
-        result = classifier.GetTestClassification()
-        restitutio = [x for x, (y, z) in result.items() if y == 'restitutio']
-        self.assertEqual(len(restitutio), 1)
-        self.assertTrue('122' in restitutio[0])
+        result1 = classifier.ClassifyText(test1)
+        result2 = classifier.ClassifyText(test2)
+        self.assertEqual(result1[0], 'restitutio')
+        self.assertEqual(result2[0], 'other')
 
     def test_RestitutioClassifierLongerText(self):
         from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.TrainingData.Restitutio import RestitutioTrainingData
+        from Classifiers.Classifier_Setup.Restitutio import RestitutioTrainingData
         classifier = BayesianClassifier(RestitutioTrainingData())
 
         text1 = """ When an applicant is represented by a professional 
@@ -45,21 +48,23 @@ class test_Bayes(unittest.TestCase):
         self.assertEqual(result1[0], 'restitutio')
         self.assertEqual(result2[0], 'restitutio')
         self.assertNotEqual(result3[0], 'restitutio')
-
                 
     def test_Restitutio_withExtraction(self):
         from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.TrainingData.Restitutio import RestitutioTrainingData_withExtraction 
+        from Classifiers.Classifier_Setup.Restitutio import RestitutioTrainingData_withExtraction 
+        
+        test1 = """This paragraph is about restitutio in integrum. It refers to Article 122 EPC:"""
+        test2 = """ Some random paragraph that talks, if of anything at all, only about itself."""
 
         classifier = BayesianClassifier(RestitutioTrainingData_withExtraction())
-        result = classifier.GetTestClassification()
-        restitutio = [x for x, (y, z) in result.items() if y == 'restitutio']
-        self.assertEqual(len(restitutio), 1)
-        self.assertTrue('122' in restitutio[0])
+        result1 = classifier.ClassifyText(test1)
+        result2 = classifier.ClassifyText(test2)
+        self.assertEqual(result1[0], 'restitutio')
+        self.assertEqual(result2[0], 'other')
 
     def test_Restitutio_withExtraction_longerText(self):
         from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.TrainingData.Restitutio import RestitutioTrainingData_withExtraction
+        from Classifiers.Classifier_Setup.Restitutio import RestitutioTrainingData_withExtraction
         classifier = BayesianClassifier(RestitutioTrainingData_withExtraction())
 
         text1 = """ When an applicant is represented by a professional 
@@ -90,23 +95,25 @@ class test_Bayes(unittest.TestCase):
         self.assertEqual(result1[0], 'restitutio')
         self.assertEqual(result2[0], 'restitutio')
         self.assertNotEqual(result3[0], 'restitutio')
-
 
 
 
     def test_MathematicalMethodClassifier(self):
         from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.TrainingData.MathematicalMethod import MathematicalMethodTrainingData
+        from Classifiers.Classifier_Setup.MathematicalMethod import MathematicalMethodTrainingData
+        
+        test1 = """This paragraph is about mathematical methods. It refers to Article 52(2) EPC:"""
+        test2 = """ Some random paragraph that talks, if of anything at all, only about itself."""
 
         classifier = BayesianClassifier(MathematicalMethodTrainingData())
-        result = classifier.GetTestClassification()
-        restitutio = [x for x, (y, z) in result.items() if y == 'mathematicalmethod']
-        self.assertEqual(len(restitutio), 1)
-        self.assertTrue('52(2)' in restitutio[0])
+        result1 = classifier.ClassifyText(test1)
+        result2 = classifier.ClassifyText(test2)
+        self.assertEqual(result1[0], 'mathematicalmethod')
+        self.assertEqual(result2[0], 'other')
 
     def test_MathematicalMethodClassifierLongerText(self):
         from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.TrainingData.MathematicalMethod import MathematicalMethodTrainingData
+        from Classifiers.Classifier_Setup.MathematicalMethod import MathematicalMethodTrainingData
         classifier = BayesianClassifier(MathematicalMethodTrainingData())
 
         text1 = """These are a particular example of the principle that purely abstract or intellectual 
@@ -132,37 +139,61 @@ class test_Bayes(unittest.TestCase):
         self.assertEqual(result1[0], 'mathematicalmethod')
         self.assertEqual(result2[0], 'mathematicalmethod')
         self.assertNotEqual(result3[0], 'mathematicalmethod')
-
         
     def test_MathematicalMethod_withExtraction(self):
         from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.TrainingData.MathematicalMethod import MathematicalMethodTrainingData_withExtraction
+        from Classifiers.Classifier_Setup.MathematicalMethod import MathematicalMethodTrainingData_withExtraction
+        
+        test1 = """This paragraph is about mathematical methods. It refers to Article 52(2) EPC:"""
+        test2 = """ Some random paragraph that talks, if of anything at all, only about itself."""
 
         classifier = BayesianClassifier(MathematicalMethodTrainingData_withExtraction())
-        result = classifier.GetTestClassification()
-        restitutio = [x for x, (y, z) in result.items() if y == 'mathematicalmethod']
-        self.assertEqual(len(restitutio), 1)
-        self.assertTrue('52(2)' in restitutio[0])
+        result1 = classifier.ClassifyText(test1)
+        result2 = classifier.ClassifyText(test2)
+        self.assertEqual(result1[0], 'mathematicalmethod')
+        self.assertEqual(result2[0], 'other')
 
         
+             
     def test_PublicPriorUseClassifier(self):
         from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.TrainingData.PublicPriorUse import PublicPriorUseTrainingData
+        from Classifiers.Classifier_Setup.PublicPriorUse import PublicPriorUseTrainingData
+        
+        test1 = """This paragraph is about public prior use. It refers to Article 54 EPC."""
+        test2 = """ Some random paragraph that talks, if of anything at all, only about itself."""
 
         classifier = BayesianClassifier(PublicPriorUseTrainingData())
-        result = classifier.GetTestClassification()
-        restitutio = [x for x, (y, z) in result.items() if y == 'publicprioruse']
-        self.assertEqual(len(restitutio), 1)
-        self.assertTrue('54' in restitutio[0])
-
+        result1 = classifier.ClassifyText(test1)
+        result2 = classifier.ClassifyText(test2)
+        self.assertEqual(result1[0], 'publicprioruse')
+        self.assertEqual(result2[0], 'other')
 
     def test_PublicPriorUse_withExtraction(self):
         from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.TrainingData.PublicPriorUse import PublicPriorUseTrainingData_withExtraction
+        from Classifiers.Classifier_Setup.PublicPriorUse import PublicPriorUseTrainingData_withExtraction
+        
+        test1 = """This paragraph is about public prior use. It refers to Article 54 EPC."""
+        test2 = """ Some random paragraph that talks, if of anything at all, only about itself."""
 
         classifier = BayesianClassifier(PublicPriorUseTrainingData_withExtraction())
-        result = classifier.GetTestClassification()
-        restitutio = [x for x, (y, z) in result.items() if y == 'publicprioruse']
-        self.assertEqual(len(restitutio), 1)
-        self.assertTrue('54' in restitutio[0])
+        result1 = classifier.ClassifyText(test1)
+        result2 = classifier.ClassifyText(test2)
+        self.assertEqual(result1[0], 'publicprioruse')
+        self.assertEqual(result2[0], 'other')
+
+
+
+    def test_Serialisation(self):
+        from Classifiers.Bayesian import BayesianClassifier
+        from Classifiers.Classifier_Setup.Restitutio import RestitutioTrainingData 
+        from Classifiers import Serialisers 
+
+        classifier = BayesianClassifier(RestitutioTrainingData())
+        serialised = Serialisers.BayesianClassifierSerialise(classifier)
+        deserialised = Serialisers.BayesianClassifierDeserialise(serialised)
+
+        self.assertEqual(classifier.Classes, deserialised.Classes)
+        self.assertEqual(classifier.Features, deserialised.Features)
+        self.assertEqual(classifier.ClassProbabilities, deserialised.ClassProbabilities)
+        self.assertEqual(classifier.FeatureProbabilitiesGivenClass, deserialised.FeatureProbabilitiesGivenClass)
 
