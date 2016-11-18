@@ -37,3 +37,49 @@ class test_WordClassificationFeature(unittest.TestCase):
         self.assertEqual(result1[0], 'restitutio')
         self.assertEqual(result2[0], 'other')
 
+
+    def test_wordExtractor(self):
+        from Classifiers.Issue_Extraction.FeatureExtraction import WordExtractor
+        from Classifiers.Classifier_Setup import Texts
+        from Classifiers.Issue_Extraction.FeatureExtraction import WordClassificationFeature
+
+        goodtext = Texts.GetText('restitutio')
+        badtext = Texts.GetText('-restitutio')
+        stopwords = Texts.GetStopwords()        
+        extractor = WordExtractor(goodtext, badtext, stopwords, 20)
+        result = extractor.GetFeatures()
+
+        test = [x.__repr__() for x in result]
+
+
+        test1 = WordClassificationFeature('122')
+        self.assertTrue(test1.__repr__() in test)
+        
+
+    def test_substringExtractor(self):
+        from Classifiers.Issue_Extraction.FeatureExtraction import SubstringExtractor
+        from Classifiers.Classifier_Setup import Texts
+        from Classifiers.Classifier_Setup.TrainingTexts import TrainingTexts
+        from Classifiers.Issue_Extraction.FeatureExtraction import StringClassificationFeature
+        from Classifiers.Issue_Extraction.ClassifierSetup import TrainingDataSetup
+        from Classifiers.Issue_Extraction.BayesianFeature import BayesianClassifier
+
+        goodtext = Texts.GetText('restitutio')
+        badtext = Texts.GetText('-restitutio')
+        stopwords = Texts.GetStopwords()        
+        extractor = SubstringExtractor(goodtext, badtext, stopwords, 10)
+        features = extractor.GetFeatures()
+
+        trainingtexts = TrainingTexts('restitutio')
+        trainer = TrainingDataSetup('restitutio', features, trainingtexts)
+        classifier = BayesianClassifier(trainer)
+        result1 = classifier.ClassifyText("This short text talks of Article 122 EPC. It is about resitutio in integrum.")
+        result2 = classifier.ClassifyText("Just some random stuff that could be about anything but is actually aobut nothing.")
+        self.assertTrue(result1[0] == 'restitutio')
+        self.assertTrue(result2[0] != 'restitutio')
+ 
+
+
+
+
+

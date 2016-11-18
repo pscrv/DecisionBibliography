@@ -1,4 +1,5 @@
 import abc
+from Helpers import TextHelpers
 
 class ClassificationFeature(abc.ABC):
 
@@ -6,7 +7,7 @@ class ClassificationFeature(abc.ABC):
     def CountOccurrences(self, text : str):
         pass
 
-from Helpers import TextHelpers
+
 class WordClassificationFeature(ClassificationFeature):
 
     def __init__(self, word : str):
@@ -26,7 +27,7 @@ class StringClassificationFeature(ClassificationFeature):
         self._string = string
 
     def CountOccurrences(self, text):
-        return TextHelpers.countstringoccurencesinword(self._word, text)
+        return TextHelpers.countstringoccurencesinword(self._string, text)
 
     def __repr__(self):
         return '{}({})'.format(self.__class__, self._string)

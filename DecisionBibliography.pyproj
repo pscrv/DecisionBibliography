@@ -81,6 +81,9 @@
     <Compile Include="Classifiers\Issue_Extraction\ClassifierSetup.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classifiers\Issue_Extraction\FeatureExtraction.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Classifiers\Issue_Extraction\Features.py">
       <SubType>Code</SubType>
     </Compile>

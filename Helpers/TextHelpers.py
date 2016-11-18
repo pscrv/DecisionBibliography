@@ -3,6 +3,9 @@ import re
 def countwords(text):
    return len(re.findall(r"\b['\w]+\b", text))
 
+def countwordpairs(text):
+    return countwords(text) - 1
+
 def countstringoccurences(needle, haystack):
     return sum(1 for _ in re.finditer(r'%s' % re.escape(needle), haystack))
 
@@ -30,8 +33,8 @@ def countstringpairsinwords(needle1, needle2, distance, haystack):
 
 
 
-def countwordpairs(text):
-    return len(re.findall(r'\b\w+\b(\W+)(?=\b\w+\b)', text))
+def getwords(text):
+    return re.findall(r"\b['\w]+\b", text)
 
 def getwordpairs(text):    
     return re.findall(r"(\b['\w]+\b)(?=\W+(?=(\b['\w]+\b)))", text)
