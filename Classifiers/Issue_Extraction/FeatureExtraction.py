@@ -59,34 +59,14 @@ class SubstringExtractor(FeatureExtractor):
             self._features = self._extractFeatures()
         return self._features
 
+
+
     def _extractFeatures(self):
         goodWords = { word for word in TextHelpers.getwords(self._goodText) if word not in self._stopWords }
         shortGoodWords = { word for word in goodWords if len(word) <= self._minlength }
         shortWordGains = { x : self._stringGain(x) for x in shortGoodWords}
-
         longGoodWords = set.difference(goodWords, shortGoodWords)        
-        stringGains = {}
-        for word in longGoodWords:
-            wordLength = len(word)
-
-            wordGain = self._stringGain(word)
-            maxGain = 0
-            maxPosition = 0
-            for length in range(wordLength - 1, self._minlength - 1, -1):
-                maxGain = 0
-                maxPosition = 0
-                for start in range(0, wordLength - length + 1):
-                    gain = self._stringGain(word[start:length])
-                    if gain >= maxGain:
-                        maxGain = gain
-                        maxPosition = start
-                if maxGain < wordGain:
-                    break
-            bestLength = length
-            bestPosition = maxPosition
-            bestSubstring = word[bestPosition:bestPosition + bestLength]
-            stringGains[bestSubstring] = wordGain
-            
+        stringGains = self._getSubstringGains(longGoodWords)            
         allGains = {**stringGains, **shortWordGains}
 
         keptWords = sorted(
@@ -100,7 +80,37 @@ class SubstringExtractor(FeatureExtractor):
         return result
 
 
+    def _getSubstringGains(self, longGoodWords):
+        stringGains = {
+            bestSubstring : gain 
+            for (bestSubstring, gain) in 
+                (self._bestSubstringAndGain(word) for word in longGoodWords)
+            }
+        return stringGains
 
+
+    def _bestSubstringAndGain(self, word):
+        wordGain = self._stringGain(word)
+        maxGainForLength = 0
+        maxGainPosition = 0
+        for length in range(len(word) - 1, self._minlength - 1, -1):
+            maxGainForLength, maxGainPosition = self._maxGainAndPosition(word, length)
+            if maxGainForLength < wordGain:
+                break
+        bestSubstring = word[maxGainPosition:length]
+        return bestSubstring, wordGain
+
+
+
+
+    def _maxGainAndPosition(self, word, length):
+        maxGain = 0
+        for start in range(0, len(word) - length + 1):
+            gain = self._stringGain(word[start:length])
+            if gain >= maxGain:
+                maxGain = gain
+                maxPosition = start
+        return maxGain, maxPosition
 
 
 
