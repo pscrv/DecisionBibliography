@@ -1,71 +1,45 @@
 import unittest
 
+from Classifiers.Bayesian import BayesianClassifier
+from Classifiers.Classifier_Setup.SetupProvider import TrainingDataSetup
+from Classifiers.Features.FeatureExtraction import WordPairExtractor, WordExtractor, SubstringExtractor
+from Classifiers.TrainingTexts.TrainingTexts import TrainingTexts
+
 class test_Bayes(unittest.TestCase):
             
-    def test_RestitutioClassifier(self):
-        from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.Classifier_Setup.Restitutio import RestitutioTrainingData 
 
-        test1 = """This paragraph is about restitutio in integrum. It refers to Article 122 EPC:"""
-        test2 = """ Some random paragraph that talks, if of anything at all, only about itself."""
-
-        classifier = BayesianClassifier(RestitutioTrainingData())
-        result1 = classifier.ClassifyText(test1)
-        result2 = classifier.ClassifyText(test2)
-        self.assertEqual(result1[0], 'restitutio')
-        self.assertEqual(result2[0], 'other')
-
-    def test_RestitutioClassifierLongerText(self):
-        from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.Classifier_Setup.Restitutio import RestitutioTrainingData
-        classifier = BayesianClassifier(RestitutioTrainingData())
-
-        text1 = """ When an applicant is represented by a professional 
-        representative (Article 134(1) EPC), an application for re-establishment 
-        of rights under Article 122 EPC cannot be acceded to unless the representative 
-        himself can show that he has taken the due care required of an applicant by 
-        Article 122(1) EPC (cf. J 05/80 [OJ EPO 1981, 343], point 4 of the Reasons)."""
-        text2 = """However, if the representative has entrusted to an assistant the 
-        performance of routine tasks, the same strict standards of care are not expected 
-        of the assistant as are expected of the applicant or his representative (cf. J 05/80 
-        above, point 6 of the Reasons). Hence, a culpable error on the part of the assistant 
-        made in the course of carrying out routine tasks is not to be imputed to the 
-        representative if the latter has himself shown that he exercised the necessary 
-        due care in dealing with his assistant. In this respect, it is incumbent upon 
-        the representative to choose for the work a suitable person, properly instructed 
-        in the tasks to be performed, and to exercise reasonable supervision over the 
-        work (cf. J 05/80 above, point 7 of the Reasons)."""
-        text3 = """By	1925	present-day	Vietnam	was	divided	into	three	parts
-        under	French	colonial	rule.	The	southern	region	embracing Saigon
-        and	the	Mekong	delta	was	the	colony	of	Cochin-China; the	central	area
-        with	its	imperial	capital	at	Hue	was	the  protectorate	of	Annam…"""
-
-
-        result1 = classifier.ClassifyText(text1)
-        result2 = classifier.ClassifyText(text2)
-        result3 = classifier.ClassifyText(text3)
-        
-        self.assertEqual(result1[0], 'restitutio')
-        self.assertEqual(result2[0], 'restitutio')
-        self.assertNotEqual(result3[0], 'restitutio')
+    def test_restitutioClassifier(self):
                 
-    def test_Restitutio_withExtraction(self):
-        from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.Classifier_Setup.Restitutio import RestitutioTrainingData_withExtraction 
+        trainingTexts = TrainingTexts('restitutio')
+        pair_extractor = WordPairExtractor(trainingTexts, 20)
+        pairs = pair_extractor.GetFeatures()
+        word_extractor = WordExtractor(trainingTexts, 10)
+        words = word_extractor.GetFeatures()
+        features = pairs + words
+        trainer = TrainingDataSetup('restitutio', features, trainingTexts)
+        classifier = BayesianClassifier(trainer)
         
         test1 = """This paragraph is about restitutio in integrum. It refers to Article 122 EPC:"""
         test2 = """ Some random paragraph that talks, if of anything at all, only about itself."""
-
-        classifier = BayesianClassifier(RestitutioTrainingData_withExtraction())
         result1 = classifier.ClassifyText(test1)
         result2 = classifier.ClassifyText(test2)
         self.assertEqual(result1[0], 'restitutio')
         self.assertEqual(result2[0], 'other')
 
-    def test_Restitutio_withExtraction_longerText(self):
-        from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.Classifier_Setup.Restitutio import RestitutioTrainingData_withExtraction
-        classifier = BayesianClassifier(RestitutioTrainingData_withExtraction())
+        
+
+    def test_restitutioClassifierLongerText(self):
+                
+        trainingTexts = TrainingTexts('restitutio')
+        pair_extractor = WordPairExtractor(trainingTexts, 0)
+        pairs = pair_extractor.GetFeatures()
+        word_extractor = WordExtractor(trainingTexts, 100)
+        words = word_extractor.GetFeatures()
+        string_extractor = SubstringExtractor(trainingTexts, 0)
+        strings = string_extractor.GetFeatures()
+        features = pairs + words + strings
+        trainer = TrainingDataSetup('restitutio', features, trainingTexts)
+        classifier = BayesianClassifier(trainer)
 
         text1 = """ When an applicant is represented by a professional 
         representative (Article 134(1) EPC), an application for re-establishment 
@@ -94,27 +68,41 @@ class test_Bayes(unittest.TestCase):
         
         self.assertEqual(result1[0], 'restitutio')
         self.assertEqual(result2[0], 'restitutio')
-        self.assertNotEqual(result3[0], 'restitutio')
+        self.assertNotEqual(result3[0], 'restitutio')                        
+   
+        
 
-
-
-    def test_MathematicalMethodClassifier(self):
-        from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.Classifier_Setup.MathematicalMethod import MathematicalMethodTrainingData
+    def test_mathematicalMethodClassifier(self):
+                
+        trainingTexts = TrainingTexts('mathematicalmethod')
+        pair_extractor = WordPairExtractor(trainingTexts, 20)
+        pairs = pair_extractor.GetFeatures()
+        word_extractor = WordExtractor(trainingTexts, 10)
+        words = word_extractor.GetFeatures()
+        features = pairs + words
+        trainer = TrainingDataSetup('mathematicalmethod', features, trainingTexts)
+        classifier = BayesianClassifier(trainer)
         
         test1 = """This paragraph is about mathematical methods. It refers to Article 52(2) EPC:"""
         test2 = """ Some random paragraph that talks, if of anything at all, only about itself."""
 
-        classifier = BayesianClassifier(MathematicalMethodTrainingData())
         result1 = classifier.ClassifyText(test1)
         result2 = classifier.ClassifyText(test2)
         self.assertEqual(result1[0], 'mathematicalmethod')
         self.assertEqual(result2[0], 'other')
 
-    def test_MathematicalMethodClassifierLongerText(self):
-        from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.Classifier_Setup.MathematicalMethod import MathematicalMethodTrainingData
-        classifier = BayesianClassifier(MathematicalMethodTrainingData())
+
+
+    def test_mathematicalMethodClassifierLongerText(self):
+                
+        trainingTexts = TrainingTexts('mathematicalmethod')
+        pair_extractor = WordPairExtractor(trainingTexts, 20)
+        pairs = pair_extractor.GetFeatures()
+        word_extractor = WordExtractor(trainingTexts, 10)
+        words = word_extractor.GetFeatures()
+        features = pairs + words
+        trainer = TrainingDataSetup('mathematicalmethod', features, trainingTexts)
+        classifier = BayesianClassifier(trainer)
 
         text1 = """These are a particular example of the principle that purely abstract or intellectual 
         methods are not patentable. For example, an abstract shortcut method of division would be excluded 
@@ -140,60 +128,59 @@ class test_Bayes(unittest.TestCase):
         self.assertEqual(result2[0], 'mathematicalmethod')
         self.assertNotEqual(result3[0], 'mathematicalmethod')
         
-    def test_MathematicalMethod_withExtraction(self):
-        from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.Classifier_Setup.MathematicalMethod import MathematicalMethodTrainingData_withExtraction
-        
-        test1 = """This paragraph is about mathematical methods. It refers to Article 52(2) EPC:"""
-        test2 = """ Some random paragraph that talks, if of anything at all, only about itself."""
-
-        classifier = BayesianClassifier(MathematicalMethodTrainingData_withExtraction())
-        result1 = classifier.ClassifyText(test1)
-        result2 = classifier.ClassifyText(test2)
-        self.assertEqual(result1[0], 'mathematicalmethod')
-        self.assertEqual(result2[0], 'other')
-
         
              
-    def test_PublicPriorUseClassifier(self):
-        from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.Classifier_Setup.PublicPriorUse import PublicPriorUseTrainingData
+    def test_publicPriorUseClassifier(self):
+                
+        trainingTexts = TrainingTexts('publicprioruse')
+        pair_extractor = WordPairExtractor(trainingTexts, 20)
+        pairs = pair_extractor.GetFeatures()
+        word_extractor = WordExtractor(trainingTexts, 10)
+        words = word_extractor.GetFeatures()
+        features = pairs + words
+        trainer = TrainingDataSetup('publicprioruse', features, trainingTexts)
+        classifier = BayesianClassifier(trainer)
         
         test1 = """This paragraph is about public prior use. It refers to Article 54 EPC."""
         test2 = """ Some random paragraph that talks, if of anything at all, only about itself."""
 
-        classifier = BayesianClassifier(PublicPriorUseTrainingData())
         result1 = classifier.ClassifyText(test1)
         result2 = classifier.ClassifyText(test2)
         self.assertEqual(result1[0], 'publicprioruse')
         self.assertEqual(result2[0], 'other')
 
-    def test_PublicPriorUse_withExtraction(self):
-        from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.Classifier_Setup.PublicPriorUse import PublicPriorUseTrainingData_withExtraction
         
-        test1 = """This paragraph is about public prior use. It refers to Article 54 EPC."""
-        test2 = """ Some random paragraph that talks, if of anything at all, only about itself."""
 
-        classifier = BayesianClassifier(PublicPriorUseTrainingData_withExtraction())
-        result1 = classifier.ClassifyText(test1)
-        result2 = classifier.ClassifyText(test2)
-        self.assertEqual(result1[0], 'publicprioruse')
-        self.assertEqual(result2[0], 'other')
-
-
-
+        
     def test_Serialisation(self):
-        from Classifiers.Bayesian import BayesianClassifier
-        from Classifiers.Classifier_Setup.Restitutio import RestitutioTrainingData 
-        from Classifiers import Serialisers 
+        from Classifiers import Serialisers
+                
+        trainingTexts = TrainingTexts('restitutio')
+        word_extractor = WordExtractor(trainingTexts, 10)
+        words = word_extractor.GetFeatures()
+        features = words
+        trainer = TrainingDataSetup('restitutio', features, trainingTexts)
+        classifier = BayesianClassifier(trainer)
 
-        classifier = BayesianClassifier(RestitutioTrainingData())
         serialised = Serialisers.BayesianClassifierSerialise(classifier)
-        deserialised = Serialisers.BayesianClassifierDeserialise(serialised)
+        deserialised = Serialisers.BayesianClassifierDeserialise_ftr(serialised)
 
         self.assertEqual(classifier.Classes, deserialised.Classes)
         self.assertEqual(classifier.Features, deserialised.Features)
         self.assertEqual(classifier.ClassProbabilities, deserialised.ClassProbabilities)
         self.assertEqual(classifier.FeatureProbabilitiesGivenClass, deserialised.FeatureProbabilitiesGivenClass)
 
+                         
+
+
+    def test_featureEquality(self):
+        from Classifiers.Features.Features import WordClassificationFeature
+        x = WordClassificationFeature('test')
+        y = WordClassificationFeature('test')
+
+        res1 = x is y
+        res2 = x == y
+
+        self.assertFalse(x is y)
+        self.assertEqual(x, y)
+        self.assertTrue(x == y)

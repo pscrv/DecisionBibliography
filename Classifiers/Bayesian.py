@@ -51,12 +51,12 @@ class BayesianClassifier(ClassifierBase):
         for cl in self.__classes:
             classProbability = 1
             for feature in self.__features:
-                occurrencesInText = TextHelpers.countstringoccurences(feature, text)
+                occurrencesInText = feature.CountOccurrences(text)
 
                 if occurrencesInText > 0:
-                    featureProbability = self.__featureProbabilitiesGivenClass[cl][feature] ** occurrencesInText
+                    featureProbability = self.__featureProbabilitiesGivenClass[cl][feature.Name] ** occurrencesInText
                 else:
-                    featureProbability = 1 - self.__featureProbabilitiesGivenClass[cl][feature]
+                    featureProbability = 1 - self.__featureProbabilitiesGivenClass[cl][feature.Name]
 
                 classProbability *= featureProbability
             

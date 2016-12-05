@@ -20,7 +20,7 @@ class ClassifierSetupProvider(abc.ABC):
 
 
 
-from Classifiers.Issue_Extraction.Features import ClassificationFeature
+from Classifiers.Features.Features import ClassificationFeature
 from Helpers import TextHelpers
 class TrainingDataSetup(ClassifierSetupProvider):
 
@@ -46,6 +46,8 @@ class TrainingDataSetup(ClassifierSetupProvider):
     def Features(self):
         return self._features
    
+
+
     def GetClassProbabilities(self):
         result = {}
         for cl in self.Classes:
@@ -64,10 +66,8 @@ class TrainingDataSetup(ClassifierSetupProvider):
             for feature in self._features:
                 featureOccurences = feature.CountOccurrences(classText)
                 prob = (1 + featureOccurences) / totalDivisor
-                featureProbabilitiesGivenClass[cl][feature] = prob
+                featureProbabilitiesGivenClass[cl][feature.Name] = prob
         return featureProbabilitiesGivenClass
-
-
 
 
 

@@ -1,6 +1,5 @@
 from Helpers import TextHelpers
 from Classifiers.Base import ClassifierBase
-from Classifiers.Classifier_Setup.SetupBase import SetupProvider 
 
 
 class BayesianClassifier(ClassifierBase):
@@ -22,8 +21,6 @@ class BayesianClassifier(ClassifierBase):
         return {x:y for x,y in self.__featureProbabilitiesGivenClass.items()}
 
    
-
-
     
     def __init__(self, setupdata: SetupProvider):
         self.__classes = setupdata.Classes

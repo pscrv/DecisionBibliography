@@ -195,6 +195,7 @@ __stopwords = {
     'not',
     }
 
+
 def GetText(keyword):
     if not keyword:
         return ''    
@@ -207,6 +208,7 @@ def GetText(keyword):
     else:
         result = __texts.get(keyword, [])
     return ' '.join(result)
+
 
 def GetStopwords():
     return __stopwords

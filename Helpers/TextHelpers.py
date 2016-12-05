@@ -12,6 +12,9 @@ def countstringoccurences(needle, haystack):
 def countwordoccurences(needle, haystack):
     return sum(1 for _ in re.finditer(r'\b%s\b' % re.escape(needle), haystack))
 
+def countwordpairoccurences(needlepair, haystack):
+    return sum(1 for _ in re.finditer(r"(\b{}\b)(?=\W+(?=(\b{}\b)))".format(re.escape(needlepair[0]), re.escape(needlepair[1])), haystack))
+
 def countstringoccurencesinword(needle, haystack):
     return sum(1 for _ in re.finditer(r"\b(['\w]*)?%s(['\w]*)?\b" % re.escape(needle), haystack))
 
@@ -38,4 +41,17 @@ def getwords(text):
 
 def getwordpairs(text):    
     return re.findall(r"(\b['\w]+\b)(?=\W+(?=(\b['\w]+\b)))", text)
+
+
+def removeWords(text, words):
+    if not words:
+        return text
+    wordList = list(words)
+    badwords = wordList[0]
+    for string in wordList[1:]:
+        badwords += "|" + string
+    finder = re.compile(r"\b(" + badwords + r")\b", re.IGNORECASE)
+    newtext = finder.sub('', text)
+    return newtext
+
 

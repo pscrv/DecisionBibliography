@@ -1,9 +1,6 @@
 import django
 from django.test import TestCase
 
-from TextSearch.SimpleSearch import SimpleTextSearcher
-
-
 class test_SimpleTextSearcher(TestCase):
         
     @classmethod
@@ -12,9 +9,10 @@ class test_SimpleTextSearcher(TestCase):
         django.setup()
         
     def setUp(self):
+        from TextSearch.SimpleSearch import SimpleTextSearcher
         self.searcher = SimpleTextSearcher(['legal', 'board'])
 
     def test_findsG1_97(self):
-        result = self.searcher.Result
+        result = self.searcher.Results
         resultList = [a.decision.CaseNumber for a in result]
         self.assertTrue('G 0001/97' in resultList)

@@ -1,5 +1,5 @@
 import abc
-from Classifiers.Classifier_Setup import Texts
+from Classifiers.TrainingTexts import Texts
 
 class TrainingTextProvider(abc.ABC):
 

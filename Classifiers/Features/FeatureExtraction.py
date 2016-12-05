@@ -1,27 +1,13 @@
 import abc
 from Helpers import TextHelpers
-from Classifiers.Issue_Extraction.Features import WordClassificationFeature, StringClassificationFeature
+from Classifiers.Features.Features import WordClassificationFeature, StringClassificationFeature, StringInWordPairClassificationFeature
 
 class FeatureExtractor(abc.ABC):
 
     @abc.abstractmethod
-    def GetFeatures(self):
+    def _extractFeatures(self):
         pass
 
-
-    def __init__(self, goodtext, badtext, stopwords, featurenumber):
-        self._goodText = goodtext
-        self._badText = badtext
-        self._stopWords = stopwords
-        self._featureNumber = featurenumber
-        self._features = None
-        self._goodWordCount = TextHelpers.countwords(self._goodText)
-        self._badWordCount = TextHelpers.countwords(self._badText)
-
-
-
-
-class WordExtractor(FeatureExtractor):
 
     def GetFeatures(self):
         if not self._features:
@@ -29,13 +15,26 @@ class WordExtractor(FeatureExtractor):
         return self._features
     
 
+    def __init__(self, trainingtext, featurenumber):
+        self._goodText = trainingtext.GetReducedFeatureText()
+        self._goodWordCount = trainingtext.GetFeatureTextWordCount()
+        self._badText = trainingtext.GetReducedNonFeatureText()
+        self._badWordCount = trainingtext.GetNonFeatureTextWordCount()
+        self._featureNumber = featurenumber
+        self._features = None
+
+
+
+
+class WordExtractor(FeatureExtractor):
+
     def _extractFeatures(self):
         goodWordFrequencies = { word : TextHelpers.countwordoccurences(word, self._goodText) / self._goodWordCount
-                               for word in {x for x in TextHelpers.getwords(self._goodText) if x not in self._stopWords}
+                               for word in {x for x in TextHelpers.getwords(self._goodText)}
                                } 
 
         badWordFrequencies = { word : TextHelpers.countwordoccurences(word, self._badText) / self._badWordCount
-                               for word in {x for x in TextHelpers.getwords(self._badText) if x not in self._stopWords}
+                               for word in {x for x in TextHelpers.getwords(self._goodText)}
                                }
         
         keptWords = sorted(
@@ -49,25 +48,45 @@ class WordExtractor(FeatureExtractor):
         return result
 
  
+class WordPairExtractor(FeatureExtractor):
+
+    def _extractFeatures(self):
+
+        goodWordPairs = TextHelpers.getwordpairs(self._goodText)
+        pairGains = { wordPair : self._pairGain(wordPair) for wordPair in goodWordPairs }
+        
+        keptPairs = sorted(
+            pairGains.keys(), 
+            key=(lambda k: pairGains[k]), 
+            reverse = True
+            )[:self._featureNumber]
+
+        result = [StringInWordPairClassificationFeature(x, y) for (x, y) in keptPairs]
+
+        return result
+
+    def _pairGain(self, wordPair):
+        frequencyInGoodTexts = TextHelpers.countwordpairoccurences(wordPair, self._goodText)
+        frequencyInBadTexts = TextHelpers.countwordpairoccurences(wordPair, self._badText)
+        if frequencyInBadTexts == 0.0:
+            frequencyInBadTexts = 0.1 / self._badWordCount
+        return frequencyInGoodTexts / frequencyInBadTexts
+
+
+
         
 class SubstringExtractor(FeatureExtractor):
 
     _minlength = 5
-    
-    def GetFeatures(self):
-        if not self._features:
-            self._features = self._extractFeatures()
-        return self._features
-
 
 
     def _extractFeatures(self):
-        goodWords = { word for word in TextHelpers.getwords(self._goodText) if word not in self._stopWords }
+        goodWords = { word for word in TextHelpers.getwords(self._goodText) }
         shortGoodWords = { word for word in goodWords if len(word) <= self._minlength }
         shortWordGains = { x : self._stringGain(x) for x in shortGoodWords}
         longGoodWords = set.difference(goodWords, shortGoodWords)        
         stringGains = self._getSubstringGains(longGoodWords)            
-        allGains = {**stringGains, **shortWordGains}
+        allGains = { **stringGains, **shortWordGains }
 
         keptWords = sorted(
             allGains.keys(), 
@@ -101,17 +120,14 @@ class SubstringExtractor(FeatureExtractor):
         return bestSubstring, wordGain
 
 
-
-
     def _maxGainAndPosition(self, word, length):
         maxGain = 0
-        for start in range(0, len(word) - length + 1):
+        for start in range(0, len(word) - length + 1):  
             gain = self._stringGain(word[start:length])
             if gain >= maxGain:
                 maxGain = gain
                 maxPosition = start
         return maxGain, maxPosition
-
 
 
     def _stringGain(self, string):
