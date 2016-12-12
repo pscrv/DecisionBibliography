@@ -70,7 +70,7 @@ class test_Bayes(unittest.TestCase):
         self.assertEqual(result2[0], 'restitutio')
         self.assertNotEqual(result3[0], 'restitutio')                        
    
-        
+          
 
     def test_mathematicalMethodClassifier(self):
                 

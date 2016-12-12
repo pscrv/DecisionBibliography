@@ -69,19 +69,13 @@
     <Compile Include="Classifiers\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="__old__classifier\TrainerExperiment.py">
+    <Compile Include="Tests\test_TrainingTextFinder.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classifiers\TrainingTexts\TrainingTextBase.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="__old__classifier\TrainingTextExperiment.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Classifiers\TrainingTexts\TrainingTexts.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="__old__classifier\BayesianFeature1.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classifiers\Classifier_Setup\SetupProvider.py">
@@ -96,28 +90,13 @@
     <Compile Include="Classifiers\Bayesian.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="__old__classifier\TrainingBase.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="__old__classifier\MathematicalMethod.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="__old__classifier\PublicPriorUse.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="__old__classifier\Restitutio.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Classifiers\TrainingTexts\Texts.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classifiers\Classifier_Setup\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="__old__classifier\TextProvider.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="__old__classifier\Issue_Extraction\__init__.py">
+    <Compile Include="Classifiers\TrainingTexts\TextsfFromDB.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classifiers\Serialisers.py">
@@ -258,12 +237,10 @@
     <Folder Include="app\templatetags\" />
     <Folder Include="Classifiers\Classifier_Setup\" />
     <Folder Include="Classifiers\" />
-    <Folder Include="__old__classifier\Issue_Extraction\" />
     <Folder Include="Classifiers\Features\" />
     <Folder Include="Classifiers\TrainingTexts\" />
     <Folder Include="Helpers\" />
     <Folder Include="Serialisation\" />
-    <Folder Include="__old__classifier\" />
     <Folder Include="TextSearch\" />
     <Folder Include="Tests\" />
     <Folder Include="AnalysisStorers\" />
