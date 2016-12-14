@@ -27,9 +27,7 @@ class WordClassificationFeature(ClassificationFeature):
     def CountOccurrences(self, text):
         return TextHelpers.countwordoccurences(self._word, text)
    
-    def __repr__(self):
-        return 'WordClassificationFeature({})'.format(self._word)
-
+   
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
             return NotImplemented
@@ -37,6 +35,10 @@ class WordClassificationFeature(ClassificationFeature):
 
     def __hash__(self):
         return self._word.__hash__()
+   
+    def __repr__(self):
+        return 'WordClassificationFeature({})'.format(self._word)
+
 
     
     
@@ -52,6 +54,14 @@ class StringClassificationFeature(ClassificationFeature):
 
     def CountOccurrences(self, text):
         return TextHelpers.countstringoccurencesinword(self._string, text)
+
+    def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return NotImplemented
+        return self._string == other._string
+
+    def __hash__(self):
+        return self._string.__hash__()
 
     def __repr__(self):
         return 'StringClassificationFeature({})'.format(self._string)
@@ -71,6 +81,15 @@ class StringInWordPairClassificationFeature(ClassificationFeature):
     def CountOccurrences(self, text):
         return TextHelpers.countstringpairsinwords(self._string1, self._string2, 0, text)
 
+
+    def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return NotImplemented
+        return (self._string1 == other._string1) and (self._string2 == other._string2)
+
+    def __hash__(self):
+        return (self._string1 + self._string2).__hash__()
+
     def __repr__(self):
         return 'StringInWordPairClassificationFeature({} +++ {})'.format(self._string1, self._string2)
 
@@ -78,22 +97,6 @@ class StringInWordPairClassificationFeature(ClassificationFeature):
 
 
 
-
- 
-class Tryout(ClassificationFeature):
-
-    def __init__(self, word : str):
-        self._word = word
-
-    @property
-    def Name(self):
-        return self._word
-
-    def CountOccurrences(self, text):
-        return TextHelpers.countwordoccurences(self._word, text)
-
-    def __repr__(self):
-        return 'WordClassificationFeature({})'.format(self._word)
 
 
 

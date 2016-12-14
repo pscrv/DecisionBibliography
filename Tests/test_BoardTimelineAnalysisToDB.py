@@ -3,11 +3,11 @@ from django.test import TestCase
 
 
 
-class test_BoarTimelinedAnalysisToDB(TestCase):
+class test_BoardTimelinedAnalysisToDB(TestCase):
         
     @classmethod
     def setUpClass(cls):    
-        super(test_BoarTimelinedAnalysisToDB, cls).setUpClass()
+        super(test_BoardTimelinedAnalysisToDB, cls).setUpClass()
         django.setup()
         
     def setUp(self):

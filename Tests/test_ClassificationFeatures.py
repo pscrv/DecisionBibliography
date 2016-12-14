@@ -1,5 +1,5 @@
 import unittest
-from Classifiers.Issue_Extraction import Features
+from Classifiers.Features import Features
 
 class test_WordClassificationFeature(unittest.TestCase):
             

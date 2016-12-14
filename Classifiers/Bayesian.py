@@ -5,6 +5,30 @@ from Classifiers.Classifier_Setup.SetupBase import SetupProvider
 
 class BayesianClassifier(ClassifierBase):
 
+    @classmethod
+    def MakeClassifier(cls, trainingtextname, words, wordpairs):
+        words_ok = all(isinstance(x, str) for x in words)
+        if not words_ok:
+            raise TypeError('parameter "words" is not an iterable of strings')
+
+        pairs_ok = all(isinstance(x, str) and isinstance(y, str)
+                       for (x, y) in wordpairs)
+        if not pairs_ok:
+            raise TypeError('parameter "wordpairs" is not an iterable of (string, string)')
+
+
+        from Classifiers.Classifier_Setup.SetupProvider import TrainingDataSetup
+        from Classifiers.Features.Features import WordClassificationFeature, StringInWordPairClassificationFeature
+        from Classifiers.TrainingTexts.TrainingTexts import TrainingTexts
+        features = ([WordClassificationFeature(x) for x in words] 
+                    + [StringInWordPairClassificationFeature(x, y) for (x, y) in wordpairs])   
+        trainingtexts = TrainingTexts(trainingtextname)
+        trainer = TrainingDataSetup(trainingtextname, features, trainingtexts)
+        classifier = BayesianClassifier(trainer)
+        return classifier
+
+
+
     @property
     def Classes(self):
         return {x for x in self.__classes}
@@ -20,8 +44,6 @@ class BayesianClassifier(ClassifierBase):
     @property
     def FeatureProbabilitiesGivenClass(self):
         return {x:y for x,y in self.__featureProbabilitiesGivenClass.items()}
-
-   
 
 
     

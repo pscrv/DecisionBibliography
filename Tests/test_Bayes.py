@@ -163,7 +163,7 @@ class test_Bayes(unittest.TestCase):
         classifier = BayesianClassifier(trainer)
 
         serialised = Serialisers.BayesianClassifierSerialise(classifier)
-        deserialised = Serialisers.BayesianClassifierDeserialise_ftr(serialised)
+        deserialised = Serialisers.BayesianClassifierDeserialise(serialised)
 
         self.assertEqual(classifier.Classes, deserialised.Classes)
         self.assertEqual(classifier.Features, deserialised.Features)

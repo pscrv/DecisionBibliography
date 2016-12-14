@@ -85,9 +85,9 @@ class SubstringExtractor(FeatureExtractor):
         shortGoodWords = { word for word in goodWords if len(word) <= self._minlength }
         shortWordGains = { x : self._stringGain(x) for x in shortGoodWords}
         longGoodWords = set.difference(goodWords, shortGoodWords)        
-        stringGains = self._getSubstringGains(longGoodWords)            
+        stringGains = self._getSubstringGains(longGoodWords)  
         allGains = { **stringGains, **shortWordGains }
-
+        
         keptWords = sorted(
             allGains.keys(), 
             key=(lambda k: allGains[k]), 
