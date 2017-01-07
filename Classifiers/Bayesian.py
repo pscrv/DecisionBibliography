@@ -1,6 +1,6 @@
 from Helpers import TextHelpers
 from Classifiers.Base import ClassifierBase
-from Classifiers.Classifier_Setup.SetupBase import SetupProvider 
+from Classifiers.Classifier_Setup.SetupProvider import ClassifierSetupProvider
 
 
 class BayesianClassifier(ClassifierBase):
@@ -27,7 +27,9 @@ class BayesianClassifier(ClassifierBase):
         classifier = BayesianClassifier(trainer)
         return classifier
 
-
+    @property
+    def Name(self):
+        return self.__name
 
     @property
     def Classes(self):
@@ -47,8 +49,9 @@ class BayesianClassifier(ClassifierBase):
 
 
     
-    def __init__(self, setupdata: SetupProvider):
-        self.__classes = setupdata.Classes
+    def __init__(self, setupdata: ClassifierSetupProvider):
+        self.__name = setupdata.Name
+        self.__classes = [self.__name, 'other']
         self.__features = setupdata.Features
         self.__classProbabilities = setupdata.GetClassProbabilities()
         self.__featureProbabilitiesGivenClass = setupdata.GetFeatureProbabilities()
@@ -60,11 +63,7 @@ class BayesianClassifier(ClassifierBase):
     def ClassifyText(self, text):
         probabilities = self.__getClassProbabilities(text)
         normaliser = sum(probabilities[z] for z in self.__classes)
-        classification = max(
-            [x for x in probabilities], 
-            key = lambda z: probabilities[z]
-            )
-        result = (classification, probabilities[classification] / normaliser)
+        result = probabilities[self.__name] / normaliser
         return result
 
 

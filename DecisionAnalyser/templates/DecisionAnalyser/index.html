@@ -1,0 +1,47 @@
+{% load classhighlight_filters %}
+{% load highlight_filters %}
+
+<html>
+<head>
+    <title> {{ decision.CaseNumber }} </title>
+    
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'DecisionAnalyser/content/DA.css' %}" />
+    <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h1>
+                {{ decision.CaseNumber|highlight_and_link_casenumbers }}
+                </h1>
+                <h3> Highlights: restitutio in integrum. </h3>
+            </div>
+            <div class="col-md-9">
+                <h3> Facts </h3>
+                {% for para, emphasis in facts %}    
+                    <p class={{emphasis}}> {{ para }} </p>
+                {% endfor %}
+    
+                <h3> Reasons </h3>
+                {% for para, emphasis in reasons %}    
+                    <p class={{emphasis}}> {{ para }} </p>
+                {% endfor %}
+    
+                <h3> Order </h3>
+                {% for para, emphasis in order %}    
+                    <p class={{emphasis}}> {{ para }} </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>        
+
+

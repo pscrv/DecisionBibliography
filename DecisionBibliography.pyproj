@@ -54,6 +54,9 @@
     <Compile Include="app\templatetags\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\urls.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Classifiers\Base.py">
       <SubType>Code</SubType>
     </Compile>
@@ -69,8 +72,35 @@
     <Compile Include="Classifiers\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DecisionAnalyser\DecisionProvider.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DecisionAnalyser\EPOAnalyser\TextAnalyser.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DecisionAnalyser\EPOAnalyser\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DecisionAnalyser\models.py" />
+    <Compile Include="DecisionAnalyser\templatetags\classhighlight_filters.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DecisionAnalyser\templatetags\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DecisionAnalyser\tests.py" />
+    <Compile Include="DecisionAnalyser\urls.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DecisionAnalyser\ViewModels\Tryout.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DecisionAnalyser\ViewModels\Base.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DecisionAnalyser\ViewModels\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DecisionAnalyser\views.py" />
     <Compile Include="DecisionAnalyser\__init__.py" />
     <Compile Include="Tests\test_TrainingTextFinder.py">
@@ -241,7 +271,14 @@
     <Folder Include="Classifiers\Features\" />
     <Folder Include="Classifiers\TrainingTexts\" />
     <Folder Include="DecisionAnalyser\" />
+    <Folder Include="DecisionAnalyser\EPOAnalyser\" />
+    <Folder Include="DecisionAnalyser\static\" />
+    <Folder Include="DecisionAnalyser\static\DecisionAnalyser\" />
+    <Folder Include="DecisionAnalyser\static\DecisionAnalyser\content\" />
+    <Folder Include="DecisionAnalyser\templatetags\" />
+    <Folder Include="DecisionAnalyser\ViewModels\" />
     <Folder Include="DecisionAnalyser\templates\" />
+    <Folder Include="DecisionAnalyser\templates\DecisionAnalyser\" />
     <Folder Include="Helpers\" />
     <Folder Include="Serialisation\" />
     <Folder Include="TextSearch\" />
@@ -267,7 +304,8 @@
     <Content Include="app\templates\app\decision.html" />
     <Content Include="app\templates\app\decisionversionlist.html" />
     <Content Include="app\templates\app\textsearch.html" />
-    <Content Include="DecisionAnalyser\templates\index.html" />
+    <Content Include="DecisionAnalyser\static\DecisionAnalyser\content\DA.css" />
+    <Content Include="DecisionAnalyser\templates\DecisionAnalyser\index.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

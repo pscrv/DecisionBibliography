@@ -15,7 +15,7 @@ def BayesianClassifierSerialise(classifier: BayesianClassifier):
     features = [x.serialise() for x in classifier.Features]
 
     jsonDictionary = {
-        'classes': json.dumps(classifier.Classes, default = jdefault),
+        'name': json.dumps(classifier.Name, default = jdefault),
         'features': json.dumps(features, default = jdefault),
         'classprobabilities': json.dumps(classifier.ClassProbabilities, default = jdefault),
         'featureprobabilitiesgivenclass': json.dumps(classifier.FeatureProbabilitiesGivenClass, default = jdefault),    
@@ -36,7 +36,8 @@ def BayesianClassifierDeserialise(serialisedclassifier):
     features = {deserialise(x) for x in ftrs}
 
     dataDicationary = {
-    'classes': set(json.loads(jsonDictionary['classes'])),
+    #'name': set(json.loads(jsonDictionary['name'])),
+    'name': json.loads(jsonDictionary['name']),
     'features': set(features),
     'classprobabilities': json.loads(jsonDictionary['classprobabilities']),
     'featureprobabilitiesgivenclass': json.loads(jsonDictionary['featureprobabilitiesgivenclass']),

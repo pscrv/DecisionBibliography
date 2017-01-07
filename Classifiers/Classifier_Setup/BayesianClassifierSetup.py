@@ -1,10 +1,10 @@
-from Classifiers.Classifier_Setup.SetupBase import SetupProvider
+from Classifiers.Classifier_Setup.SetupBase import ClassifierSetupProvider
 
-class SimpleSetup(SetupProvider):
+class SimpleSetup(ClassifierSetupProvider):
 
     @property
-    def Classes(self):
-        return self.__data['classes']
+    def Name(self):
+        return self.__data['name']
     
     @property
     def Features(self):

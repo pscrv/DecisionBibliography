@@ -1,27 +1,7 @@
-import abc
-
-class ClassifierSetupProvider(abc.ABC):
-   
-    @abc.abstractproperty
-    def Classes(self):
-        pass
-    
-    @abc.abstractproperty
-    def Features(self):
-        pass
-
-    @abc.abstractproperty
-    def GetClassProbabilities(self):
-        pass
-    
-    @abc.abstractproperty
-    def GetFeatureProbabilities(self):
-        pass
-
-
-
+from Classifiers.Classifier_Setup.SetupBase import ClassifierSetupProvider
 from Classifiers.Features.Features import ClassificationFeature
 from Helpers import TextHelpers
+
 class TrainingDataSetup(ClassifierSetupProvider):
 
     def __init__(self, name, features, trainingTexts):
@@ -42,6 +22,11 @@ class TrainingDataSetup(ClassifierSetupProvider):
     def Classes(self):
         return [self._name, self._othername]
     
+
+
+    @property 
+    def Name(self):
+        return self._name
     @property
     def Features(self):
         return self._features

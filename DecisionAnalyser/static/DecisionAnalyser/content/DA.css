@@ -1,0 +1,36 @@
+﻿body
+{
+}
+
+a, a:hover {
+    color: #003d25;
+}
+
+p {
+    opacity: 0.5;
+    font-size: 12px;
+}
+
+p:hover {
+    opacity: 1.0;
+    font-weight: 500;
+    font-size: 16;
+}
+
+p.high {
+    color: #003d25;
+    font-weight: 900;
+    opacity: 1.0;
+}
+
+p.medium {
+    color: #035c3a;
+    font-weight: 700;
+    opacity: 1.0;
+}
+
+p.low {
+    color: #096944;
+    font-weight: 600;
+    opacity: 1.0;
+}

@@ -1,11 +1,11 @@
 import abc
 
-class SetupProvider(abc.ABC):
-   
+class ClassifierSetupProvider(abc.ABC):
+       
     @abc.abstractproperty
-    def Classes(self):
+    def Name(self):
         pass
-    
+
     @abc.abstractproperty
     def Features(self):
         pass
@@ -17,3 +17,5 @@ class SetupProvider(abc.ABC):
     @abc.abstractproperty
     def GetFeatureProbabilities(self):
         pass
+
+

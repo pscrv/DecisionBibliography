@@ -23,8 +23,8 @@ class test_Bayes(unittest.TestCase):
         test2 = """ Some random paragraph that talks, if of anything at all, only about itself."""
         result1 = classifier.ClassifyText(test1)
         result2 = classifier.ClassifyText(test2)
-        self.assertEqual(result1[0], 'restitutio')
-        self.assertEqual(result2[0], 'other')
+        self.assertGreater(result1, 0.5)
+        self.assertLess(result2, 0.5)
 
         
 
@@ -66,9 +66,9 @@ class test_Bayes(unittest.TestCase):
         result2 = classifier.ClassifyText(text2)
         result3 = classifier.ClassifyText(text3)
         
-        self.assertEqual(result1[0], 'restitutio')
-        self.assertEqual(result2[0], 'restitutio')
-        self.assertNotEqual(result3[0], 'restitutio')                        
+        self.assertGreater(result1, 0.5)
+        self.assertGreater(result2, 0.5)
+        self.assertLess(result3, 0.5)               
    
           
 
@@ -88,8 +88,8 @@ class test_Bayes(unittest.TestCase):
 
         result1 = classifier.ClassifyText(test1)
         result2 = classifier.ClassifyText(test2)
-        self.assertEqual(result1[0], 'mathematicalmethod')
-        self.assertEqual(result2[0], 'other')
+        self.assertGreater(result1, 0.5)
+        self.assertLess(result2, 0.5)
 
 
 
@@ -124,9 +124,9 @@ class test_Bayes(unittest.TestCase):
         result2 = classifier.ClassifyText(text2)
         result3 = classifier.ClassifyText(text3)
         
-        self.assertEqual(result1[0], 'mathematicalmethod')
-        self.assertEqual(result2[0], 'mathematicalmethod')
-        self.assertNotEqual(result3[0], 'mathematicalmethod')
+        self.assertGreater(result1, 0.5)
+        self.assertGreater(result2, 0.5)
+        self.assertLess(result3, 0.5)
         
         
              
@@ -146,8 +146,8 @@ class test_Bayes(unittest.TestCase):
 
         result1 = classifier.ClassifyText(test1)
         result2 = classifier.ClassifyText(test2)
-        self.assertEqual(result1[0], 'publicprioruse')
-        self.assertEqual(result2[0], 'other')
+        self.assertGreater(result1, 0.5)
+        self.assertLess(result2, 0.5)
 
         
 

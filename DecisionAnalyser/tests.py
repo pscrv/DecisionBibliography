@@ -6,14 +6,14 @@ from Classifiers.Bayesian import BayesianClassifier
 # TODO: Configure your database in settings.py and sync before running tests.
 
 
-class DecisionAnalyserTest(TestCase):
+class DATest(TestCase):
     """Tests for the application views."""
 
     if django.VERSION[:2] >= (1, 7):
         # Django 1.7 requires an explicit setup() when running tests in PTVS
         @classmethod
         def setUpClass(cls):    
-            super(DecisionAnalyserTest, cls).setUpClass()
+            super(DATest, cls).setUpClass()
             django.setup()
 
     def test_CanMakeBayesianClassifier(self):
@@ -74,3 +74,40 @@ class DecisionAnalyserTest(TestCase):
         featureWords = ['restitutio', 'integrum', 'mistake', ]
         featureWordPairs = [('122', 'EPC'), ('due', 'care'),]
         return BayesianClassifier.MakeClassifier('restitutio', featureWords, featureWordPairs)
+
+
+    
+class DecisionAnalyserTest(TestCase):
+    """Tests for the application views."""
+
+    if django.VERSION[:2] >= (1, 7):
+        # Django 1.7 requires an explicit setup() when running tests in PTVS
+        @classmethod
+        def setUpClass(cls):    
+            super(DecisionAnalyserTest, cls).setUpClass()
+            django.setup()
+
+    def test_CanGetDecisionTexts(self):
+        
+        from app.DBProxy import DecisionModelProxy
+        decision = DecisionModelProxy.GetDecisionListFromCaseNumber('T 0027/86').first()
+
+        from DecisionAnalyser.EPOAnalyser import TextAnalyser
+        from Classifiers.Bayesian import BayesianClassifier
+        classifier = BayesianClassifier.MakeClassifier(
+            'restitutio', 
+            ['restitutio', 'integrum', 're-establish'], 
+            [('122', 'EPC'), ('due', 'care'), ('re-', 'establish'), ('re', 'establish')]
+            )
+        analyser = TextAnalyser.Analyser(en_classifier = classifier)
+        texts = analyser.Analyse_Decision(decision)
+        self.assertTrue(texts['Facts'])
+        self.assertTrue(texts['Reasons'])
+        self.assertTrue(texts['Order'])
+        
+
+
+
+
+
+

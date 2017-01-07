@@ -1,12 +1,8 @@
 from ViewModels.Base import VMBase
-#from Analysers.Persistent import PersistentAnalyser
-#from Analysers.BoardAnalyser import BoardAnalyser
 from Analysers.Coordinators import PersistentBoardAnalysisCoordinator
 
 class  BoardViewModel(VMBase):
     
-    #__analyser = PersistentAnalyser()
-    #__analyser = BoardAnalyser()
     __analyser = PersistentBoardAnalysisCoordinator()
 
     def __init__(self, board):

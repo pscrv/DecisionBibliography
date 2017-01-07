@@ -6,9 +6,9 @@ def serialisable(cls):
     class wrapper:                
 
         def __init__(self, *args):
+            REGISTRY[cls.__name__] = cls    
             self._class = cls
-            self._serialisationargs = args
-            REGISTRY[cls.__name__] = cls             
+            self._serialisationargs = args         
             self._wrapped = cls(*args)
 
         def __getattr__(self, *args):
