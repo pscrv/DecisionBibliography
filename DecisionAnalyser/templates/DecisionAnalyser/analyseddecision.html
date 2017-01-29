@@ -16,32 +16,24 @@
         <div class="row">
             <div class="col-md-3">
                 <h1>
-                {{ decision.CaseNumber|highlight_and_link_casenumbers }}
+                    {{ decision.CaseNumber |highlight_and_link_casenumbers }}
                 </h1>
-                <h4> Restitutio in integrum. </h4>
 
-                <div id="myCarousel" class="carousel" data-ride="carousel">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a  href="{% url "DecisionAnalyser" pk=decision.pk analysername="restitutio" %}">Restitutio</a></li>
+                    <li><a  href="{% url "DecisionAnalyser" pk=decision.pk analysername="added subject-matter" %}">Added subject-matter</a></li>
+                    <li><a  href="{% url "DecisionAnalyser" pk=decision.pk analysername="stuff" %}">Stuff</a></li>
+                </ul>
 
-                      <!-- Wrapper for slides -->
-                      <div class="carousel-inner">
-                          <!-- {% for dec in decisionlist %} -->
-                            <div class="item active">
-                                {{ decision.CaseNumber|highlight_and_link_casenumbers }}
-                            </div>
-                          <!-- {% endfor %} -->
-                      </div>
 
-                      <!-- Left and right controls -->
-                      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                      </a>
-                      <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                      </a>
-                    </div>
+
             </div>           
 
             <div class="col-sm-9">
+
+                {% if analysername %}
+                <h3> {{ analysername }} paragraphs </h3>
+                {% endif %}
                 
                 <ul class="nav nav-tabs">
                     <li><a data-toggle="tab" href="#procedure">Procedure</a></li>

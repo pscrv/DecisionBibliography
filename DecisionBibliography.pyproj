@@ -57,6 +57,19 @@
     <Compile Include="app\urls.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CitationMapper\dgraph.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CitationMapper\graph.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CitationMapper\mapper.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CitationMapper\models.py" />
+    <Compile Include="CitationMapper\tests.py" />
+    <Compile Include="CitationMapper\views.py" />
+    <Compile Include="CitationMapper\__init__.py" />
     <Compile Include="Classifiers\Base.py">
       <SubType>Code</SubType>
     </Compile>
@@ -92,6 +105,9 @@
     <Compile Include="DecisionAnalyser\urls.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DecisionAnalyser\ViewModels\AnalysedDecision.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DecisionAnalyser\ViewModels\Tryout.py">
       <SubType>Code</SubType>
     </Compile>
@@ -103,6 +119,41 @@
     </Compile>
     <Compile Include="DecisionAnalyser\views.py" />
     <Compile Include="DecisionAnalyser\__init__.py" />
+    <Compile Include="Decisions\DateHelpers.py" />
+    <Compile Include="Decisions\management\commands\count.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\commands\stuff.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\utilities\DBPopulator.py" />
+    <Compile Include="Decisions\Decision.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\EpoConverter.py" />
+    <Compile Include="Decisions\EpoSearchFacade.py" />
+    <Compile Include="Decisions\management\commands\check.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\commands\populateDB.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\commands\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\utilities\DBInspector.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\utilities\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\models.py" />
+    <Compile Include="Decisions\tests.py" />
+    <Compile Include="Decisions\views.py" />
+    <Compile Include="Decisions\__init__.py" />
     <Compile Include="Tests\test_TrainingTextFinder.py">
       <SubType>Code</SubType>
     </Compile>
@@ -266,6 +317,8 @@
     <Folder Include="app\" />
     <Folder Include="Analysers\" />
     <Folder Include="app\templatetags\" />
+    <Folder Include="CitationMapper\" />
+    <Folder Include="CitationMapper\templates\" />
     <Folder Include="Classifiers\Classifier_Setup\" />
     <Folder Include="Classifiers\" />
     <Folder Include="Classifiers\Features\" />
@@ -279,6 +332,11 @@
     <Folder Include="DecisionAnalyser\ViewModels\" />
     <Folder Include="DecisionAnalyser\templates\" />
     <Folder Include="DecisionAnalyser\templates\DecisionAnalyser\" />
+    <Folder Include="Decisions\" />
+    <Folder Include="Decisions\management\" />
+    <Folder Include="Decisions\management\commands\" />
+    <Folder Include="Decisions\management\utilities\" />
+    <Folder Include="Decisions\templates\" />
     <Folder Include="Helpers\" />
     <Folder Include="Serialisation\" />
     <Folder Include="TextSearch\" />
@@ -304,8 +362,10 @@
     <Content Include="app\templates\app\decision.html" />
     <Content Include="app\templates\app\decisionversionlist.html" />
     <Content Include="app\templates\app\textsearch.html" />
+    <Content Include="CitationMapper\templates\index.html" />
     <Content Include="DecisionAnalyser\static\DecisionAnalyser\content\DA.css" />
-    <Content Include="DecisionAnalyser\templates\DecisionAnalyser\index.html" />
+    <Content Include="DecisionAnalyser\templates\DecisionAnalyser\analyseddecision.html" />
+    <Content Include="Decisions\templates\index.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

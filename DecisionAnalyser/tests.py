@@ -104,6 +104,15 @@ class DecisionAnalyserTest(TestCase):
         self.assertTrue(texts['Facts'])
         self.assertTrue(texts['Reasons'])
         self.assertTrue(texts['Order'])
+
+        
+    def test_ExtractCasenumbersFromText(self):
+        casenumber = "G 0002/88"
+        
+        from app.DBProxy import DecisionModelProxy
+        decision = DecisionModelProxy.GetRepresentativeForCaseNumber(casenumber)
+        citedInText = DecisionModelProxy.ExtractCasenumbersFromText(decision)
+        x = 1
         
 
 

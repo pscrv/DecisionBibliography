@@ -77,31 +77,32 @@
                     <li class="active"><a data-toggle="tab" href="#reasons">Reasons</a></li>
                     <li><a data-toggle="tab" href="#outcome">Outcome</a></li>
                     <li><a data-toggle="tab" href="#comments">Comments</a></li>
+                    <li class="pull-right"><a href="{% url 'DecisionAnalyser' pk=decision.pk %}">Analysis</a></li>
                 </ul>
 
                 <div class="tab-content text-display">
-                        <div id="procedure" class="tab-pane fade">
+                    <div id="procedure" class="tab-pane fade">
                         <h4> {{ factsHeader }} </h4>
                         {% for para in facts %}
                             <p> {{ para|highlight:highlightterms|highlight_and_link_casenumbers }} </p>
                         {% endfor %}
-                        </div>
-                        <div id="reasons" class="tab-pane fade in active">
+                    </div>
+                    <div id="reasons" class="tab-pane fade in active">
                         <h4> {{ reasonsHeader }} </h4>
                         {% for para in reasons %}
                             <p> {{ para|highlight:highlightterms|highlight_and_link_casenumbers }} </p>
                         {% endfor %}
-                        </div>
-                        <div id="outcome" class="tab-pane fade">
+                    </div>
+                    <div id="outcome" class="tab-pane fade">
                         <h4> {{ orderHeader }} </h4>
                         {% for para in order %}
                             <p> {{ para|highlight:highlightterms|highlight_and_link_casenumbers }} </p>
                         {% endfor %}
-                        </div>
-                        <div id="comments" class="tab-pane fade">
-                            <h4> Comments </h4>
-                            <p> There might be comments, one day. </p>
-                        </div>
+                    </div>
+                    <div id="comments" class="tab-pane fade">
+                        <h4> Comments </h4>
+                        <p> There might be comments, one day. </p>
+                    </div>
                 </div>
             </div>
 

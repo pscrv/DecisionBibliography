@@ -118,6 +118,10 @@ class DBProxy(ABC):
     @abstractmethod
     def GetTextCount():
         pass
+
+    @abstractmethod
+    def ExtractCasenumbersFromText(decision):
+        pass
     #endregion
 
 
@@ -145,14 +149,6 @@ class DecisionModelProxy(DBProxy):
         decisionList = DecisionBibliographyModel.objects.filter(CaseNumber = cn)
         return decisionList
 
-    # Only used in IssueAnalyser
-    # Experiment
-    # Candidate for deletion
-    def GetDecisionListFromTextSearchANDTermList(termList):
-        factsResults = DecisionTextModel.objects.filter(reduce(operator.and_, (Q(Facts__contains = x) for x in termList)))
-        reasonsResults = DecisionTextModel.objects.filter(reduce(operator.and_, (Q(Reasons__contains = x) for x in termList)))
-        orderResults = DecisionTextModel.objects.filter(reduce(operator.and_, (Q(Order__contains = x) for x in termList)))
-        return factsResults | reasonsResults | orderResults
 
     def GetCitingCasesFromCaseNumber(cn):
         return DecisionBibliographyModel.objects.FilterOnlyPrLanguage(CitedCases__contains=cn).all()
@@ -222,4 +218,17 @@ class DecisionModelProxy(DBProxy):
     #region Text meta
     def GetTextCount():
         return DecisionTextModel.objects.count()
+
+    def ExtractCasenumbersFromText(decision):
+        decisionText = DecisionModelProxy.GetTextFromDecision(decision)
+        fullText = decisionText.Facts + decisionText.Reasons + decisionText.Order
+
+        import re
+        finder = re.compile(r'([DGJRTW])\s*(\d+)/(\d+)') #newlines are unlikely to matter
+        found = re.finditer(finder, fullText)
+
+        from app.Formatters import formatCaseNumber
+        numbers = set(formatCaseNumber(x.group(0)) for x in found)
+        return numbers
+
     #endregion

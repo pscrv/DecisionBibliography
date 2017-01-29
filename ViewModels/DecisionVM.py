@@ -21,8 +21,7 @@ class DecisionViewModel(VMBase):
 
     def _setup(self):
         if self._message == '' and self._needMessage():
-            self._message = 'Not found'
-        
+            self._message = 'Not found'        
         self._setContext()
 
     

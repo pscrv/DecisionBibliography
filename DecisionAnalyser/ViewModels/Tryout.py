@@ -45,6 +45,7 @@ class  TryoutViewModel(VMBase):
                 'facts': [(x, self.threshhold(y)) for (x, y) in text['Facts']],
                 'reasons': [(x, self.threshhold(y)) for (x, y) in text['Reasons']],
                 'order': [(x, self.threshhold(y)) for (x, y) in text['Order']],
+                'decisionlist': decisions,
                 })
 
 

@@ -1,22 +1,23 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.template import RequestContext
-from DecisionAnalyser.ViewModels.Tryout import TryoutViewModel
+
+from DecisionAnalyser.ViewModels.AnalysedDecision import AnalysedDecisionViewModel
 
 
-def home(request):    
-    """Renders the home page."""
+
+
+def analysed_decision(request, pk, analysername="restitutio"):
     assert isinstance(request, HttpRequest)
 
-    from DecisionAnalyser.DecisionProvider import SimpleDecisionProvider
-    provider = SimpleDecisionProvider()
-    decisions = provider.GetDecisions('restitutio')
+    from app.DBProxy import DecisionModelProxy
+    decision = DecisionModelProxy.GetDecisionFromPrimaryKey(pk)
 
-    viewModel = TryoutViewModel(decisions)
+    viewModel = AnalysedDecisionViewModel(decision, analysername)
+    
     return render(
         request,
-        'DecisionAnalyser/index.html',
+        'DecisionAnalyser/analyseddecision.html',
         viewModel.Context,
-    )
-
+        )
       

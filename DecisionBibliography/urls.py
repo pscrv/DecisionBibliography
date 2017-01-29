@@ -9,11 +9,10 @@ from django.conf.urls import url, include
 # from django.contrib import admin
 # admin.autodiscover()
 
-
 urlpatterns = [ 
     # TO DO: remove the next line when DecsionAnalyser is not being tested
-    url(r'^$', include('DecisionAnalyser.urls')),
-
+    #url(r'^$', include('DecisionAnalyser.urls')),
+    
     url(r'^DecisionAnalyser/', include('DecisionAnalyser.urls')),
     url(r'', include('app.urls')),
 

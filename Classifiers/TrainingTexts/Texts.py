@@ -121,6 +121,39 @@ __texts = {
            prior use is fully proven, so that this question is left open.""",
            ],
 
+       'added subject-matter': [
+          """ 2.1.3. The Board is however of the view that the amendment "radically polymerized" contravenes Article 123(2) EPC 
+          for the following reasons: There is no specific disclosure of the expression "radically polymerized" in the application 
+          as filed. Moreover, as submitted by the respondent, this expression is a functional generalization of the list of 
+          photopolymerization initiators disclosed on page 7, line 21 to page 8, line 4 of the European patent application as 
+          filed. Such a generalization covers functional equivalents of the photoinitiators, for which there is no basis in the 
+          original European patent application. From the passage on page 12 of the original description cited by the appellant 
+          (see item 2.1.2 above), it is not unambiguously derivable that only the free radicals generated in the base layer are 
+          responsible for the polymerization of the pressure sensitive adhesive layer. 
+          2.1.4. For the foregoing reasons, in the Board's judgment, claim 1 of the main request does not satisfy the requirement 
+          of Article 123(2) EPC that a European patent may not be amended in such a way that it contains subject-matter which extends 
+          beyond the content of the application as filed.""",
+
+          """3.2 However, the board cannot recognise, in the description as filed, any binding or limiting relationship between 
+          particle size and preparing process as claimed by the appellant.
+          In fact, it is well-known to the skilled person that, in a crystallisation process, the size of the crystals is a feature 
+          susceptible of being influenced by many factors: the crystallisation method being one factor, the operating conditions being
+          additional important factors. Therefore, crystals in the desired size, say 10 µm or less, may be produced by selecting the 
+          suitable operating conditions of any suitable alternative method, which do not necessarily involve heating and cooling steps.
+          In the board's judgment, the essential feature of the invention, namely the crystal size of 10 µm or less, is an unconditional 
+          feature, not limited by any specific preparing process or condition. Accordingly, the passage of the original description on page 
+          11, lines 11 to 13 represents, for the board, the necessary support in the description for such a feature, without however 
+          exercising any process-related limiting effect on the invention. In fact, the cooling step therein referred to represents 
+          only one example of the many different processes suitable for achieving the desired crystal size.
+          Under these circumstances, the amendments proposed by the respondent are held by the board to meet the requirements of Article 123(2) EPC. """,
+
+          """In the Board's view, this feature was only disclosed in the application as filed in the context of the particular 
+          process features of Example 2, not as a general feature in isolation. There is, thus, no adequate support for the 
+          generalisation made by the Appellant, so that the wording of both Claims 1 is objectionable under Article 123(2) 
+          EPC, and therefore is certainly not clearly allowable within the meaning of the decision T 153/85 of 11 December 
+          1986 published in OJ EPO 1988, 001."""
+          ],
+
         'general': [
                 """ However, the passage introduced by "such that.." is ambiguous as it seems to imply 
                 that particular conditions have to be respected or particular measures have to be taken 

@@ -2,35 +2,38 @@
 {
 }
 
-a, a:hover {
-    color: #003d25;
+a, a:hover, a:visited {
+    color: #085601;
 }
 
 p {
     opacity: 0.5;
     font-size: 12px;
+    border-left: 5px solid white;
+    padding-left: 10px;
+    font-size: 14px;
 }
 
 p:hover {
+    opacity: 0.8;
+    font-size: 18px;
+}
+p.high, p.medium, p.low {
     opacity: 1.0;
     font-weight: 500;
-    font-size: 16;
+    color: #085601;
+}
+p.high {
+    border-left: 5px solid #18fe00;
 }
 
-p.high {
-    color: #003d25;
-    font-weight: 900;
-    opacity: 1.0;
-}
 
 p.medium {
-    color: #035c3a;
-    font-weight: 700;
     opacity: 1.0;
+    border-left: 5px solid #9fff00;
 }
 
 p.low {
-    color: #096944;
-    font-weight: 600;
     opacity: 1.0;
+    border-left: 5px solid #BAFF00;
 }

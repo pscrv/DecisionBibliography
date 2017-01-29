@@ -4,7 +4,7 @@ from  DecisionAnalyser import views
 
 urlpatterns = [
     
-    url(r'^$', views.home),   
-    
+    url(r'^(?P<pk>.+)/(?P<analysername>.+)/$', views.analysed_decision, name = 'DecisionAnalyser'),
+    url(r'^(?P<pk>.+)/$', views.analysed_decision, name = 'DecisionAnalyser'),   
     
     ]
