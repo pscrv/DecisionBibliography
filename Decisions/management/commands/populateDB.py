@@ -1,29 +1,27 @@
 from django.core.management.base import BaseCommand
+from Decisions.management.utilities.DBPopulator import BibliographyGetter
+from Decisions.models import DecisionBibliographyModel
 
 class Command(BaseCommand):
     help = 'Populates the DB for one board'
     # See https://docs.djangoproject.com/en/1.9/howto/custom-management-commands/#module-django.core.management
-
-    #def add_arguments(self, parser):
-    #    parser.add_argument('board', type=str)
-
+    
     def handle(self, *args, **options):
 
-        from Decisions.models import DecisionBibliographyModel
         startcount = DecisionBibliographyModel.objects.count()
+        populator = BibliographyGetter()
+
+
         self.stdout.write('DB contains ' + str(startcount) + ' records.')
         self.stdout.write('Populating...')
 
-
-        from Decisions.management.utilities.DBPopulator import BibliographyGetter
-        populator = BibliographyGetter()
         typestartcount = startcount
-        #for casetype in 'DGRW':
-        #    self.stdout.write('Getting type {}.'.format(casetype))
-        #    populator.GetAllForType(casetype)
-        #    typeendcount = DecisionBibliographyModel.objects.count()
-        #    self.stdout.write('{} decisions added.'.format(str(typeendcount - typestartcount)))
-        #    typestartcount = typeendcount
+        for casetype in 'DGRW':
+            self.stdout.write('Getting type {}.'.format(casetype))
+            populator.GetAllForType(casetype)
+            typeendcount = DecisionBibliographyModel.objects.count()
+            self.stdout.write('{} decisions added.'.format(str(typeendcount - typestartcount)))
+            typestartcount = typeendcount
 
         self.stdout.write('Getting J and T decisions')
         boardlist = [

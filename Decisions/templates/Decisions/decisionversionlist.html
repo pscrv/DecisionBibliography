@@ -1,0 +1,10 @@
+﻿
+<div class="tiny-reference">
+    {% for version in otherversions %}   
+        <p>     
+            <a href="{% url 'decision' pk=version.pk %}"> {{ version.CaseNumber }}   </a>
+            {{ version.DecisionDate }}
+            {{ version.DecisionLanguage }}
+        </p>
+    {% endfor %}
+</div>

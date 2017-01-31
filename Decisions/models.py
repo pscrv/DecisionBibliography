@@ -47,31 +47,15 @@ class DecisionGeneric(object):
 
 class DecisionBibliographyManager(models.Manager):
     
-    def Create_or_update(
-            self, 
-            caseNumber: str,
-            decisionDate: datetime,
-            decisionLanguage: str,
-            **kwargs):
-        """ 
-        creates and returns a new decision, with the given CaseNumber, 
-        unless one already exists; fills-in or overwrites the **kwargs fields 
-        """
-
-        if caseNumber == "":
-            return None        
-
-        inDB = self.filter(CaseNumber = caseNumber, DecisionDate = decisionDate, DecisionLanguage = decisionLanguage).first()
-
-        if inDB is None:
-            decision = DecisionBibliographyModel(CaseNumber = caseNumber, DecisionDate = decisionDate, DecisionLanguage = decisionLanguage)
-        else:
-            decision = inDB
-
-        decision.update(**kwargs)
-        return decision
+    #def get_or_new(self, **kwargs):
+    #    try:
+    #        self.get(**kwargs)
+    #    except DoesNotExist:
+    #        return DecisionBibliographyModel(**kwargs)
 
 
+
+    #replace with get_or_new?
     def Find_or_create(self, **kwargs):
         caseNumber = kwargs['CaseNumber']
         if not caseNumber:
@@ -96,20 +80,8 @@ class DecisionBibliographyManager(models.Manager):
 
     def FilterOnlyPrLanguage(self, **kwargs):
         return self.filter(DecisionLanguage =  F('ProcedureLanguage'), **kwargs)
-
-    
-    def GetFromCaseNumber(self, caseNumber, language = None):
-        if not language:
-            result = self.FilterOnlyPrLanguage(CaseNumber = caseNumber).first()
-        if not result:
-            result = self.filter(CaseNumber = caseNumber).first()
-        return result
     
         
-    def GetAllFromCaseNumber(self, caseNumber):
-        result = self.filter(CaseNumber = caseNumber)
-        return result
-
 
     def IsListAttribute(self, attribute):
         return attribute in DecisionGeneric.LIST_ATTRIBUTES
@@ -170,10 +142,9 @@ class DecisionBibliographyModel(models.Model):
         self.save()
     #endregion
 
-    #regioin overrides
     def __str__(self):
         return self.CaseNumber
-    #endregion
+        
 
 
 
@@ -202,6 +173,7 @@ class DecisionTextModel(models.Model):
     
     def __str__(self):
         return self.decision.CaseNumber
+        
 
 
 class NullTextModel(DecisionTextModel):
@@ -213,6 +185,7 @@ class NullTextModel(DecisionTextModel):
 
     def save(self, *args, **kwargs):
         pass #do not save a null record 
+
 #endregion
 
 
@@ -222,8 +195,7 @@ class AnalysisModel(models.Model):
     LastUpdate = models.DateField(auto_now = True)
 
 
-class BoardAnalysisModel(AnalysisModel):
-    
+class BoardAnalysisModel(AnalysisModel):    
     Board = models.CharField(max_length = 16, default = "")
     Count = models.IntegerField(default = 0)
     EarliestFive = models.CharField(max_length = 50)
@@ -232,6 +204,7 @@ class BoardAnalysisModel(AnalysisModel):
     Article_TopFive = models.CharField(max_length = 120, default = "")
     Cited_TopFive = models.CharField(max_length = 120, default = "")
     Timeline = models.TextField(default = "")    
+
 #endregion
 
 

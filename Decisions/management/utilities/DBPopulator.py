@@ -10,8 +10,8 @@ class BibliographyGetter(object):
 
 
     def GetAllForBoard(self, board):
-        startyear = 0
-        endyear = 9
+        startyear = 9
+        endyear = 10
         self.GetBoardFromYearToYear(board, startyear, endyear)
 
     def GetBoardFromYearToYear(self, board, fromyear, toyear):

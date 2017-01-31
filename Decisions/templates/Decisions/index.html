@@ -1,0 +1,29 @@
+{% extends "Decisions/layout.html" %}
+
+{% block content %}
+
+<h2>{{ title }}.</h2>
+<h3>{{ message }}</h3>
+
+<p>To get you going, here are the latest decisions in the database.</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th> Decision </th>
+            <th> Board </th>
+            <th> Date </th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for dec in decisions %}
+        <tr>
+            <td> <a href="{% url 'decision' cn=dec %}"> {{ dec }}   </a> </td>
+            <td> {{ dec.Board }} </td>
+            <td> {{ dec.DecisionDate }} </td>
+        </tr>
+    {% endfor %}                          
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+﻿{% extends "Decisions/layout.html" %}
+{% load highlight_filters %}
+
+{% block content %}
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4 bibl-display">
+                <h2>{{ title }}</h2>
+                <h4>{{ message }}</h4>
+                <form class="navbar-form navbar-left" role="search" method="post" action="{% url 'textsearch' %}">
+                    <div class="form-group">
+                        {% csrf_token %}
+                        <input name="q" placeholder="One, two" class="form-control" type="text" id="textsearchbox">
+                    </div>  
+                </form>
+            </div>  
+        
+            <div class="col-sm-8">  
+               
+                {% for result in results %}
+                <a href="{% url 'decision_with_highlight' pk=result.Decision.pk highlightterms=highlightterms %}">
+                    <div class="well text-search-result">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">    
+                                {{ result.Decision.CaseNumber }}
+                                {% if result.Decision.Headword %} 
+                                    ({{ result.Decision.Headword}})
+                                {% endif %}
+
+                            </div>
+                            <div class="col-md-3">
+                                {{ result.Decision.Board}}
+                            </div>
+                            <div class="col-md-3">
+                                {{ result.Decision.DecisionDate }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 result-extract">
+                                {{ result.TextExtract|highlight:highlightterms }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </a>
+                {% endfor %}
+                              
+            </div>
+
+        </div>            
+    </div>
+{% endblock %}

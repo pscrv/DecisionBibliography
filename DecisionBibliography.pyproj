@@ -119,11 +119,29 @@
     </Compile>
     <Compile Include="DecisionAnalyser\views.py" />
     <Compile Include="DecisionAnalyser\__init__.py" />
+    <Compile Include="Decisions\Analysers\AnalyserBase.py" />
+    <Compile Include="Decisions\Analysers\AnalysisBase.py" />
+    <Compile Include="Decisions\Analysers\AnalysisHelpers.py" />
+    <Compile Include="Decisions\Analysers\BoardAnalyser.py" />
+    <Compile Include="Decisions\Analysers\BoardAnalysis.py" />
+    <Compile Include="Decisions\Analysers\Coordinators.py" />
+    <Compile Include="Decisions\Analysers\TimelineAnalysers.py" />
+    <Compile Include="Decisions\Analysers\TimelineAnalysis.py" />
+    <Compile Include="Decisions\Analysers\__init__.py" />
+    <Compile Include="Decisions\AnalysisStorers\BoardAnalysisToDB.py" />
+    <Compile Include="Decisions\AnalysisStorers\BoardTimelineAnalysisToDB.py" />
+    <Compile Include="Decisions\AnalysisStorers\__init__.py" />
     <Compile Include="Decisions\DateHelpers.py" />
-    <Compile Include="Decisions\management\commands\count.py">
+    <Compile Include="Decisions\DBProxy2.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Decisions\management\commands\stuff.py">
+    <Compile Include="Decisions\DBPopulator.py" />
+    <Compile Include="Decisions\DBProxy.py" />
+    <Compile Include="Decisions\Formatters.py" />
+    <Compile Include="Decisions\management\commands\findcaseswithwrongcitations.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\commands\countboardanalyses.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Decisions\management\utilities\DBPopulator.py" />
@@ -132,7 +150,7 @@
     </Compile>
     <Compile Include="Decisions\EpoConverter.py" />
     <Compile Include="Decisions\EpoSearchFacade.py" />
-    <Compile Include="Decisions\management\commands\check.py">
+    <Compile Include="Decisions\management\commands\analyseboards.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Decisions\management\commands\populateDB.py">
@@ -151,7 +169,20 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Decisions\models.py" />
+    <Compile Include="Decisions\templatetags\highlight_filters.py" />
+    <Compile Include="Decisions\templatetags\__init__.py" />
     <Compile Include="Decisions\tests.py" />
+    <Compile Include="Decisions\TextSearch\SimpleSearch.py" />
+    <Compile Include="Decisions\TextSearch\__init__.py" />
+    <Compile Include="Decisions\urls.py" />
+    <Compile Include="Decisions\ViewModels\Base.py" />
+    <Compile Include="Decisions\ViewModels\BoardVM.py" />
+    <Compile Include="Decisions\ViewModels\DbStateVM.py" />
+    <Compile Include="Decisions\ViewModels\DecisionVM.py" />
+    <Compile Include="Decisions\ViewModels\IndexVM.py" />
+    <Compile Include="Decisions\ViewModels\TextSearchVM.py" />
+    <Compile Include="Decisions\ViewModels\TimeLinesVM.py" />
+    <Compile Include="Decisions\ViewModels\__init__.py" />
     <Compile Include="Decisions\views.py" />
     <Compile Include="Decisions\__init__.py" />
     <Compile Include="Tests\test_TrainingTextFinder.py">
@@ -333,10 +364,21 @@
     <Folder Include="DecisionAnalyser\templates\" />
     <Folder Include="DecisionAnalyser\templates\DecisionAnalyser\" />
     <Folder Include="Decisions\" />
+    <Folder Include="Decisions\Analysers\" />
+    <Folder Include="Decisions\AnalysisStorers\" />
     <Folder Include="Decisions\management\" />
     <Folder Include="Decisions\management\commands\" />
     <Folder Include="Decisions\management\utilities\" />
+    <Folder Include="Decisions\static\" />
+    <Folder Include="Decisions\static\app\" />
+    <Folder Include="Decisions\static\app\content\" />
+    <Folder Include="Decisions\static\app\fonts\" />
+    <Folder Include="Decisions\static\app\scripts\" />
     <Folder Include="Decisions\templates\" />
+    <Folder Include="Decisions\templates\Decisions\" />
+    <Folder Include="Decisions\templatetags\" />
+    <Folder Include="Decisions\TextSearch\" />
+    <Folder Include="Decisions\ViewModels\" />
     <Folder Include="Helpers\" />
     <Folder Include="Serialisation\" />
     <Folder Include="TextSearch\" />
@@ -365,7 +407,40 @@
     <Content Include="CitationMapper\templates\index.html" />
     <Content Include="DecisionAnalyser\static\DecisionAnalyser\content\DA.css" />
     <Content Include="DecisionAnalyser\templates\DecisionAnalyser\analyseddecision.html" />
-    <Content Include="Decisions\templates\index.html" />
+    <Content Include="Decisions\static\app\content\bootstrap.css" />
+    <Content Include="Decisions\static\app\content\bootstrap.min.css" />
+    <Content Include="Decisions\static\app\content\DVStyle.css" />
+    <Content Include="Decisions\static\app\content\NavbarFooter.css" />
+    <Content Include="Decisions\static\app\content\site.css" />
+    <Content Include="Decisions\static\app\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Decisions\static\app\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Decisions\static\app\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Decisions\static\app\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Decisions\static\app\scripts\_references.js" />
+    <Content Include="Decisions\static\app\scripts\bootstrap.js" />
+    <Content Include="Decisions\static\app\scripts\bootstrap.min.js" />
+    <None Include="Decisions\static\app\scripts\jquery.validate-vsdoc.js" />
+    <None Include="Decisions\static\app\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Decisions\static\app\scripts\jquery-1.10.2.js" />
+    <Content Include="Decisions\static\app\scripts\jquery-1.10.2.min.js" />
+    <Content Include="Decisions\static\app\scripts\jquery-1.10.2.min.map" />
+    <Content Include="Decisions\static\app\scripts\jquery.validate.js" />
+    <Content Include="Decisions\static\app\scripts\jquery.validate.min.js" />
+    <Content Include="Decisions\static\app\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Decisions\static\app\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Decisions\static\app\scripts\modernizr-2.6.2.js" />
+    <Content Include="Decisions\static\app\scripts\respond.js" />
+    <Content Include="Decisions\static\app\scripts\respond.min.js" />
+    <Content Include="Decisions\templates\Decisions\about.html" />
+    <Content Include="Decisions\templates\Decisions\board.html" />
+    <Content Include="Decisions\templates\Decisions\boardmenu.html" />
+    <Content Include="Decisions\templates\Decisions\boardtimelines.html" />
+    <Content Include="Decisions\templates\Decisions\contact.html" />
+    <Content Include="Decisions\templates\Decisions\decision.html" />
+    <Content Include="Decisions\templates\Decisions\decisionversionlist.html" />
+    <Content Include="Decisions\templates\Decisions\index.html" />
+    <Content Include="Decisions\templates\Decisions\layout.html" />
+    <Content Include="Decisions\templates\Decisions\textsearch.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

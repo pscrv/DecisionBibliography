@@ -1,0 +1,41 @@
+﻿{% extends "Decisions/layout.html" %}
+
+{% block content %}
+
+<h2>{{ title }}</h2>
+<h3>{{ message }}</h3>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4> Decisions per year </h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th> Board </th>
+                        {% for year in years %}
+                            <th> {{ year }} </th>
+                        {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for board, amounts in boardtls %}
+                            <tr>                         
+                                <td> 
+                                    <a href="{% url 'board' bd=board %}"> {{ board }}   </a> 
+                                </td>
+                                                                  
+                                {% for amount in amounts %}
+                                    <td> {{ amount }} </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>           
+    </div>
+
+{% endblock %}
