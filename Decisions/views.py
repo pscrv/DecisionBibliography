@@ -32,7 +32,8 @@ def decision(request, pk, highlightterms = '[]'):
     assert isinstance(request, HttpRequest)
     from ast import literal_eval
 
-    decisions = DecisionModelProxy.GetDecisionListFromPrimaryKey(pk)
+    decision = DecisionModelProxy.GetDecisionFromPrimaryKey(pk)
+    decisions = DecisionModelProxy.GetDecisionListFromCaseNumber(decision.CaseNumber)
     hlterms = literal_eval(highlightterms)
     viewModel = DecisionVM.DecisionViewModel(decisions, pk=pk, highlightterms=hlterms)
     return render(

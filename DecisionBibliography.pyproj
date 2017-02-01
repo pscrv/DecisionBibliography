@@ -132,16 +132,13 @@
     <Compile Include="Decisions\AnalysisStorers\BoardTimelineAnalysisToDB.py" />
     <Compile Include="Decisions\AnalysisStorers\__init__.py" />
     <Compile Include="Decisions\DateHelpers.py" />
-    <Compile Include="Decisions\DBProxy2.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Decisions\DBPopulator.py" />
     <Compile Include="Decisions\DBProxy.py" />
     <Compile Include="Decisions\Formatters.py" />
     <Compile Include="Decisions\management\commands\findcaseswithwrongcitations.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Decisions\management\commands\countboardanalyses.py">
+    <Compile Include="Decisions\management\commands\counttexts.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Decisions\management\utilities\DBPopulator.py" />

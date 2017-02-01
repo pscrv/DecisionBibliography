@@ -172,7 +172,7 @@ class DecisionTextModel(models.Model):
 
     
     def __str__(self):
-        return self.decision.CaseNumber
+        return self.Bibliography.CaseNumber
         
 
 

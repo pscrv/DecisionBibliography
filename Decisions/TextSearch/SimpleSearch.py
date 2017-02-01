@@ -39,17 +39,19 @@ class SimpleTextSearcher(object):
             inCatchwords = self.__makeSetFromBibl('Catchwords', term),
             inKeywords = self.__makeSetFromBibl('Keywords', term),
             inFacts = self.__makeSetFromText('Facts', term),
-            inReaons = self.__makeSetFromText('Reasons', term),
+            inReasons = self.__makeSetFromText('Reasons', term),
             inOrder = self.__makeSetFromText('Order', term),
             )
 
 
     def __makeSetFromBibl(self, kw, term):
-        return {x.pk for x in DecisionModelProxy.GetBibliographyFiltered(**{kw + '__contains': term })}
+        #return {x.pk for x in DecisionModelProxy.GetBibliographyFiltered(**{kw + '__contains': term })}
+        return {x.pk for x in DecisionModelProxy.GetFilteredOnBibliographyKeywords(**{kw + '__contains': term })}
 
     
     def __makeSetFromText(self, kw, term):
-        return {x.decision.pk for x in DecisionModelProxy.GetTextsFiltered(**{kw + '__contains': term })}
+        #return {x.decision.pk for x in DecisionModelProxy.GetTextsFiltered(**{kw + '__contains': term })}
+        return {x.pk for x in DecisionModelProxy.GetFilteredOnTextKeywords(**{kw + '__contains': term })}
 
 
 
@@ -109,12 +111,12 @@ class SimpleTextSearcher(object):
 
 class SearchResult(object):
     
-    def __init__(self, term, inCatchwords, inKeywords, inFacts, inReaons, inOrder):
+    def __init__(self, term, inCatchwords, inKeywords, inFacts, inReasons, inOrder):
         self.Terms = [term]
         self.InCatchwords = inCatchwords
         self.InKeywords = inKeywords
         self.InFacts = inFacts
-        self.InReasons = inReaons
+        self.InReasons = inReasons
         self.InOrder = inOrder
         self.__set__InAny()
 

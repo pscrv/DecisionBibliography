@@ -1,151 +1,87 @@
 from abc import ABC, abstractmethod
 
 from django.db.models import F, Q
-from Decisions.models import DecisionBibliographyModel, DecisionTextModel
+from Decisions.models import DecisionBibliographyModel, DecisionTextModel, NullTextModel
+from Decisions.Decision import DecisionProxy
 
-class DBProxy(ABC):
-    """abstract base class for DB access"""
+
+class DecisionModelProxy():
+
+    #region Adding here
+
+    #private methods
+    def __getDecisionFromBibliographyKeys(**kwargs):
+        bibliographies = DecisionBibliographyModel.objects.filter(**kwargs)
+        if bibliographies.count() > 1:
+            bibliographies = bibliographies.filter(DecisionLanguage = F('ProcedureLanguage'))
+        bibliography = bibliographies.first()
+        if bibliography is None:
+            return None
+        text = DecisionModelProxy.__getTextFromBibliography(bibliography)
+        return DecisionProxy(bibliography, text)
+
     
-    #region Bibliography getters
-    @abstractmethod
-    def GetBibliographyFiltered(**kwargs):
-        pass
+    def __getDecisionListFromBibliographyKeys(**kwargs):
+        bibliographies = DecisionBibliographyModel.objects.filter(**kwargs)
+        decisions = [
+            DecisionProxy(x, DecisionModelProxy.__getTextFromBibliography(x))
+            for x in bibliographies
+            ]
+        return decisions
 
-    @abstractmethod
+
+
+        text = DecisionModelProxy.__getTextFromBibliography(bibliography)
+        return DecisionProxy(bibliography, text)
+
+
+    def __getTextFromBibliography(bibliography):        
+        try:
+            text = DecisionTextModel.objects.get(Bibliography = bibliography)
+        except DecisionTextModel.DoesNotExist:
+            text = NullTextModel()
+            text.Bibliography = bibliography
+        return text
+
+    #endregion
+    
+      
+    def GetFilteredOnBibliographyKeywords(**kwargs):
+        result_qset = DecisionBibliographyModel.objects.filter(**kwargs)
+        result_list = []
+        for bibliography in result_qset:
+            try:
+                text = DecisionTextModel.objects.get(Bibliography = bibliography)
+            except DecisionTextModel.DoesNotExist:
+                text = NullTextModel()
+                text.Bibliography = bibliography
+
+            result_list.append(DecisionProxy(bibliography, text))
+
+        return result_list
+
+
+    def GetFilteredOnTextKeywords(**kwargs):
+        result_qset = DecisionTextModel.objects.filter(**kwargs)
+        return [DecisionProxy(t.Bibliography, t) for t in result_qset]
+
+    
     def GetRepresentativeForCaseNumber(cn):
-        pass
-
-    @abstractmethod
+        return DecisionModelProxy.__getDecisionFromBibliographyKeys(CaseNumber = cn)
+    
     def GetDecisionFromPrimaryKey(pk):
-        pass
-
-    @abstractmethod
-    def GetDecisionListFromPrimaryKey(pk):
-        pass
-
-    @abstractmethod
-    def GetDecisionListFromCaseNumber(cn):
-        pass
-
-    @abstractmethod
-    def GetDecisionListFromTextSearchANDTermList(termList):
-        pass
-
-    @abstractmethod
-    def GetCitingCasesFromCaseNumber(cn):
-        pass
-
-    @abstractmethod
-    def GetAllOrderedByDecisionDate():
-        pass
-    
-    @abstractmethod
-    def GetAllForBoard(board):
-        pass
-
-    @abstractmethod
-    def GetAllForBoardOrderedByDecisionDate(board):
-        pass
-    
-    @abstractmethod
-    def GetAllInDateRange(startDate, endDate):
-        pass
-        
-    @abstractmethod
-    def GetEarliestByDecisionDate(howmany = 1):
-        pass
-    
-    @abstractmethod
-    def GetLatestByDecisionDate(howmany = 1):
-        pass
-
-    @abstractmethod
-    def GetAttributeValueAsList(attribute):
-        pass
-    #endregion
-
-    
-    #region Text getters
-    @abstractmethod
-    def GetTextFromBibliography(decision):
-        pass
-    
-    @abstractmethod
-    def GetErrorText():
-        pass
-
-    @abstractmethod
-    def GetTextsFiltered(self, **kwargs):
-        pass
-    #endregion
-
-        
-    #region Bibliography metadata
-    @abstractmethod
-    def GetCasetypeCount(typeletter):
-        pass
-        
-        # no longer used?
-        # check and delete if possible
-    @abstractmethod
-    def GetBibliographyCount():
-        pass
-        
-    @abstractmethod
-    def GetDistinctBibliographiesCount():
-        pass
-
-    @abstractmethod
-    def GetDistinctAttributeValueList(attribute):
-        pass
-
-    @abstractmethod
-    def GetBoardList():
-        pass
-    
-    @abstractmethod
-    def GetIsListAttribute(attribute):
-        pass
-
-    @abstractmethod
-    def GetBibliographyAttributeList():
-        return vars(DecisionBibliographyModel)
-    #endregion
-    
-    #region Text metadata
-    @abstractmethod
-    def GetTextCount():
-        pass
-
-    @abstractmethod
-    def ExtractCasenumbersFromText(decision):
-        pass
-    #endregion
-
-
-class DecisionModelProxy(DBProxy):
-
-    #region Bibliography getters
-    def GetBibliographyFiltered(**kwargs):
-        return DecisionBibliographyModel.objects.FilterOnlyPrLanguage(**kwargs)
-
-
-    def GetRepresentativeForCaseNumber(cn):
-        return  DecisionBibliographyModel.objects.FilterOnlyPrLanguage(CaseNumber=cn).first()
-
-    def GetDecisionFromPrimaryKey(pk):
-        return DecisionBibliographyModel.objects.filter(pk = pk).first()
-
-    def GetDecisionListFromPrimaryKey(pk):
-        default = DecisionBibliographyModel.objects.filter(pk = pk).first()
-        decisionList = DecisionBibliographyModel.objects.filter(CaseNumber = default.CaseNumber)
-        return decisionList
+        return DecisionModelProxy.__getDecisionFromBibliographyKeys(pk = pk)
 
 
     def GetDecisionListFromCaseNumber(cn):
-        decisionList = DecisionBibliographyModel.objects.filter(CaseNumber = cn)
-        return decisionList
+        result = DecisionModelProxy.__getDecisionListFromBibliographyKeys(CaseNumber = cn)
+        return result
+        #decisionList = DecisionBibliographyModel.objects.filter(CaseNumber = cn)
+        #return decisionList
+    
+    #endegion
 
+    #region Bibliography getters
 
     def GetCitingCasesFromCaseNumber(cn):
         return DecisionBibliographyModel.objects.FilterOnlyPrLanguage(CitedCases__contains=cn).all()
@@ -183,8 +119,8 @@ class DecisionModelProxy(DBProxy):
             OrderHeader = "Decision text unavailable.",
             Order = "")
 
-    def GetTextsFiltered(**kwargs):
-        return DecisionTextModel.objects.filter(**kwargs)
+    #def GetTextsFiltered(**kwargs):
+    #    return DecisionTextModel.objects.filter(**kwargs)
     #endregion
 
     #region Bibliography meta

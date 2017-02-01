@@ -10,10 +10,11 @@ class DecisionViewModel(VMBase):
         super(DecisionViewModel, self).__init__()
 
         self._decisions = decisions
-        self._pk = pk
         self._message = msg
         self._decisionToShow = None
         self._highlightterms = highlightterms
+        
+        self._pk = int(pk) if pk else None
 
         self._setup()
 
@@ -41,14 +42,17 @@ class DecisionViewModel(VMBase):
 
     def _setFullContext(self):
         self._setDecisionToShow() 
-        sameDate = self._decisions.filter(DecisionDate = self._decisionToShow.DecisionDate)
-        otherLanguages = sameDate.exclude(pk = self._decisionToShow.pk)
-        otherVersions = self._decisions.exclude(DecisionDate = self._decisionToShow.DecisionDate)      
+        sameDate = [x for x in self._decisions if x.DecisionDate == self._decisionToShow.DecisionDate]
+        otherLanguages = [x for x in sameDate if not x.pk == self._decisionToShow.pk]
+        otherVersions = [x for x in self._decisions if not x.DecisionDate == self._decisionToShow.DecisionDate]
         
         citingDecisions = self._getCitingDecisionsAsTimeline(self._decisionToShow)
-        citedDecisions = self._getCitedDecisions(self._decisionToShow)
-        text = self._getText(self._decisionToShow)
-        
+        citedDecisions = self._getCitedDecisions(self._decisionToShow)        
+        self.__downloadTextIfNeeded(self._decisionToShow)
+
+        #TODO: modifiy this to send just 'decision', which now contains
+        #facts, reasons, etc.
+        #Need to modify template for that.
         self.Context.update( {
             'title': '',
             'message': self._message,
@@ -57,12 +61,12 @@ class DecisionViewModel(VMBase):
             'citingyears': citingDecisions['years'],
             'citingtl': citingDecisions['timeline'],
             'citingCount': citingDecisions['count'],
-            'factsHeader': text.FactsHeader,
-            'facts': text.Facts.split('\n\n'),
-            'reasonsHeader': text.ReasonsHeader,
-            'reasons': text.Reasons.split('\n\n'),
-            'orderHeader': text.OrderHeader,
-            'order': text.Order.split('\n\n'),
+            'factsHeader': self._decisionToShow.FactsHeader,
+            'facts': self._decisionToShow.Facts.split('\n\n'),
+            'reasonsHeader': self._decisionToShow.ReasonsHeader,
+            'reasons': self._decisionToShow.Reasons.split('\n\n'),
+            'orderHeader': self._decisionToShow.OrderHeader,
+            'order': self._decisionToShow.Order.split('\n\n'),
             'languageversions': otherLanguages,
             'otherversions': otherVersions,
             'highlightterms': self._highlightterms,
@@ -71,11 +75,11 @@ class DecisionViewModel(VMBase):
 
     def _setDecisionToShow(self):
         if self._pk:
-            self._decisionToShow = self._decisions.filter(pk = self._pk).first()
-        else:
-            decisionsInPrLang = self._decisions.filter(DecisionLanguage = F('ProcedureLanguage'))
-            if decisionsInPrLang:
-                self._decisionToShow = decisionsInPrLang.order_by('-DecisionDate')[0]
+            self._decisionToShow = [x for x in self._decisions if x.pk == self._pk][0]
+        else:            
+            decisionsInPrLang = [x for x in self._decisions if x.DecisionLanguage == x.ProcedureLanguage]
+            if decisionsInPrLang != []:
+                self._decisionToShow = min(decisionsInPrLang, key = lambda x: x.DecisionDate)
             else:
                 self._decisionToShow = self._decisions[0]
 
@@ -126,16 +130,16 @@ class DecisionViewModel(VMBase):
 
         return {'count': len(citing), 'years': years, 'timeline' : timeline}
 
-    def _downloadText(self, decision):   
+
+    #TODO: make this nice
+    def __downloadTextIfNeeded(self, decision):
+        if decision.HasText:
+            return
         textGetter = TextGetter()
         text = textGetter.Get_Text(decision)
-        return text
-
-    def _getText(self, decision):
-        text = DecisionModelProxy.GetTextFromBibliography(decision)
-        if not text:
-            text = self._downloadText(decision)
-        if not text:
-            text = DecisionModelProxy.GetErrorText()
-        return text
+        decision.FactsHeader = text.FactsHeader
+        decision.Facts = text.Facts
+        decision.ReasonsHeader = text.ReasonsHeader
+        decision.Reasons = text.Reasons
+        decision.OrderHeader = text.Order
 

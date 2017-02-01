@@ -65,7 +65,7 @@ class TextSearchViewModel(VMBase):
 
 
     def __getTextExtract(self, decision, sort):
-        searchText = self.__getSearchText(decision, sort)
+        searchText = decision.__dict__.get(sort, '')
 
         terms = '|'.join([x.strip() for x in (self.__query)] )
         finder = re.compile(r'(\S+\s+){0,11}(' + terms + r'(?:\S*))(\s+\S+){0,11}', re.IGNORECASE)
@@ -77,23 +77,6 @@ class TextSearchViewModel(VMBase):
             result = '[' + sort + '] ... something went wrong ...'
         return result
 
-
-    def __getSearchText(self, decision, sort):
-        if sort == 'Catchwords':
-            return decision.Catchwords
-        if sort == 'Keywords':
-            return decision.Keywords
-        
-        text = DecisionModelProxy.GetTextFromDecision(decision)
-        if not text:
-            return ''
-        if sort == 'Facts':
-            return text.Facts
-        if sort == 'Reasons':
-            return text.Reasons
-        if sort == 'Order':
-            return text.Order
-        return ''
 
 
 

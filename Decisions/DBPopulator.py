@@ -55,6 +55,7 @@ class BibliographyGetter(object):
 
 class TextGetter(object):
 
+    #TODO: Big re-write
     def Get_Text(self, decision):
         searcher = EpoSearchFacade()
         converter = EpoConverter()
@@ -62,14 +63,14 @@ class TextGetter(object):
         try:
             response = searcher.SearchDecisionText(decision.Link)
             decisionText = converter.ResponseToDecisionText(response)
-            decisionText.Bibliography = decision
+            decisionText.Bibliography = DecisionBibliographyModel.objects.filter(pk = decision.pk).first()
             decisionText.Language = decision.ProcedureLanguage
         except Exception as ex:
             t = type(ex)      
             return None
 
         inDB = DecisionTextModel.objects.filter(
-                Bibliography = decision,
+                Bibliography = decisionText.Bibliography,
                 Language = decision.ProcedureLanguage).first()
 
         if inDB:
