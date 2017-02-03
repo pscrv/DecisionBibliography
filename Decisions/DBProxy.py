@@ -8,7 +8,7 @@ from Decisions.Decision import DecisionProxy
 class DecisionModelProxy():
 
 
-    #private methods
+    #region private methods
     def __getDecisionFromBibliographyKeys(**kwargs):
         bibliographies = DecisionBibliographyModel.objects.filter(**kwargs)
         if bibliographies.count() > 1:
@@ -54,7 +54,7 @@ class DecisionModelProxy():
     #endregion
     
       
-    def GetFilteredOnBibliographyKeywords(**kwargs):
+    def GetListFromBibliographyKeywords(**kwargs):
         result_qset = DecisionBibliographyModel.objects.filter(**kwargs)
         result_list = []
         for bibliography in result_qset:
@@ -69,7 +69,7 @@ class DecisionModelProxy():
         return result_list
 
 
-    def GetFilteredOnTextKeywords(**kwargs):
+    def GetListFromTextKeywords(**kwargs):
         result_qset = DecisionTextModel.objects.filter(**kwargs)
         return [DecisionProxy(t.Bibliography, t) for t in result_qset]
 
@@ -77,11 +77,12 @@ class DecisionModelProxy():
     def GetRepresentativeForCaseNumber(cn):
         return DecisionModelProxy.__getDecisionFromBibliographyKeys(CaseNumber = cn)
     
+
     def GetDecisionFromPrimaryKey(pk):
         return DecisionModelProxy.__getDecisionFromBibliographyKeys(pk = pk)
 
 
-    def GetDecisionListFromCaseNumber(cn):
+    def GetListFromCaseNumber(cn):
         return DecisionModelProxy.__getDecisionListFromBibliographyKeys(CaseNumber = cn)
     
         
@@ -124,6 +125,7 @@ class DecisionModelProxy():
 
     def IsListAttribute(attribute):
         return DecisionBibliographyModel.objects.IsListAttribute(attribute)
+
 
     def GetBibliographyAttributeList():
         return vars(DecisionBibliographyModel)

@@ -45,13 +45,11 @@ class SimpleTextSearcher(object):
 
 
     def __makeSetFromBibl(self, kw, term):
-        #return {x.pk for x in DecisionModelProxy.GetBibliographyFiltered(**{kw + '__contains': term })}
-        return {x.pk for x in DecisionModelProxy.GetFilteredOnBibliographyKeywords(**{kw + '__contains': term })}
+        return {x.pk for x in DecisionModelProxy.GetListFromBibliographyKeywords(**{kw + '__contains': term })}
 
     
     def __makeSetFromText(self, kw, term):
-        #return {x.decision.pk for x in DecisionModelProxy.GetTextsFiltered(**{kw + '__contains': term })}
-        return {x.pk for x in DecisionModelProxy.GetFilteredOnTextKeywords(**{kw + '__contains': term })}
+        return {x.pk for x in DecisionModelProxy.GetListFromTextKeywords(**{kw + '__contains': term })}
 
 
 

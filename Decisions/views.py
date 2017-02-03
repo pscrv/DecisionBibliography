@@ -33,7 +33,7 @@ def decision(request, pk, highlightterms = '[]'):
     from ast import literal_eval
 
     decision = DecisionModelProxy.GetDecisionFromPrimaryKey(pk)
-    decisions = DecisionModelProxy.GetDecisionListFromCaseNumber(decision.CaseNumber)
+    decisions = DecisionModelProxy.GetListFromCaseNumber(decision.CaseNumber)
     hlterms = literal_eval(highlightterms)
     viewModel = DecisionVM.DecisionViewModel(decisions, pk=pk, highlightterms=hlterms)
     return render(
@@ -47,7 +47,7 @@ def decisionFromCaseNumber(request, cn):
     assert isinstance(request, HttpRequest)
 
     caseNumber = Formatters.formatCaseNumber(cn)
-    decisions = DecisionModelProxy.GetDecisionListFromCaseNumber(caseNumber)
+    decisions = DecisionModelProxy.GetListFromCaseNumber(caseNumber)
     viewModel = DecisionVM.DecisionViewModel(decisions)
     return render(
         request,

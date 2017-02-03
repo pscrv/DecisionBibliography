@@ -16,7 +16,7 @@ class DBProxyTests(TestCase):
     def test_DecisionModelProxy_GetFilteredOnBibliographyKeywords(self):
         from Decisions.DBProxy import DecisionModelProxy
         casenumber = 'T 0641/00'
-        result = DecisionModelProxy.GetFilteredOnBibliographyKeywords(CaseNumber = casenumber)
+        result = DecisionModelProxy.GetListFromBibliographyKeywords(CaseNumber = casenumber)
         self.assertEqual(len(result), 3)
         for r in result:
             self.assertEqual(r.CaseNumber, casenumber)
@@ -24,7 +24,7 @@ class DBProxyTests(TestCase):
     def test_DecisionModelProxy_GetFilteredOnTextKeywords(self):
         from Decisions.DBProxy import DecisionModelProxy
         word = 'umfasst'
-        result = DecisionModelProxy.GetFilteredOnTextKeywords(Reasons__contains = word)
+        result = DecisionModelProxy.GetListFromTextKeywords(Reasons__contains = word)
         test = [x for x in result if x.CaseNumber == 'T 0336/15']
         self.assertNotEqual(test, [])
 
