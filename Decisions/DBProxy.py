@@ -53,20 +53,10 @@ class DecisionModelProxy():
     
     #endregion
     
-      
+
+    #region public methods  
     def GetListFromBibliographyKeywords(**kwargs):
-        result_qset = DecisionBibliographyModel.objects.filter(**kwargs)
-        result_list = []
-        for bibliography in result_qset:
-            try:
-                text = DecisionTextModel.objects.get(Bibliography = bibliography)
-            except DecisionTextModel.DoesNotExist:
-                text = NullTextModel()
-                text.Bibliography = bibliography
-
-            result_list.append(DecisionProxy(bibliography, text))
-
-        return result_list
+        return DecisionModelProxy.__getDecisionListFromBibliographyKeys(**kwargs)
 
 
     def GetListFromTextKeywords(**kwargs):
@@ -129,5 +119,5 @@ class DecisionModelProxy():
 
     def GetBibliographyAttributeList():
         return vars(DecisionBibliographyModel)
-
+    #endregion
     

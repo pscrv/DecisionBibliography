@@ -18,7 +18,7 @@ class DecisionProxy:
     def HasText(self):
         return not isinstance(self.__texts, NullTextModel)
 
-    def __str__(self):
+    def __repr__(self):
         return self.CaseNumber
 
 
