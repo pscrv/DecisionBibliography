@@ -7,7 +7,6 @@ from Decisions.Decision import DecisionProxy
 
 class DecisionModelProxy():
 
-    #region Adding here
 
     #private methods
     def __getDecisionFromBibliographyKeys(**kwargs):
@@ -21,8 +20,14 @@ class DecisionModelProxy():
         return DecisionProxy(bibliography, text)
 
     
-    def __getDecisionListFromBibliographyKeys(**kwargs):
+    def __getDecisionListFromBibliographyKeys(onlyprocedurelanguage = False, orderfield = None, howmany = None, **kwargs):
         bibliographies = DecisionBibliographyModel.objects.filter(**kwargs)
+        if orderfield:
+            bibliographies = bibliographies.order_by(orderfield)
+        if onlyprocedurelanguage:
+            bibliographies = bibliographies.filter(DecisionLanguage = F('ProcedureLanguage'))
+        if howmany:
+            bibliographies = bibliographies[:howmany]
         decisions = [
             DecisionProxy(x, DecisionModelProxy.__getTextFromBibliography(x))
             for x in bibliographies
@@ -30,9 +35,8 @@ class DecisionModelProxy():
         return decisions
 
 
-
-        text = DecisionModelProxy.__getTextFromBibliography(bibliography)
-        return DecisionProxy(bibliography, text)
+    def __countFromBibliographyKey(**kwargs):
+        return DecisionBibliographyModel.objects.filter(**kwargs).count()
 
 
     def __getTextFromBibliography(bibliography):        
@@ -43,6 +47,10 @@ class DecisionModelProxy():
             text.Bibliography = bibliography
         return text
 
+
+    def __getDistinctBibliograpyAttributeValueList(attribute):
+        return list(DecisionBibliographyModel.objects.values_list(attribute, flat = True).distinct())
+    
     #endregion
     
       
@@ -74,94 +82,50 @@ class DecisionModelProxy():
 
 
     def GetDecisionListFromCaseNumber(cn):
-        result = DecisionModelProxy.__getDecisionListFromBibliographyKeys(CaseNumber = cn)
-        return result
-        #decisionList = DecisionBibliographyModel.objects.filter(CaseNumber = cn)
-        #return decisionList
+        return DecisionModelProxy.__getDecisionListFromBibliographyKeys(CaseNumber = cn)
     
-    #endegion
-
-    #region Bibliography getters
-
+        
     def GetCitingCasesFromCaseNumber(cn):
-        return DecisionBibliographyModel.objects.FilterOnlyPrLanguage(CitedCases__contains=cn).all()
+        result = DecisionModelProxy.__getDecisionListFromBibliographyKeys(CitedCases__contains=cn, onlyprocedurelanguage = True)
+        return result
 
-    def GetAllOrderedByDecisionDate():
-        return DecisionBibliographyModel.objects.order_by('DecisionDate')
     
     def GetAllForBoard(board):
-        return DecisionBibliographyModel.objects.FilterOnlyPrLanguage(Board = board)
+        return DecisionModelProxy.__getDecisionListFromBibliographyKeys(Board = board, onlyprocedurelanguage = True)
 
+    
     def GetAllForBoardOrderedByDecisionDate(board):
-        return DecisionBibliographyModel.objects.FilterOnlyPrLanguage(Board = board).order_by('DecisionDate')
+        return DecisionModelProxy.__getDecisionListFromBibliographyKeys(Board = board, onlyprocedurelanguage = True, orderfield = 'DecisionDate')
 
-    def GetAllInDateRange(startDate, endDate):
-        return DecisionBibliographyModel.objects.FilterOnlyPrLanguage(DecisionDate__range = (startDate, endDate))
+    
+    def GetEarliest(howmany = 1):
+        return DecisionModelProxy.__getDecisionListFromBibliographyKeys(onlyprocedurelanguage = True, orderfield = 'DecisionDate', howmany = howmany)
+    
+    
+    def GetLatest(howmany = 1):
+        return DecisionModelProxy.__getDecisionListFromBibliographyKeys(onlyprocedurelanguage = True, orderfield = '-DecisionDate', howmany = howmany)
 
-    def GetEarliestByDecisionDate(howmany = 1):
-        return DecisionBibliographyModel.objects.FilterOnlyPrLanguage().order_by('DecisionDate')[:howmany]
 
-    def GetLatestByDecisionDate(howmany = 1):
-        return DecisionBibliographyModel.objects.FilterOnlyPrLanguage().order_by('-DecisionDate')[:howmany]
-
-    #endregion
-
-    #region Text getters
-    def GetTextFromBibliography(decision):
-        return DecisionTextModel.objects.filter(Bibliography = decision).first()
-
-    def GetErrorText():
-        return  DecisionTextModel(
-            FactsHeader = "Decision text unavailable.",
-            Facts = "",
-            ReasonsHeader = "Decision text unavailable.",
-            Reasons = "",
-            OrderHeader = "Decision text unavailable.",
-            Order = "")
-
-    #def GetTextsFiltered(**kwargs):
-    #    return DecisionTextModel.objects.filter(**kwargs)
-    #endregion
-
-    #region Bibliography meta
     def GetCasetypeCount(typeletter):
-        return DecisionBibliographyModel.objects.filter(CaseNumber__startswith=typeletter).count()     
-          
-        # no longer used?
-        # check and delete if possible
+        return DecisionModelProxy.__countFromBibliographyKey(CaseNumber__startswith = typeletter)
+    
+
     def GetBibliographyCount():
         return DecisionBibliographyModel.objects.count()
 
-    def GetDistinctBibliographiesCount():
-        return DecisionBibliographyModel.objects.FilterOnlyPrLanguage().count()
+    
+    def GetTextCount():
+        return DecisionTextModel.objects.count()
 
-    def GetDistinctAttributeValueList(attribute):
-        return list(DecisionBibliographyModel.objects.values_list(attribute, flat = True).distinct())
 
     def GetBoardList():
-        return list(DecisionBibliographyModel.objects.values_list('Board', flat = True).distinct())
+        return DecisionModelProxy.__getDistinctBibliograpyAttributeValueList('Board')
 
-    def GetIsListAttribute(attribute):
+
+    def IsListAttribute(attribute):
         return DecisionBibliographyModel.objects.IsListAttribute(attribute)
 
     def GetBibliographyAttributeList():
         return vars(DecisionBibliographyModel)
-    #endregion
 
-    #region Text meta
-    def GetTextCount():
-        return DecisionTextModel.objects.count()
-
-    def ExtractCasenumbersFromText(decision):
-        decisionText = DecisionModelProxy.GetTextFromBibliography(decision)
-        fullText = decisionText.Facts + decisionText.Reasons + decisionText.Order
-
-        import re
-        finder = re.compile(r'([DGJRTW])\s*(\d+)/(\d+)') #newlines are unlikely to matter
-        found = re.finditer(finder, fullText)
-
-        from app.Formatters import formatCaseNumber
-        numbers = set(formatCaseNumber(x.group(0)) for x in found)
-        return numbers
-
-    #endregion
+    

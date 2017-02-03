@@ -69,7 +69,7 @@ def ArticleFrequencyForBoard_TopN(board, n):
 def CitationFrequency(decisions):
     result = {}
     for decision in decisions:
-        result[decision] = DecisionModelProxy.GetCitingCasesFromCaseNumber(decision.CaseNumber).count()
+        result[decision] = len(DecisionModelProxy.GetCitingCasesFromCaseNumber(decision.CaseNumber))
     return result
 
 def CitationFrequencyForBoard(board):
@@ -83,7 +83,7 @@ def __getAttributeFrequency(attribute, decisions):
     result = {}
     for decision in decisions:
         value = decision.__dict__[attribute]
-        if DecisionModelProxy.GetIsListAttribute(attribute):
+        if DecisionModelProxy.IsListAttribute(attribute):
             values = [x.strip() for x in value.split(',')]
         else:
             values = [value.strip()]

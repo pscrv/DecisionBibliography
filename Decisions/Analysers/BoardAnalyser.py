@@ -26,7 +26,7 @@ class BoardAnalyser(CachingBase):
             return NullBoardAnalysis()
 
         boardDecisions = DecisionModelProxy.GetAllForBoardOrderedByDecisionDate(board)
-        count = boardDecisions.count()
+        count = len(boardDecisions)
         early = boardDecisions[:5]
         if count >= 5:
             late = boardDecisions[count-5:]
@@ -40,11 +40,11 @@ class BoardAnalyser(CachingBase):
         analysis = BoardAnalysis(
             board,
             count,
-            list(early),
-            list(late),
-            list(ipcTop5),
-            list(articleTop5),
-            list(citationTop5)
+            early,
+            late,
+            ipcTop5,
+            articleTop5,
+            citationTop5
             )
 
         self._cache[board] = analysis

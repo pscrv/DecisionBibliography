@@ -84,7 +84,7 @@ h4{
 }
 
 .nav-tabs{
-    border-bottom 2px solid darkgreen;
+    border-bottom: 2px solid darkgreen;
 }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
@@ -94,8 +94,9 @@ h4{
 
 .citation-timeline {
     position: fixed;
+    max-height: 500px;
     height: 100px;
-    bottom: 100px;
+    bottom: 50px;
     width: 80%;
     padding: 10px;
     overflow: auto;
@@ -103,6 +104,11 @@ h4{
     border: solid 2px darkgreen;
     border-radius: 5px;
     -webkit-box-shadow: 2px 2px 5px darkgreen;
+}
+
+.dropdown-menu {
+    overflow-y:auto;
+    max-height: 500px;
 }
 
 

@@ -7,7 +7,7 @@ class  IndexViewModel(VMBase):
     def __init__(self):
         super(IndexViewModel, self).__init__()
 
-        decisions = DecisionModelProxy.GetLatestByDecisionDate(5)
+        decisions = DecisionModelProxy.GetLatest(5)
 
         self.Context.update( {
             'decisions': decisions,

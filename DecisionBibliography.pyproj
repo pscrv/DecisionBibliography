@@ -48,13 +48,13 @@
     <Compile Include="Analysers\IssueAnalysis.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\templatetags\highlight_filters.py">
+    <Compile Include="app__old\templatetags\highlight_filters.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\templatetags\__init__.py">
+    <Compile Include="app__old\templatetags\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\urls.py">
+    <Compile Include="app__old\urls.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CitationMapper\dgraph.py">
@@ -266,7 +266,7 @@
     <Compile Include="Analysers\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\DateHelpers.py">
+    <Compile Include="app__old\DateHelpers.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\test_BoardAnalyser.py">
@@ -302,21 +302,21 @@
     <Compile Include="ViewModels\Base.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\DBProxy.py">
+    <Compile Include="app__old\DBProxy.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\EpoConverter.py" />
-    <Compile Include="app\EpoSearchFacade.py">
+    <Compile Include="app__old\EpoConverter.py" />
+    <Compile Include="app__old\EpoSearchFacade.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\Formatters.py">
+    <Compile Include="app__old\Formatters.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\models.py">
+    <Compile Include="app__old\models.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\forms.py" />
-    <Compile Include="app\DBPopulator.py">
+    <Compile Include="app__old\forms.py" />
+    <Compile Include="app__old\DBPopulator.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="modelMapper.py">
@@ -333,8 +333,8 @@
     <Compile Include="ViewModels\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\views.py" />
-    <Compile Include="app\__init__.py" />
+    <Compile Include="app__old\views.py" />
+    <Compile Include="app__old\__init__.py" />
     <Compile Include="manage.py" />
     <Compile Include="DecisionBibliography\____init__.py" />
     <Compile Include="DecisionBibliography\settings.py" />
@@ -342,9 +342,9 @@
     <Compile Include="DecisionBibliography\wsgi.py" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\" />
+    <Folder Include="app__old\" />
     <Folder Include="Analysers\" />
-    <Folder Include="app\templatetags\" />
+    <Folder Include="app__old\templatetags\" />
     <Folder Include="CitationMapper\" />
     <Folder Include="CitationMapper\templates\" />
     <Folder Include="Classifiers\Classifier_Setup\" />
@@ -367,10 +367,10 @@
     <Folder Include="Decisions\management\commands\" />
     <Folder Include="Decisions\management\utilities\" />
     <Folder Include="Decisions\static\" />
-    <Folder Include="Decisions\static\app\" />
-    <Folder Include="Decisions\static\app\content\" />
-    <Folder Include="Decisions\static\app\fonts\" />
-    <Folder Include="Decisions\static\app\scripts\" />
+    <Folder Include="Decisions\static\Decisions\" />
+    <Folder Include="Decisions\static\Decisions\content\" />
+    <Folder Include="Decisions\static\Decisions\fonts\" />
+    <Folder Include="Decisions\static\Decisions\scripts\" />
     <Folder Include="Decisions\templates\" />
     <Folder Include="Decisions\templates\Decisions\" />
     <Folder Include="Decisions\templatetags\" />
@@ -383,51 +383,51 @@
     <Folder Include="AnalysisStorers\" />
     <Folder Include="__old__toDelete\" />
     <Folder Include="ViewModels\" />
-    <Folder Include="app\static\" />
-    <Folder Include="app\static\app\" />
-    <Folder Include="app\static\app\content\" />
-    <Folder Include="app\static\app\fonts\" />
-    <Folder Include="app\static\app\scripts\" />
-    <Folder Include="app\templates\" />
-    <Folder Include="app\templates\app\" />
+    <Folder Include="app__old\static\" />
+    <Folder Include="app__old\static\app\" />
+    <Folder Include="app__old\static\app\content\" />
+    <Folder Include="app__old\static\app\fonts\" />
+    <Folder Include="app__old\static\app\scripts\" />
+    <Folder Include="app__old\templates\" />
+    <Folder Include="app__old\templates\app\" />
     <Folder Include="DecisionBibliography\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\static\app\content\DVStyle.css" />
-    <Content Include="app\static\app\content\NavbarFooter.css" />
-    <Content Include="app\templates\app\board.html" />
-    <Content Include="app\templates\app\boardmenu.html" />
-    <Content Include="app\templates\app\boardtimelines.html" />
-    <Content Include="app\templates\app\decision.html" />
-    <Content Include="app\templates\app\decisionversionlist.html" />
-    <Content Include="app\templates\app\textsearch.html" />
+    <Content Include="app__old\static\app\content\DVStyle.css" />
+    <Content Include="app__old\static\app\content\NavbarFooter.css" />
+    <Content Include="app__old\templates\app\board.html" />
+    <Content Include="app__old\templates\app\boardmenu.html" />
+    <Content Include="app__old\templates\app\boardtimelines.html" />
+    <Content Include="app__old\templates\app\decision.html" />
+    <Content Include="app__old\templates\app\decisionversionlist.html" />
+    <Content Include="app__old\templates\app\textsearch.html" />
     <Content Include="CitationMapper\templates\index.html" />
     <Content Include="DecisionAnalyser\static\DecisionAnalyser\content\DA.css" />
     <Content Include="DecisionAnalyser\templates\DecisionAnalyser\analyseddecision.html" />
-    <Content Include="Decisions\static\app\content\bootstrap.css" />
-    <Content Include="Decisions\static\app\content\bootstrap.min.css" />
-    <Content Include="Decisions\static\app\content\DVStyle.css" />
-    <Content Include="Decisions\static\app\content\NavbarFooter.css" />
-    <Content Include="Decisions\static\app\content\site.css" />
-    <Content Include="Decisions\static\app\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Decisions\static\app\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Decisions\static\app\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Decisions\static\app\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="Decisions\static\app\scripts\_references.js" />
-    <Content Include="Decisions\static\app\scripts\bootstrap.js" />
-    <Content Include="Decisions\static\app\scripts\bootstrap.min.js" />
-    <None Include="Decisions\static\app\scripts\jquery.validate-vsdoc.js" />
-    <None Include="Decisions\static\app\scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Decisions\static\app\scripts\jquery-1.10.2.js" />
-    <Content Include="Decisions\static\app\scripts\jquery-1.10.2.min.js" />
-    <Content Include="Decisions\static\app\scripts\jquery-1.10.2.min.map" />
-    <Content Include="Decisions\static\app\scripts\jquery.validate.js" />
-    <Content Include="Decisions\static\app\scripts\jquery.validate.min.js" />
-    <Content Include="Decisions\static\app\scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Decisions\static\app\scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Decisions\static\app\scripts\modernizr-2.6.2.js" />
-    <Content Include="Decisions\static\app\scripts\respond.js" />
-    <Content Include="Decisions\static\app\scripts\respond.min.js" />
+    <Content Include="Decisions\static\Decisions\content\bootstrap.css" />
+    <Content Include="Decisions\static\Decisions\content\bootstrap.min.css" />
+    <Content Include="Decisions\static\Decisions\content\DVStyle.css" />
+    <Content Include="Decisions\static\Decisions\content\NavbarFooter.css" />
+    <Content Include="Decisions\static\Decisions\content\site.css" />
+    <Content Include="Decisions\static\Decisions\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Decisions\static\Decisions\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Decisions\static\Decisions\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Decisions\static\Decisions\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Decisions\static\Decisions\scripts\_references.js" />
+    <Content Include="Decisions\static\Decisions\scripts\bootstrap.js" />
+    <Content Include="Decisions\static\Decisions\scripts\bootstrap.min.js" />
+    <None Include="Decisions\static\Decisions\scripts\jquery.validate-vsdoc.js" />
+    <None Include="Decisions\static\Decisions\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Decisions\static\Decisions\scripts\jquery-1.10.2.js" />
+    <Content Include="Decisions\static\Decisions\scripts\jquery-1.10.2.min.js" />
+    <Content Include="Decisions\static\Decisions\scripts\jquery-1.10.2.min.map" />
+    <Content Include="Decisions\static\Decisions\scripts\jquery.validate.js" />
+    <Content Include="Decisions\static\Decisions\scripts\jquery.validate.min.js" />
+    <Content Include="Decisions\static\Decisions\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Decisions\static\Decisions\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Decisions\static\Decisions\scripts\modernizr-2.6.2.js" />
+    <Content Include="Decisions\static\Decisions\scripts\respond.js" />
+    <Content Include="Decisions\static\Decisions\scripts\respond.min.js" />
     <Content Include="Decisions\templates\Decisions\about.html" />
     <Content Include="Decisions\templates\Decisions\board.html" />
     <Content Include="Decisions\templates\Decisions\boardmenu.html" />
@@ -440,34 +440,34 @@
     <Content Include="Decisions\templates\Decisions\textsearch.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
-    <Content Include="app\static\app\content\bootstrap.css" />
-    <Content Include="app\static\app\content\bootstrap.min.css" />
-    <Content Include="app\static\app\content\site.css" />
-    <Content Include="app\static\app\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="app\static\app\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="app\static\app\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="app\static\app\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="app\static\app\scripts\bootstrap.js" />
-    <Content Include="app\static\app\scripts\bootstrap.min.js" />
-    <Content Include="app\static\app\scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="app\static\app\scripts\jquery-1.10.2.js" />
-    <Content Include="app\static\app\scripts\jquery-1.10.2.min.js" />
-    <Content Include="app\static\app\scripts\jquery-1.10.2.min.map" />
-    <Content Include="app\static\app\scripts\jquery.validate-vsdoc.js" />
-    <Content Include="app\static\app\scripts\jquery.validate.js" />
-    <Content Include="app\static\app\scripts\jquery.validate.min.js" />
-    <Content Include="app\static\app\scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="app\static\app\scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="app\static\app\scripts\modernizr-2.6.2.js" />
-    <Content Include="app\static\app\scripts\respond.js" />
-    <Content Include="app\static\app\scripts\respond.min.js" />
-    <Content Include="app\static\app\scripts\_references.js" />
-    <Content Include="app\templates\app\index.html" />
-    <Content Include="app\templates\app\contact.html" />
-    <Content Include="app\templates\app\about.html" />
-    <Content Include="app\templates\app\layout.html" />
-    <Content Include="app\templates\app\login.html" />
-    <Content Include="app\templates\app\loginpartial.html" />
+    <Content Include="app__old\static\app\content\bootstrap.css" />
+    <Content Include="app__old\static\app\content\bootstrap.min.css" />
+    <Content Include="app__old\static\app\content\site.css" />
+    <Content Include="app__old\static\app\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="app__old\static\app\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="app__old\static\app\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="app__old\static\app\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="app__old\static\app\scripts\bootstrap.js" />
+    <Content Include="app__old\static\app\scripts\bootstrap.min.js" />
+    <Content Include="app__old\static\app\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="app__old\static\app\scripts\jquery-1.10.2.js" />
+    <Content Include="app__old\static\app\scripts\jquery-1.10.2.min.js" />
+    <Content Include="app__old\static\app\scripts\jquery-1.10.2.min.map" />
+    <Content Include="app__old\static\app\scripts\jquery.validate-vsdoc.js" />
+    <Content Include="app__old\static\app\scripts\jquery.validate.js" />
+    <Content Include="app__old\static\app\scripts\jquery.validate.min.js" />
+    <Content Include="app__old\static\app\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="app__old\static\app\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="app__old\static\app\scripts\modernizr-2.6.2.js" />
+    <Content Include="app__old\static\app\scripts\respond.js" />
+    <Content Include="app__old\static\app\scripts\respond.min.js" />
+    <Content Include="app__old\static\app\scripts\_references.js" />
+    <Content Include="app__old\templates\app\index.html" />
+    <Content Include="app__old\templates\app\contact.html" />
+    <Content Include="app__old\templates\app\about.html" />
+    <Content Include="app__old\templates\app\layout.html" />
+    <Content Include="app__old\templates\app\login.html" />
+    <Content Include="app__old\templates\app\loginpartial.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.mht">

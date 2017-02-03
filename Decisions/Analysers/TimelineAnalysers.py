@@ -27,12 +27,14 @@ class BoardTimelineAnalyser(CachingBase):
         if not boardDecisions:
             return EmptyBoardTimelineAnalysis(board)
 
-        earliestDate = boardDecisions.first().DecisionDate
-        latestDate = boardDecisions.last().DecisionDate
+        earliestDate = boardDecisions[0].DecisionDate
+        latestDate = boardDecisions[-1].DecisionDate
 
         yearlyCases = {}
         for year in DateHelpers.YearIterator(earliestDate, latestDate):
-            yearCount = boardDecisions.filter(DecisionDate__range = (year, DateHelpers.EndOfThisYear(year))).count()
+            yearDecisions = [x for x in boardDecisions if x.DecisionDate.year == year.year]
+            yearCount = len(yearDecisions)
+            #yearCount = boardDecisions.filter(DecisionDate__range = (year, DateHelpers.EndOfThisYear(year))).count()
             yearlyCases[year.year] = yearCount            
         result = BoardTimelineAnalysis(board, yearlyCases)
         self._cache[board] = result

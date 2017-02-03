@@ -36,8 +36,12 @@ def highlight_and_link_casenumbers(text, autoescape=True):
     else:
         esc = lambda x: x
    
-    finder = re.compile(r'([DGJRTW]\s*\d+/\d+)', re.IGNORECASE)
-    text = finder.sub(r'<a class="highlight" href="/decisionFromCaseNumber/\1"> \1 </a>', text)
+
+    #TODO:
+    #deal with 'G 9 und 10/91' 
+    #deal with 'Gr. 1/92'
+    finder = re.compile(r'\b([DGJRTW]\s*\d+/\d+\b)', re.IGNORECASE)
+    text = finder.sub(r'<a class="highlight" href="/decisionFromCaseNumber/\1"> \1</a>', text)
 
     return mark_safe(text)
        
