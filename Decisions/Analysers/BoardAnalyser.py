@@ -34,7 +34,7 @@ class BoardAnalyser(CachingBase):
             late = boardDecisions
 
         ipcTop5 = AnalysisHelpers.IpcMainFrequencyForBoard_TopN_withPercentage(board, 5, count)
-        articleTop5 = AnalysisHelpers.ArticleFrequencyForBoard_TopN_withPercentage(board, 5, count)
+        articleTop5 = AnalysisHelpers.AttributeFrequencyForBoard_TopN_withPercentage(board, 5, count)
         citationTop5 = AnalysisHelpers.ArticleFrequencyForBoard_TopN(board, 5)
 
         analysis = BoardAnalysis(

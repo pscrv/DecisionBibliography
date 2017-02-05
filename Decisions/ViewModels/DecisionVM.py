@@ -2,7 +2,7 @@ from django.db.models import F
 
 from Decisions.ViewModels.Base import VMBase
 from Decisions.DBProxy import DecisionModelProxy
-from Decisions.DBPopulator import TextGetter
+from Decisions.DBHelpers.TextHelpers import TextGetter
 
 class DecisionViewModel(VMBase):
 

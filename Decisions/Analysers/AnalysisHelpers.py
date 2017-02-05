@@ -39,16 +39,16 @@ def __ipcToIpcMain(ipcdict):
 
 
 
-def ArticleFrequencyForBoard_TopN_withPercentage(board, n, total):
-    frequency = ArticleFrequencyForBoard(board)
+def AttributeFrequencyForBoard_TopN_withPercentage(board, n, total):
+    frequency = AttributeFrequencyForBoard(board)
     topN = __topNFromDictionaryWithPercentage(frequency, n, total)
     return topN
 
-def ArticleFrequencyForBoard(board):
+def AttributeFrequencyForBoard(board):
     decisions = DecisionModelProxy.GetAllForBoard(board)
-    return ArticleFrequency(decisions)
+    return AttributeFrequency(decisions)
 
-def ArticleFrequency(decisions):
+def AttributeFrequency(decisions):
     return __getAttributeFrequency('Articles', decisions)
 
     

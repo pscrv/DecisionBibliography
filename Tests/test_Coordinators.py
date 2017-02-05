@@ -11,7 +11,7 @@ class test_PersistentBoardAnalysisCoordinator(TestCase):
         django.setup()
         
     def setUp(self):
-        from Analysers.Coordinators import PersistentBoardAnalysisCoordinator
+        from Decisions.Analysers.Coordinators import PersistentBoardAnalysisCoordinator
         self.coordinator = PersistentBoardAnalysisCoordinator()
         self.realBoard = '3.5.01'
         self.falseBoard = 'notarealboard'
@@ -38,7 +38,7 @@ class test_PersistentTimelineAnalysisCoordinator(TestCase):
         django.setup()
         
     def setUp(self):
-        from Analysers.Coordinators import PersistentTimelineAnalysisCoordinator
+        from Decisions.Analysers.Coordinators import PersistentTimelineAnalysisCoordinator
         self.coordinator = PersistentTimelineAnalysisCoordinator()
         self.realBoard = '3.5.01'
         self.falseBoard = 'notarealboard'

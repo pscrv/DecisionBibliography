@@ -3,7 +3,7 @@ import operator
 from functools import reduce
 from django.db.models import Q
 
-from app.DBProxy import DecisionModelProxy
+from Decisions.DBProxy import DecisionModelProxy
 
 
 class SimpleTextSearcher(object):

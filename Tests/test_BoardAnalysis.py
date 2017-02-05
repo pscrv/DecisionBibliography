@@ -3,8 +3,8 @@ import unittest
 from datetime import datetime
 
 
-from Analysers.AnalysisBase import OutdatedAnalysis
-from Analysers.BoardAnalysis import *
+from Decisions.Analysers.AnalysisBase import OutdatedAnalysis
+from Decisions.Analysers.BoardAnalysis import *
 
 class test_BoardAnalysis(unittest.TestCase):
             

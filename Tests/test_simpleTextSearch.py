@@ -9,10 +9,11 @@ class test_SimpleTextSearcher(TestCase):
         django.setup()
         
     def setUp(self):
-        from TextSearch.SimpleSearch import SimpleTextSearcher
+        from Decisions.TextSearch.SimpleSearch import SimpleTextSearcher
         self.searcher = SimpleTextSearcher(['legal', 'board'])
 
     def test_findsG1_97(self):
+        from Decisions.models import DecisionBibliographyModel
+        correctpk = DecisionBibliographyModel.objects.FilterOnlyPrLanguage(CaseNumber = 'G 0001/97').first().pk
         result = self.searcher.Results
-        resultList = [a.decision.CaseNumber for a in result]
-        self.assertTrue('G 0001/97' in resultList)
+        self.assertTrue(correctpk in result)

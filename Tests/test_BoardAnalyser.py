@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import django
 from django.test import TestCase
 
-from Analysers.BoardAnalysis import *
+from Decisions.Analysers.BoardAnalysis import *
 
 
 class test_BoardAnalyser(TestCase):
@@ -13,8 +13,8 @@ class test_BoardAnalyser(TestCase):
         django.setup()
         
     def setUp(self):
-        from Analysers.BoardAnalyser import BoardAnalyser
-        from Analysers.AnalysisBase import OutdatedAnalysis
+        from Decisions.Analysers.BoardAnalyser import BoardAnalyser
+        from Decisions.Analysers.AnalysisBase import OutdatedAnalysis
         self.analyser = BoardAnalyser()
         self.outdatedAnalysis = OutdatedAnalysis()
 
@@ -40,7 +40,7 @@ class test_BoardAnalyser(TestCase):
         board = '3.5.01'
         analysis = self.analyser.GetAnalysis(board)
         self.assertEqual(analysis.Board, board)
-        self.assertEqual(analysis.Count, 321)
+        self.assertTrue(analysis.Count > 1600)
         self.assertEqual(len(analysis.IpcTop5), 5)
         self.assertEqual(len(analysis.ArticleTop5), 5)
         self.assertEqual(len(analysis.CitationTop5), 5)

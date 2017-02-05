@@ -1,12 +1,11 @@
-from . EpoSearchFacade import EpoSearchFacade
-from . EpoConverter import EpoConverter
-from . models import DecisionBibliographyModel, DecisionTextModel
+from Decisions.EpoSearchFacade import EpoSearchFacade
+from Decisions.EpoConverter import EpoConverter
+from Decisions.models import DecisionBibliographyModel, DecisionTextModel
 
 
 
 class TextGetter(object):
 
-    #TODO: Big re-write
     def Get_Text(self, decision):
         searcher = EpoSearchFacade()
         converter = EpoConverter()

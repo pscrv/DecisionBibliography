@@ -89,7 +89,7 @@ class DecisionAnalyserTest(TestCase):
 
     def test_CanGetDecisionTexts(self):
         
-        from app.DBProxy import DecisionModelProxy
+        from Decisions.DBProxy import DecisionModelProxy
         decision = DecisionModelProxy.GetDecisionListFromCaseNumber('T 0027/86').first()
 
         from DecisionAnalyser.EPOAnalyser import TextAnalyser

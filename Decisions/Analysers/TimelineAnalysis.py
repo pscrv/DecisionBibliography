@@ -1,6 +1,7 @@
 from Decisions.DBProxy import DecisionModelProxy
+from Decisions.Analysers.AnalysisBase import TimestampBase
 
-from Analysers.AnalysisBase import TimestampBase
+
 class BoardTimelineAnalysis(TimestampBase):
 
     def __init__(self, board, yearlydecisions = {}):

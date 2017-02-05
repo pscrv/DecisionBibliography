@@ -30,22 +30,22 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Analysers\AnalyserBase.py">
+    <Compile Include="Analysers__old\AnalyserBase.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers\AnalysisBase.py">
+    <Compile Include="Analysers__old\AnalysisBase.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers\AnalysisHelpers.py">
+    <Compile Include="Analysers__old\AnalysisHelpers.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers\BoardAnalysis.py">
+    <Compile Include="Analysers__old\BoardAnalysis.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers\IssueAnalysers.py">
+    <Compile Include="Analysers__old\IssueAnalysers.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers\IssueAnalysis.py">
+    <Compile Include="Analysers__old\IssueAnalysis.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app__old\templatetags\highlight_filters.py">
@@ -132,7 +132,10 @@
     <Compile Include="Decisions\AnalysisStorers\BoardTimelineAnalysisToDB.py" />
     <Compile Include="Decisions\AnalysisStorers\__init__.py" />
     <Compile Include="Decisions\DateHelpers.py" />
-    <Compile Include="Decisions\DBPopulator.py" />
+    <Compile Include="Decisions\DBHelpers\TextHelpers.py" />
+    <Compile Include="Decisions\DBHelpers\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Decisions\DBProxy.py" />
     <Compile Include="Decisions\Formatters.py" />
     <Compile Include="Decisions\management\commands\findcaseswithwrongcitations.py">
@@ -242,28 +245,28 @@
     <Compile Include="Tests\test_simpleTextSearch.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TextSearch\SimpleSearch.py">
+    <Compile Include="TextSearch__old\SimpleSearch.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TextSearch\__init__.py">
+    <Compile Include="TextSearch__old\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\TextSearchVM.py">
+    <Compile Include="ViewModels__old\TextSearchVM.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers\BoardAnalyser.py">
+    <Compile Include="Analysers__old\BoardAnalyser.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers\Coordinators.py">
+    <Compile Include="Analysers__old\Coordinators.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers\TimelineAnalysers.py">
+    <Compile Include="Analysers__old\TimelineAnalysers.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers\TimelineAnalysis.py">
+    <Compile Include="Analysers__old\TimelineAnalysis.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers\__init__.py">
+    <Compile Include="Analysers__old\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app__old\DateHelpers.py">
@@ -287,19 +290,19 @@
     <Compile Include="Tests\test_TimelineAnalysers.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AnalysisStorers\BoardAnalysisToDB.py">
+    <Compile Include="AnalysisStorers__old\BoardAnalysisToDB.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AnalysisStorers\BoardTimelineAnalysisToDB.py">
+    <Compile Include="AnalysisStorers__old\BoardTimelineAnalysisToDB.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AnalysisStorers\ToDBBase.py">
+    <Compile Include="AnalysisStorers__old\ToDBBase.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AnalysisStorers\__init__.py">
+    <Compile Include="AnalysisStorers__old\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\Base.py">
+    <Compile Include="ViewModels__old\Base.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app__old\DBProxy.py">
@@ -319,18 +322,18 @@
     <Compile Include="app__old\DBPopulator.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="modelMapper.py">
+    <Compile Include="__old__toDelete\modelMapper.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\test_DBs.py" />
-    <Compile Include="ViewModels\BoardVM.py" />
-    <Compile Include="ViewModels\DbStateVM.py" />
-    <Compile Include="ViewModels\DecisionVM.py" />
-    <Compile Include="ViewModels\IndexVM.py">
+    <Compile Include="ViewModels__old\BoardVM.py" />
+    <Compile Include="ViewModels__old\DbStateVM.py" />
+    <Compile Include="ViewModels__old\DecisionVM.py" />
+    <Compile Include="ViewModels__old\IndexVM.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\TimeLinesVM.py" />
-    <Compile Include="ViewModels\__init__.py">
+    <Compile Include="ViewModels__old\TimeLinesVM.py" />
+    <Compile Include="ViewModels__old\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app__old\views.py" />
@@ -343,7 +346,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app__old\" />
-    <Folder Include="Analysers\" />
+    <Folder Include="Analysers__old\" />
     <Folder Include="app__old\templatetags\" />
     <Folder Include="CitationMapper\" />
     <Folder Include="CitationMapper\templates\" />
@@ -366,6 +369,7 @@
     <Folder Include="Decisions\management\" />
     <Folder Include="Decisions\management\commands\" />
     <Folder Include="Decisions\management\utilities\" />
+    <Folder Include="Decisions\DBHelpers\" />
     <Folder Include="Decisions\static\" />
     <Folder Include="Decisions\static\Decisions\" />
     <Folder Include="Decisions\static\Decisions\content\" />
@@ -378,11 +382,11 @@
     <Folder Include="Decisions\ViewModels\" />
     <Folder Include="Helpers\" />
     <Folder Include="Serialisation\" />
-    <Folder Include="TextSearch\" />
+    <Folder Include="TextSearch__old\" />
     <Folder Include="Tests\" />
-    <Folder Include="AnalysisStorers\" />
+    <Folder Include="AnalysisStorers__old\" />
     <Folder Include="__old__toDelete\" />
-    <Folder Include="ViewModels\" />
+    <Folder Include="ViewModels__old\" />
     <Folder Include="app__old\static\" />
     <Folder Include="app__old\static\app\" />
     <Folder Include="app__old\static\app\content\" />

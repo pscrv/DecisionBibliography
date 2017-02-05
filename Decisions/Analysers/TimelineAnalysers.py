@@ -34,7 +34,6 @@ class BoardTimelineAnalyser(CachingBase):
         for year in DateHelpers.YearIterator(earliestDate, latestDate):
             yearDecisions = [x for x in boardDecisions if x.DecisionDate.year == year.year]
             yearCount = len(yearDecisions)
-            #yearCount = boardDecisions.filter(DecisionDate__range = (year, DateHelpers.EndOfThisYear(year))).count()
             yearlyCases[year.year] = yearCount            
         result = BoardTimelineAnalysis(board, yearlyCases)
         self._cache[board] = result
