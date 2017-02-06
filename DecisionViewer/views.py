@@ -5,13 +5,13 @@ from django.template import RequestContext
 from Decisions import Formatters
 from Decisions.DBProxy import DecisionModelProxy
 
-from Decisions.ViewModels import BoardVM
-from Decisions.ViewModels import DbStateVM
-from Decisions.ViewModels import DecisionVM 
-from Decisions.ViewModels import TimeLinesVM 
-from Decisions.ViewModels import BoardVM 
-from Decisions.ViewModels import IndexVM
-from Decisions.ViewModels import TextSearchVM
+from DecisionViewer.ViewModels import BoardVM
+from DecisionViewer.ViewModels import DbStateVM
+from DecisionViewer.ViewModels import DecisionVM 
+from DecisionViewer.ViewModels import TimeLinesVM 
+from DecisionViewer.ViewModels import BoardVM 
+from DecisionViewer.ViewModels import IndexVM
+from DecisionViewer.ViewModels import TextSearchVM
 
 
 def home(request):
@@ -21,7 +21,7 @@ def home(request):
     viewModel = IndexVM.IndexViewModel()
     return render(
         request,
-        'Decisions/index.html',
+        'DecisionViewer/index.html',
         viewModel.Context,
     )
 
@@ -38,7 +38,7 @@ def decision(request, pk, highlightterms = '[]'):
     viewModel = DecisionVM.DecisionViewModel(decisions, pk=pk, highlightterms=hlterms)
     return render(
         request,
-        'Decisions/decision.html',
+        'DecisionViewer/decision.html',
         viewModel.Context,
     ) 
 
@@ -51,7 +51,7 @@ def decisionFromCaseNumber(request, cn):
     viewModel = DecisionVM.DecisionViewModel(decisions)
     return render(
         request,
-        'Decisions/decision.html',
+        'DecisionViewer/decision.html',
         viewModel.Context,
     ) 
 
@@ -69,7 +69,7 @@ def boardtimelines(request):
     viewModel = TimeLinesVM.TimeLinesViewModel()
     return render(
         request,
-        'Decisions/boardtimelines.html',
+        'DecisionViewer/boardtimelines.html',
         viewModel.Context,
         )        
 
@@ -79,7 +79,7 @@ def board(request, bd):
     viewModel = BoardVM.BoardViewModel(bd)
     return render(
         request,
-        'Decisions/board.html',
+        'DecisionViewer/board.html',
         viewModel.Context,
         )
 
@@ -90,7 +90,7 @@ def about(request):
     viewModel = DbStateVM.DbStateViewModel()
     return render(
         request,
-        'Decisions/about.html',
+        'DecisionViewer/about.html',
         viewModel.Context,
     )
 
@@ -106,7 +106,7 @@ def textsearch(request):
     viewModel = TextSearchVM.TextSearchViewModel(query)
     return render(
         request,
-        'Decisions/textsearch.html',
+        'DecisionViewer/textsearch.html',
         viewModel.Context
     )
 

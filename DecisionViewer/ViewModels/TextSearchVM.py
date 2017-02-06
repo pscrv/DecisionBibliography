@@ -1,8 +1,8 @@
 import re
 
 from Decisions.DBProxy import DecisionModelProxy
-from Decisions.ViewModels.Base import VMBase
-from Decisions.TextSearch.SimpleSearch import SimpleTextSearcher
+from DecisionViewer.ViewModels.Base import VMBase
+from DecisionViewer.TextSearch.SimpleSearch import SimpleTextSearcher
 
 class TextSearchViewModel(VMBase):
 

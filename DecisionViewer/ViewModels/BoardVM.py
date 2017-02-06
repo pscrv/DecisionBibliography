@@ -1,4 +1,4 @@
-from Decisions.ViewModels.Base import VMBase
+from DecisionViewer.ViewModels.Base import VMBase
 from Decisions.Analysers.Coordinators import PersistentBoardAnalysisCoordinator
 
 class  BoardViewModel(VMBase):

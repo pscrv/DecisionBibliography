@@ -30,53 +30,56 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Analysers__old\AnalyserBase.py">
+    <Compile Include="DecisionViewer\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers__old\AnalysisBase.py">
+    <Compile Include="__old__toDelete\Analysers__old\AnalyserBase.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers__old\AnalysisHelpers.py">
+    <Compile Include="__old__toDelete\Analysers__old\AnalysisBase.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers__old\BoardAnalysis.py">
+    <Compile Include="__old__toDelete\Analysers__old\AnalysisHelpers.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers__old\IssueAnalysers.py">
+    <Compile Include="__old__toDelete\Analysers__old\BoardAnalysis.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers__old\IssueAnalysis.py">
+    <Compile Include="__old__toDelete\Analysers__old\IssueAnalysers.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app__old\templatetags\highlight_filters.py">
+    <Compile Include="__old__toDelete\Analysers__old\IssueAnalysis.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app__old\templatetags\__init__.py">
+    <Compile Include="__old__toDelete\app__old\templatetags\highlight_filters.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="__old__toDelete\app__old\templatetags\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app__old\urls.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CitationMapper\dgraph.py">
+    <Compile Include="ZZZ__unused__ZZZ\CitationMapper\dgraph.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CitationMapper\graph.py">
+    <Compile Include="ZZZ__unused__ZZZ\CitationMapper\graph.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CitationMapper\mapper.py">
+    <Compile Include="ZZZ__unused__ZZZ\CitationMapper\mapper.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CitationMapper\models.py" />
-    <Compile Include="CitationMapper\tests.py" />
-    <Compile Include="CitationMapper\views.py" />
-    <Compile Include="CitationMapper\__init__.py" />
+    <Compile Include="ZZZ__unused__ZZZ\CitationMapper\models.py" />
+    <Compile Include="ZZZ__unused__ZZZ\CitationMapper\t__tests.py" />
+    <Compile Include="ZZZ__unused__ZZZ\CitationMapper\views.py" />
+    <Compile Include="ZZZ__unused__ZZZ\CitationMapper\__init__.py" />
     <Compile Include="Classifiers\Base.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classifiers\Classifier_Setup\BayesianClassifierSetup.py">
+    <Compile Include="ZZZ__unused__ZZZ\Classifiers\Classifier_Setup\BayesianClassifierSetup.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classifiers\Classifier_Setup\SetupBase.py">
+    <Compile Include="ZZZ__unused__ZZZ\Classifiers\Classifier_Setup\SetupBase.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classifiers\Features\__init__.py">
@@ -88,33 +91,33 @@
     <Compile Include="DecisionAnalyser\DecisionProvider.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DecisionAnalyser\EPOAnalyser\TextAnalyser.py">
+    <Compile Include="ZZZ__unused__ZZZ\DecisionAnalyser\EPOAnalyser\TextAnalyser.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DecisionAnalyser\EPOAnalyser\__init__.py">
+    <Compile Include="ZZZ__unused__ZZZ\DecisionAnalyser\EPOAnalyser\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DecisionAnalyser\models.py" />
-    <Compile Include="DecisionAnalyser\templatetags\classhighlight_filters.py">
+    <Compile Include="ZZZ__unused__ZZZ\DecisionAnalyser\templatetags\classhighlight_filters.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DecisionAnalyser\templatetags\__init__.py">
+    <Compile Include="ZZZ__unused__ZZZ\DecisionAnalyser\templatetags\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DecisionAnalyser\tests.py" />
+    <Compile Include="ZZZ__unused__ZZZ\DecisionAnalyser\t__tests.py" />
     <Compile Include="DecisionAnalyser\urls.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DecisionAnalyser\ViewModels\AnalysedDecision.py">
+    <Compile Include="ZZZ__unused__ZZZ\DecisionAnalyser\ViewModels\AnalysedDecision.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DecisionAnalyser\ViewModels\Tryout.py">
+    <Compile Include="ZZZ__unused__ZZZ\DecisionAnalyser\ViewModels\Tryout.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DecisionAnalyser\ViewModels\Base.py">
+    <Compile Include="ZZZ__unused__ZZZ\DecisionAnalyser\ViewModels\Base.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DecisionAnalyser\ViewModels\__init__.py">
+    <Compile Include="ZZZ__unused__ZZZ\DecisionAnalyser\ViewModels\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DecisionAnalyser\views.py" />
@@ -169,23 +172,23 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Decisions\models.py" />
-    <Compile Include="Decisions\templatetags\highlight_filters.py" />
-    <Compile Include="Decisions\templatetags\__init__.py" />
+    <Compile Include="DecisionViewer\templatetags\highlight_filters.py" />
+    <Compile Include="DecisionViewer\templatetags\__init__.py" />
     <Compile Include="Decisions\tests.py" />
-    <Compile Include="Decisions\TextSearch\SimpleSearch.py" />
-    <Compile Include="Decisions\TextSearch\__init__.py" />
-    <Compile Include="Decisions\urls.py" />
-    <Compile Include="Decisions\ViewModels\Base.py" />
-    <Compile Include="Decisions\ViewModels\BoardVM.py" />
-    <Compile Include="Decisions\ViewModels\DbStateVM.py" />
-    <Compile Include="Decisions\ViewModels\DecisionVM.py" />
-    <Compile Include="Decisions\ViewModels\IndexVM.py" />
-    <Compile Include="Decisions\ViewModels\TextSearchVM.py" />
-    <Compile Include="Decisions\ViewModels\TimeLinesVM.py" />
-    <Compile Include="Decisions\ViewModels\__init__.py" />
-    <Compile Include="Decisions\views.py" />
+    <Compile Include="DecisionViewer\TextSearch\SimpleSearch.py" />
+    <Compile Include="DecisionViewer\TextSearch\__init__.py" />
+    <Compile Include="DecisionViewer\urls.py" />
+    <Compile Include="DecisionViewer\ViewModels\Base.py" />
+    <Compile Include="DecisionViewer\ViewModels\BoardVM.py" />
+    <Compile Include="DecisionViewer\ViewModels\DbStateVM.py" />
+    <Compile Include="DecisionViewer\ViewModels\DecisionVM.py" />
+    <Compile Include="DecisionViewer\ViewModels\IndexVM.py" />
+    <Compile Include="DecisionViewer\ViewModels\TextSearchVM.py" />
+    <Compile Include="DecisionViewer\ViewModels\TimeLinesVM.py" />
+    <Compile Include="DecisionViewer\ViewModels\__init__.py" />
+    <Compile Include="DecisionViewer\views.py" />
     <Compile Include="Decisions\__init__.py" />
-    <Compile Include="Tests\test_TrainingTextFinder.py">
+    <Compile Include="ZZZ__unused__ZZZ\Tests\t__test_TrainingTextFinder.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classifiers\TrainingTexts\TrainingTextBase.py">
@@ -194,7 +197,7 @@
     <Compile Include="Classifiers\TrainingTexts\TrainingTexts.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classifiers\Classifier_Setup\SetupProvider.py">
+    <Compile Include="ZZZ__unused__ZZZ\Classifiers\Classifier_Setup\SetupProvider.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classifiers\Features\FeatureExtraction.py">
@@ -209,7 +212,7 @@
     <Compile Include="Classifiers\TrainingTexts\Texts.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classifiers\Classifier_Setup\__init__.py">
+    <Compile Include="ZZZ__unused__ZZZ\Classifiers\Classifier_Setup\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classifiers\TrainingTexts\TextsfFromDB.py">
@@ -227,82 +230,82 @@
     <Compile Include="Helpers\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Serialisation\Simple.py">
+    <Compile Include="ZZZ__unused__ZZZ\Serialisation\Simple.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Serialisation\__init__.py">
+    <Compile Include="ZZZ__unused__ZZZ\Serialisation\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\test_Bayes.py">
+    <Compile Include="ZZZ__unused__ZZZ\Tests\t__test_Bayes.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\test_ClassificationFeatures.py">
+    <Compile Include="ZZZ__unused__ZZZ\Tests\t__test_ClassificationFeatures.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\test_ClassifierSetupFeatures.py">
+    <Compile Include="ZZZ__unused__ZZZ\Tests\t__test_ClassifierSetupFeatures.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\test_simpleTextSearch.py">
+    <Compile Include="Decisions\Tests\test_simpleTextSearch.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TextSearch__old\SimpleSearch.py">
+    <Compile Include="__old__toDelete\TextSearch__old\SimpleSearch.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TextSearch__old\__init__.py">
+    <Compile Include="__old__toDelete\TextSearch__old\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels__old\TextSearchVM.py">
+    <Compile Include="__old__toDelete\ViewModels__old\TextSearchVM.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers__old\BoardAnalyser.py">
+    <Compile Include="__old__toDelete\Analysers__old\BoardAnalyser.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers__old\Coordinators.py">
+    <Compile Include="__old__toDelete\Analysers__old\Coordinators.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers__old\TimelineAnalysers.py">
+    <Compile Include="__old__toDelete\Analysers__old\TimelineAnalysers.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers__old\TimelineAnalysis.py">
+    <Compile Include="__old__toDelete\Analysers__old\TimelineAnalysis.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Analysers__old\__init__.py">
+    <Compile Include="__old__toDelete\Analysers__old\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app__old\DateHelpers.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\test_BoardAnalyser.py">
+    <Compile Include="Decisions\Tests\test_BoardAnalyser.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\test_BoardAnalysis.py">
+    <Compile Include="Decisions\Tests\test_BoardAnalysis.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\test_BoardAnalysisToDB.py">
+    <Compile Include="Decisions\Tests\test_BoardAnalysisToDB.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\test_BoardTimelineAnalysisToDB.py">
+    <Compile Include="Decisions\Tests\test_BoardTimelineAnalysisToDB.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\test_Coordinators.py">
+    <Compile Include="Decisions\Tests\test_Coordinators.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\test_TimelineAnalysers.py">
+    <Compile Include="Decisions\Tests\test_TimelineAnalysers.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AnalysisStorers__old\BoardAnalysisToDB.py">
+    <Compile Include="__old__toDelete\AnalysisStorers__old\BoardAnalysisToDB.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AnalysisStorers__old\BoardTimelineAnalysisToDB.py">
+    <Compile Include="__old__toDelete\AnalysisStorers__old\BoardTimelineAnalysisToDB.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AnalysisStorers__old\ToDBBase.py">
+    <Compile Include="__old__toDelete\AnalysisStorers__old\ToDBBase.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AnalysisStorers__old\__init__.py">
+    <Compile Include="__old__toDelete\AnalysisStorers__old\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels__old\Base.py">
+    <Compile Include="__old__toDelete\ViewModels__old\Base.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app__old\DBProxy.py">
@@ -325,15 +328,15 @@
     <Compile Include="__old__toDelete\modelMapper.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\test_DBs.py" />
-    <Compile Include="ViewModels__old\BoardVM.py" />
-    <Compile Include="ViewModels__old\DbStateVM.py" />
-    <Compile Include="ViewModels__old\DecisionVM.py" />
-    <Compile Include="ViewModels__old\IndexVM.py">
+    <Compile Include="Decisions\Tests\test_DBs.py" />
+    <Compile Include="__old__toDelete\ViewModels__old\BoardVM.py" />
+    <Compile Include="__old__toDelete\ViewModels__old\DbStateVM.py" />
+    <Compile Include="__old__toDelete\ViewModels__old\DecisionVM.py" />
+    <Compile Include="__old__toDelete\ViewModels__old\IndexVM.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels__old\TimeLinesVM.py" />
-    <Compile Include="ViewModels__old\__init__.py">
+    <Compile Include="__old__toDelete\ViewModels__old\TimeLinesVM.py" />
+    <Compile Include="__old__toDelete\ViewModels__old\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app__old\views.py" />
@@ -346,23 +349,30 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app__old\" />
-    <Folder Include="Analysers__old\" />
-    <Folder Include="app__old\templatetags\" />
-    <Folder Include="CitationMapper\" />
-    <Folder Include="CitationMapper\templates\" />
-    <Folder Include="Classifiers\Classifier_Setup\" />
     <Folder Include="Classifiers\" />
+    <Folder Include="DecisionAnalyser\" />
+    <Folder Include="DecisionViewer\" />
+    <Folder Include="__old__toDelete\ViewModels__old\" />
+    <Folder Include="ZZZ__unused__ZZZ\" />
+    <Folder Include="ZZZ__unused__ZZZ\Tests\" />
+    <Folder Include="__old__toDelete\app__old\" />
+    <Folder Include="__old__toDelete\Analysers__old\" />
+    <Folder Include="__old__toDelete\app__old\templatetags\" />
+    <Folder Include="ZZZ__unused__ZZZ\CitationMapper\" />
+    <Folder Include="ZZZ__unused__ZZZ\CitationMapper\templates\" />
+    <Folder Include="ZZZ__unused__ZZZ\Classifiers\Classifier_Setup\" />
+    <Folder Include="ZZZ__unused__ZZZ\Classifiers\" />
     <Folder Include="Classifiers\Features\" />
     <Folder Include="Classifiers\TrainingTexts\" />
-    <Folder Include="DecisionAnalyser\" />
-    <Folder Include="DecisionAnalyser\EPOAnalyser\" />
-    <Folder Include="DecisionAnalyser\static\" />
-    <Folder Include="DecisionAnalyser\static\DecisionAnalyser\" />
-    <Folder Include="DecisionAnalyser\static\DecisionAnalyser\content\" />
-    <Folder Include="DecisionAnalyser\templatetags\" />
-    <Folder Include="DecisionAnalyser\ViewModels\" />
-    <Folder Include="DecisionAnalyser\templates\" />
-    <Folder Include="DecisionAnalyser\templates\DecisionAnalyser\" />
+    <Folder Include="ZZZ__unused__ZZZ\DecisionAnalyser\" />
+    <Folder Include="ZZZ__unused__ZZZ\DecisionAnalyser\EPOAnalyser\" />
+    <Folder Include="ZZZ__unused__ZZZ\DecisionAnalyser\static\" />
+    <Folder Include="ZZZ__unused__ZZZ\DecisionAnalyser\static\DecisionAnalyser\" />
+    <Folder Include="ZZZ__unused__ZZZ\DecisionAnalyser\static\DecisionAnalyser\content\" />
+    <Folder Include="ZZZ__unused__ZZZ\DecisionAnalyser\templatetags\" />
+    <Folder Include="ZZZ__unused__ZZZ\DecisionAnalyser\ViewModels\" />
+    <Folder Include="ZZZ__unused__ZZZ\DecisionAnalyser\templates\" />
+    <Folder Include="ZZZ__unused__ZZZ\DecisionAnalyser\templates\DecisionAnalyser\" />
     <Folder Include="Decisions\" />
     <Folder Include="Decisions\Analysers\" />
     <Folder Include="Decisions\AnalysisStorers\" />
@@ -370,108 +380,107 @@
     <Folder Include="Decisions\management\commands\" />
     <Folder Include="Decisions\management\utilities\" />
     <Folder Include="Decisions\DBHelpers\" />
-    <Folder Include="Decisions\static\" />
-    <Folder Include="Decisions\static\Decisions\" />
-    <Folder Include="Decisions\static\Decisions\content\" />
-    <Folder Include="Decisions\static\Decisions\fonts\" />
-    <Folder Include="Decisions\static\Decisions\scripts\" />
-    <Folder Include="Decisions\templates\" />
-    <Folder Include="Decisions\templates\Decisions\" />
-    <Folder Include="Decisions\templatetags\" />
-    <Folder Include="Decisions\TextSearch\" />
-    <Folder Include="Decisions\ViewModels\" />
+    <Folder Include="DecisionViewer\static\" />
+    <Folder Include="DecisionViewer\static\DecisionViewer\" />
+    <Folder Include="DecisionViewer\static\DecisionViewer\content\" />
+    <Folder Include="DecisionViewer\static\DecisionViewer\fonts\" />
+    <Folder Include="DecisionViewer\static\DecisionViewer\scripts\" />
+    <Folder Include="DecisionViewer\templates\" />
+    <Folder Include="DecisionViewer\templates\DecisionViewer\" />
+    <Folder Include="DecisionViewer\templatetags\" />
+    <Folder Include="DecisionViewer\TextSearch\" />
+    <Folder Include="DecisionViewer\ViewModels\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Serialisation\" />
-    <Folder Include="TextSearch__old\" />
-    <Folder Include="Tests\" />
-    <Folder Include="AnalysisStorers__old\" />
+    <Folder Include="ZZZ__unused__ZZZ\Serialisation\" />
+    <Folder Include="__old__toDelete\TextSearch__old\" />
+    <Folder Include="Decisions\Tests\" />
+    <Folder Include="__old__toDelete\AnalysisStorers__old\" />
     <Folder Include="__old__toDelete\" />
-    <Folder Include="ViewModels__old\" />
-    <Folder Include="app__old\static\" />
-    <Folder Include="app__old\static\app\" />
-    <Folder Include="app__old\static\app\content\" />
-    <Folder Include="app__old\static\app\fonts\" />
-    <Folder Include="app__old\static\app\scripts\" />
-    <Folder Include="app__old\templates\" />
-    <Folder Include="app__old\templates\app\" />
+    <Folder Include="__old__toDelete\app__old\static\" />
+    <Folder Include="__old__toDelete\app__old\static\app\" />
+    <Folder Include="__old__toDelete\app__old\static\app\content\" />
+    <Folder Include="__old__toDelete\app__old\static\app\fonts\" />
+    <Folder Include="__old__toDelete\app__old\static\app\scripts\" />
+    <Folder Include="__old__toDelete\app__old\templates\" />
+    <Folder Include="__old__toDelete\app__old\templates\app\" />
     <Folder Include="DecisionBibliography\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app__old\static\app\content\DVStyle.css" />
-    <Content Include="app__old\static\app\content\NavbarFooter.css" />
-    <Content Include="app__old\templates\app\board.html" />
-    <Content Include="app__old\templates\app\boardmenu.html" />
-    <Content Include="app__old\templates\app\boardtimelines.html" />
-    <Content Include="app__old\templates\app\decision.html" />
-    <Content Include="app__old\templates\app\decisionversionlist.html" />
-    <Content Include="app__old\templates\app\textsearch.html" />
-    <Content Include="CitationMapper\templates\index.html" />
-    <Content Include="DecisionAnalyser\static\DecisionAnalyser\content\DA.css" />
-    <Content Include="DecisionAnalyser\templates\DecisionAnalyser\analyseddecision.html" />
-    <Content Include="Decisions\static\Decisions\content\bootstrap.css" />
-    <Content Include="Decisions\static\Decisions\content\bootstrap.min.css" />
-    <Content Include="Decisions\static\Decisions\content\DVStyle.css" />
-    <Content Include="Decisions\static\Decisions\content\NavbarFooter.css" />
-    <Content Include="Decisions\static\Decisions\content\site.css" />
-    <Content Include="Decisions\static\Decisions\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Decisions\static\Decisions\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Decisions\static\Decisions\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Decisions\static\Decisions\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="Decisions\static\Decisions\scripts\_references.js" />
-    <Content Include="Decisions\static\Decisions\scripts\bootstrap.js" />
-    <Content Include="Decisions\static\Decisions\scripts\bootstrap.min.js" />
-    <None Include="Decisions\static\Decisions\scripts\jquery.validate-vsdoc.js" />
-    <None Include="Decisions\static\Decisions\scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Decisions\static\Decisions\scripts\jquery-1.10.2.js" />
-    <Content Include="Decisions\static\Decisions\scripts\jquery-1.10.2.min.js" />
-    <Content Include="Decisions\static\Decisions\scripts\jquery-1.10.2.min.map" />
-    <Content Include="Decisions\static\Decisions\scripts\jquery.validate.js" />
-    <Content Include="Decisions\static\Decisions\scripts\jquery.validate.min.js" />
-    <Content Include="Decisions\static\Decisions\scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Decisions\static\Decisions\scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Decisions\static\Decisions\scripts\modernizr-2.6.2.js" />
-    <Content Include="Decisions\static\Decisions\scripts\respond.js" />
-    <Content Include="Decisions\static\Decisions\scripts\respond.min.js" />
-    <Content Include="Decisions\templates\Decisions\about.html" />
-    <Content Include="Decisions\templates\Decisions\board.html" />
-    <Content Include="Decisions\templates\Decisions\boardmenu.html" />
-    <Content Include="Decisions\templates\Decisions\boardtimelines.html" />
-    <Content Include="Decisions\templates\Decisions\contact.html" />
-    <Content Include="Decisions\templates\Decisions\decision.html" />
-    <Content Include="Decisions\templates\Decisions\decisionversionlist.html" />
-    <Content Include="Decisions\templates\Decisions\index.html" />
-    <Content Include="Decisions\templates\Decisions\layout.html" />
-    <Content Include="Decisions\templates\Decisions\textsearch.html" />
+    <Content Include="__old__toDelete\app__old\static\app\content\DVStyle.css" />
+    <Content Include="__old__toDelete\app__old\static\app\content\NavbarFooter.css" />
+    <Content Include="__old__toDelete\app__old\templates\app\board.html" />
+    <Content Include="__old__toDelete\app__old\templates\app\boardmenu.html" />
+    <Content Include="__old__toDelete\app__old\templates\app\boardtimelines.html" />
+    <Content Include="__old__toDelete\app__old\templates\app\decision.html" />
+    <Content Include="__old__toDelete\app__old\templates\app\decisionversionlist.html" />
+    <Content Include="__old__toDelete\app__old\templates\app\textsearch.html" />
+    <Content Include="ZZZ__unused__ZZZ\CitationMapper\templates\index.html" />
+    <Content Include="ZZZ__unused__ZZZ\DecisionAnalyser\static\DecisionAnalyser\content\DA.css" />
+    <Content Include="ZZZ__unused__ZZZ\DecisionAnalyser\templates\DecisionAnalyser\analyseddecision.html" />
+    <Content Include="DecisionViewer\static\DecisionViewer\content\bootstrap.css" />
+    <Content Include="DecisionViewer\static\DecisionViewer\content\bootstrap.min.css" />
+    <Content Include="DecisionViewer\static\DecisionViewer\content\DVStyle.css" />
+    <Content Include="DecisionViewer\static\DecisionViewer\content\NavbarFooter.css" />
+    <Content Include="DecisionViewer\static\DecisionViewer\content\site.css" />
+    <Content Include="DecisionViewer\static\DecisionViewer\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="DecisionViewer\static\DecisionViewer\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="DecisionViewer\static\DecisionViewer\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="DecisionViewer\static\DecisionViewer\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="DecisionViewer\static\DecisionViewer\scripts\_references.js" />
+    <Content Include="DecisionViewer\static\DecisionViewer\scripts\bootstrap.js" />
+    <Content Include="DecisionViewer\static\DecisionViewer\scripts\bootstrap.min.js" />
+    <None Include="DecisionViewer\static\DecisionViewer\scripts\jquery.validate-vsdoc.js" />
+    <None Include="DecisionViewer\static\DecisionViewer\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="DecisionViewer\static\DecisionViewer\scripts\jquery-1.10.2.js" />
+    <Content Include="DecisionViewer\static\DecisionViewer\scripts\jquery-1.10.2.min.js" />
+    <Content Include="DecisionViewer\static\DecisionViewer\scripts\jquery-1.10.2.min.map" />
+    <Content Include="DecisionViewer\static\DecisionViewer\scripts\jquery.validate.js" />
+    <Content Include="DecisionViewer\static\DecisionViewer\scripts\jquery.validate.min.js" />
+    <Content Include="DecisionViewer\static\DecisionViewer\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="DecisionViewer\static\DecisionViewer\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="DecisionViewer\static\DecisionViewer\scripts\modernizr-2.6.2.js" />
+    <Content Include="DecisionViewer\static\DecisionViewer\scripts\respond.js" />
+    <Content Include="DecisionViewer\static\DecisionViewer\scripts\respond.min.js" />
+    <Content Include="DecisionViewer\templates\DecisionViewer\about.html" />
+    <Content Include="DecisionViewer\templates\DecisionViewer\board.html" />
+    <Content Include="DecisionViewer\templates\DecisionViewer\boardmenu.html" />
+    <Content Include="DecisionViewer\templates\DecisionViewer\boardtimelines.html" />
+    <Content Include="DecisionViewer\templates\DecisionViewer\contact.html" />
+    <Content Include="DecisionViewer\templates\DecisionViewer\decision.html" />
+    <Content Include="DecisionViewer\templates\DecisionViewer\decisionversionlist.html" />
+    <Content Include="DecisionViewer\templates\DecisionViewer\index.html" />
+    <Content Include="DecisionViewer\templates\DecisionViewer\layout.html" />
+    <Content Include="DecisionViewer\templates\DecisionViewer\textsearch.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
-    <Content Include="app__old\static\app\content\bootstrap.css" />
-    <Content Include="app__old\static\app\content\bootstrap.min.css" />
-    <Content Include="app__old\static\app\content\site.css" />
-    <Content Include="app__old\static\app\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="app__old\static\app\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="app__old\static\app\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="app__old\static\app\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="app__old\static\app\scripts\bootstrap.js" />
-    <Content Include="app__old\static\app\scripts\bootstrap.min.js" />
-    <Content Include="app__old\static\app\scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="app__old\static\app\scripts\jquery-1.10.2.js" />
-    <Content Include="app__old\static\app\scripts\jquery-1.10.2.min.js" />
-    <Content Include="app__old\static\app\scripts\jquery-1.10.2.min.map" />
-    <Content Include="app__old\static\app\scripts\jquery.validate-vsdoc.js" />
-    <Content Include="app__old\static\app\scripts\jquery.validate.js" />
-    <Content Include="app__old\static\app\scripts\jquery.validate.min.js" />
-    <Content Include="app__old\static\app\scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="app__old\static\app\scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="app__old\static\app\scripts\modernizr-2.6.2.js" />
-    <Content Include="app__old\static\app\scripts\respond.js" />
-    <Content Include="app__old\static\app\scripts\respond.min.js" />
-    <Content Include="app__old\static\app\scripts\_references.js" />
-    <Content Include="app__old\templates\app\index.html" />
-    <Content Include="app__old\templates\app\contact.html" />
-    <Content Include="app__old\templates\app\about.html" />
-    <Content Include="app__old\templates\app\layout.html" />
-    <Content Include="app__old\templates\app\login.html" />
-    <Content Include="app__old\templates\app\loginpartial.html" />
+    <Content Include="__old__toDelete\app__old\static\app\content\bootstrap.css" />
+    <Content Include="__old__toDelete\app__old\static\app\content\bootstrap.min.css" />
+    <Content Include="__old__toDelete\app__old\static\app\content\site.css" />
+    <Content Include="__old__toDelete\app__old\static\app\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="__old__toDelete\app__old\static\app\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="__old__toDelete\app__old\static\app\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="__old__toDelete\app__old\static\app\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="__old__toDelete\app__old\static\app\scripts\bootstrap.js" />
+    <Content Include="__old__toDelete\app__old\static\app\scripts\bootstrap.min.js" />
+    <Content Include="__old__toDelete\app__old\static\app\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="__old__toDelete\app__old\static\app\scripts\jquery-1.10.2.js" />
+    <Content Include="__old__toDelete\app__old\static\app\scripts\jquery-1.10.2.min.js" />
+    <Content Include="__old__toDelete\app__old\static\app\scripts\jquery-1.10.2.min.map" />
+    <Content Include="__old__toDelete\app__old\static\app\scripts\jquery.validate-vsdoc.js" />
+    <Content Include="__old__toDelete\app__old\static\app\scripts\jquery.validate.js" />
+    <Content Include="__old__toDelete\app__old\static\app\scripts\jquery.validate.min.js" />
+    <Content Include="__old__toDelete\app__old\static\app\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="__old__toDelete\app__old\static\app\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="__old__toDelete\app__old\static\app\scripts\modernizr-2.6.2.js" />
+    <Content Include="__old__toDelete\app__old\static\app\scripts\respond.js" />
+    <Content Include="__old__toDelete\app__old\static\app\scripts\respond.min.js" />
+    <Content Include="__old__toDelete\app__old\static\app\scripts\_references.js" />
+    <Content Include="__old__toDelete\app__old\templates\app\index.html" />
+    <Content Include="__old__toDelete\app__old\templates\app\contact.html" />
+    <Content Include="__old__toDelete\app__old\templates\app\about.html" />
+    <Content Include="__old__toDelete\app__old\templates\app\layout.html" />
+    <Content Include="__old__toDelete\app__old\templates\app\login.html" />
+    <Content Include="__old__toDelete\app__old\templates\app\loginpartial.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.mht">

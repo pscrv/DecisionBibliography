@@ -6,7 +6,7 @@ from django.conf.urls import url
 from django.contrib.auth.views import login, logout
 
 from datetime import datetime
-from Decisions import views
+from DecisionViewer import views
 
 
 urlpatterns = [ 

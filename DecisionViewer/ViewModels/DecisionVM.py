@@ -1,6 +1,6 @@
 from django.db.models import F
 
-from Decisions.ViewModels.Base import VMBase
+from DecisionViewer.ViewModels.Base import VMBase
 from Decisions.DBProxy import DecisionModelProxy
 from Decisions.DBHelpers.TextHelpers import TextGetter
 

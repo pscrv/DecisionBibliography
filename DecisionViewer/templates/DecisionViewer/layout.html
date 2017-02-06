@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'Decisions/content/bootstrap.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'Decisions/content/site.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'Decisions/content/NavbarFooter.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'Decisions/content/DVStyle.css' %}" />
-    <script src="{% static 'Decisions/scripts/modernizr-2.6.2.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'DecisionViewer/content/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'DecisionViewer/content/site.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'DecisionViewer/content/NavbarFooter.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'DecisionViewer/content/DVStyle.css' %}" />
+    <script src="{% static 'DecisionViewer/scripts/modernizr-2.6.2.js' %}"></script>
 </head>
 
 <body>
@@ -31,7 +31,7 @@
                     </div>                   
                 </form>
                 <ul class="nav navbar-nav">
-                    {% include 'Decisions/boardmenu.html' %}
+                    {% include 'DecisionViewer/boardmenu.html' %}
                     <li><a href="{% url 'boardtimelines' %}">Timelines</a></li>                       
                     <li><a href="{% url 'textsearch'  %}">Search</a></li>                                    
                     <li><a href="{% url 'about'  %}">About</a></li>                 
@@ -51,9 +51,9 @@
         </footer>
     </div>
 
-    <script src="{% static 'Decisions/scripts/jquery-1.10.2.js' %}"></script>
-    <script src="{% static 'Decisions/scripts/bootstrap.js' %}"></script>
-    <script src="{% static 'Decisions/scripts/respond.js' %}"></script>
+    <script src="{% static 'DecisionViewer/scripts/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'DecisionViewer/scripts/bootstrap.js' %}"></script>
+    <script src="{% static 'DecisionViewer/scripts/respond.js' %}"></script>
     {% block scripts %}{% endblock %}
 
 </body>

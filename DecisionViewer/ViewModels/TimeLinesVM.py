@@ -1,5 +1,5 @@
 from datetime import date
-from Decisions.ViewModels.Base import VMBase
+from DecisionViewer.ViewModels.Base import VMBase
 from Decisions.AnalysisStorers import BoardTimelineAnalysisToDB
 from Decisions.DBProxy import DecisionModelProxy
 
