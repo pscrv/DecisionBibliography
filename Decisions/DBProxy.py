@@ -1,6 +1,5 @@
-from abc import ABC, abstractmethod
+from django.db.models import F
 
-from django.db.models import F, Q
 from Decisions.models import DecisionBibliographyModel, DecisionTextModel, NullTextModel
 from Decisions.Decision import DecisionProxy
 

@@ -12,7 +12,10 @@ class DecisionProxy:
 
         for part in (self.__bibliography, self.__texts):
             self.__dict__.update(part.__dict__)
-        self.__dict__['pk'] = self.__bibliography.pk
+        for part in ['Facts', 'Reasons', 'Order']:
+            self.__dict__[part] = self.__texts.__dict__[part].split('\n\n')
+        self.pk = self.__bibliography.pk
+
 
     @property
     def HasText(self):

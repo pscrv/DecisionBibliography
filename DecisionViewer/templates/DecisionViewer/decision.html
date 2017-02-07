@@ -81,20 +81,20 @@
 
                 <div class="tab-content text-display">
                     <div id="procedure" class="tab-pane fade">
-                        <h4> {{ factsHeader }} </h4>
-                        {% for para in facts %}
+                        <h4> {{ decision.FactsHeader }} </h4>
+                        {% for para in decision.Facts %}
                             <p> {{ para|highlight:highlightterms|highlight_and_link_casenumbers }} </p>
                         {% endfor %}
                     </div>
                     <div id="reasons" class="tab-pane fade in active">
-                        <h4> {{ reasonsHeader }} </h4>
-                        {% for para in reasons %}
+                        <h4> {{ decision.ReasonsHeader }} </h4>
+                        {% for para in decision.Reasons %}
                             <p> {{ para|highlight:highlightterms|highlight_and_link_casenumbers }} </p>
                         {% endfor %}
                     </div>
                     <div id="outcome" class="tab-pane fade">
-                        <h4> {{ orderHeader }} </h4>
-                        {% for para in order %}
+                        <h4> {{ decision.OrderHeader }} </h4>
+                        {% for para in decision.Order %}
                             <p> {{ para|highlight:highlightterms|highlight_and_link_casenumbers }} </p>
                         {% endfor %}
                     </div>
