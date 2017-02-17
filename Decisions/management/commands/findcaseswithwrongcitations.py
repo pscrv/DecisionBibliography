@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from Decisions.management.utilities import DBInspector
+from Decisions.management.utilities import BibliographyDBInspector
 from Decisions.models import DecisionBibliographyModel
 
 # See https://docs.djangoproject.com/en/1.9/howto/custom-management-commands/#module-django.core.management
@@ -9,7 +9,7 @@ class Command(BaseCommand):
     
     def handle(self, *args, **options):
 
-        citedNotInDB = DBInspector.FindCitedCasesNotInDB()
+        citedNotInDB = BibliographyDBInspector.FindCitedCasesNotInDB()
         self.stdout.write('{} cases are cited, but are not in the DB.'.format(len(citedNotInDB)))
 
         citingdecisions = {}

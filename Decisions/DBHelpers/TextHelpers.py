@@ -6,28 +6,24 @@ from Decisions.models import DecisionBibliographyModel, DecisionTextModel
 
 class TextGetter(object):
 
-    def Get_Text(self, decision):
+    def Get_Text(self, bibliography):
         searcher = EpoSearchFacade()
         converter = EpoConverter()
+
+        inDB = DecisionTextModel.objects.filter(Bibliography = bibliography)
+        if inDB:
+            return
         
         try:
-            response = searcher.SearchDecisionText(decision.Link)
+            response = searcher.SearchDecisionText(bibliography.Link)
             decisionText = converter.ResponseToDecisionText(response)
-            decisionText.Bibliography = DecisionBibliographyModel.objects.filter(pk = decision.pk).first()
-            decisionText.Language = decision.ProcedureLanguage
+            decisionText.Bibliography = bibliography
+            decisionText.Language = bibliography.ProcedureLanguage
         except Exception as ex:
             t = type(ex)      
             return None
 
-        inDB = DecisionTextModel.objects.filter(
-                Bibliography = decisionText.Bibliography,
-                Language = decision.ProcedureLanguage).first()
-
-        if inDB:
-            pass  # already here
-        else:
-            decisionText.save()
-
+        decisionText.save()
         return decisionText
 
            

@@ -9,7 +9,7 @@ class test_SimpleTextSearcher(TestCase):
         django.setup()
         
     def setUp(self):
-        from Decisions.TextSearch.SimpleSearch import SimpleTextSearcher
+        from DecisionViewer.TextSearch.SimpleSearch import SimpleTextSearcher
         self.searcher = SimpleTextSearcher(['legal', 'board'])
 
     def test_findsG1_97(self):

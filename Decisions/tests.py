@@ -50,4 +50,24 @@ class DBProxyTests(TestCase):
         result = analyser.GetAnalysis(board)
         self.assertEqual(result.Board, board)
         self.assertEqual(result.YearlyDecisions[2014], 38)
+        
+
+class DecisionProxyTests(TestCase):
+    
+    if django.VERSION[:2] >= (1, 7):
+        # Django 1.7 requires an explicit setup() when running tests in PTVS
+        @classmethod
+        def setUpClass(cls):
+            super().setUpClass()
+            django.setup()
+
+
+    def test_DecisionProxy_justbibliography(self):
+        from Decisions.Decision import DecisionProxy
+        from Decisions.models import DecisionBibliographyModel
+
+        casenumber = 'J 0001/78'
+        bibliography = DecisionBibliographyModel.objects.filter(CaseNumber = casenumber).first()
+        decision = DecisionProxy(bibliography)
+        x = 1
 

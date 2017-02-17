@@ -16,14 +16,15 @@ class test_PersistentBoardAnalysisCoordinator(TestCase):
         self.realBoard = '3.5.01'
         self.falseBoard = 'notarealboard'
 
+        self.realBoardAnalysis = self.coordinator.GetAnalysis(self.realBoard)
+
+
     def test_GetAnalysisReturnsSomething(self):
-        x = self.coordinator.GetAnalysis(self.realBoard)
-        self.assertFalse(x is None)
+        self.assertFalse(self.realBoardAnalysis is None)
 
     def test_CanRetreiveRealBoard(self):
-        x = self.coordinator.GetAnalysis(self.realBoard)
-        self.assertTrue(x.Board == self.realBoard)
-        self.assertTrue(x.IsValid)
+        self.assertTrue(self.realBoardAnalysis.Board == self.realBoard)
+        self.assertTrue(self.realBoardAnalysis.IsValid)
 
     def test_CannotRetreiveFalseBoard(self):
         x = self.coordinator.GetAnalysis(self.falseBoard)
@@ -42,14 +43,13 @@ class test_PersistentTimelineAnalysisCoordinator(TestCase):
         self.coordinator = PersistentTimelineAnalysisCoordinator()
         self.realBoard = '3.5.01'
         self.falseBoard = 'notarealboard'
+        self.realBoardAnalysis = self.coordinator.GetAnalysis(self.realBoard)
 
     def test_GetAnalysisReturnsSomething(self):
-        x = self.coordinator.GetAnalysis(self.realBoard)
-        self.assertFalse(x is None)
+        self.assertFalse(self.realBoardAnalysis is None)
 
     def test_CanRetreiveRealBoard(self):
-        x = self.coordinator.GetAnalysis(self.realBoard)
-        self.assertTrue(x.Board == self.realBoard)
+        self.assertTrue(self.realBoardAnalysis.Board == self.realBoard)
 
     def test_CannotRetreiveFalseBoard(self):
         x = self.coordinator.GetAnalysis(self.falseBoard)

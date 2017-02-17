@@ -2,7 +2,6 @@
 import unittest
 from datetime import datetime
 
-
 from Decisions.Analysers.AnalysisBase import OutdatedAnalysis
 from Decisions.Analysers.BoardAnalysis import *
 

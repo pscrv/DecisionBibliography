@@ -43,7 +43,7 @@ class test_DecisionTextModel(TestCase):
         from Decisions.models import DecisionTextModel as textDB, DecisionBibliographyModel as bibDB
         dec = bibDB.objects.FilterOnlyPrLanguage(CaseNumber = 'J 0002/78').first()
         item = textDB.objects.filter(Bibliography = dec).first()
-        self.assertIsNotNone(item, 'Text of J 0002/78 is no in the database.')
+        self.assertIsNotNone(item, 'Text of J 0002/78 is not in the database.')
         self.assertEqual(item.Reasons[0:33], 'Die Beschwerde richtet sich gegen')
 
 

@@ -1,6 +1,6 @@
 from django.db.models import F
 
-from Decisions.models import DecisionBibliographyModel, DecisionTextModel, NullTextModel
+from Decisions.models import DecisionBibliographyModel, NullBibliographyModel, DecisionTextModel, NullTextModel
 from Decisions.Decision import DecisionProxy
 
 
@@ -14,7 +14,8 @@ class DecisionModelProxy():
             bibliographies = bibliographies.filter(DecisionLanguage = F('ProcedureLanguage'))
         bibliography = bibliographies.first()
         if bibliography is None:
-            return None
+            casenumber = kwargs.get('CaseNumber', 'X xxxx/xx')
+            return NullBibliographyModel(casenumber)
         text = DecisionModelProxy.__getTextFromBibliography(bibliography)
         return DecisionProxy(bibliography, text)
 

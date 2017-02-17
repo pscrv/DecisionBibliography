@@ -30,7 +30,7 @@ def FindCitedCasesNotInDB():
     return citedCaseNumbersNotInDB
 
 
-def CountRecords():
+def CountBibliographyRecords():
     return DecisionBibliographyModel.objects.count()
 
 
@@ -48,4 +48,19 @@ def CountCaseNumbersForType(typeletter):
     return len(FindCaseNumbersOfType(typeletter))
 
 
+def FindMissingCitations():
+    from Decisions.models import DecisionBibliographyModel
 
+    allCasesWithCitations = DecisionBibliographyModel.objects.exclude(CitedCases = '')
+    allCaseNumbers = DecisionBibliographyModel.objects.values_list('CaseNumber', flat = True)
+
+
+    missing = {}
+    for case in allCasesWithCitations:
+
+        citedCaseNumbers = {x.strip() for x in case.CitedCases.split(',')}
+        missingCitations = {x for x in citedCaseNumbers if x not in allCaseNumbers}
+        if missingCitations != set():
+            missing[case.CaseNumber] = missingCitations
+
+    return missing

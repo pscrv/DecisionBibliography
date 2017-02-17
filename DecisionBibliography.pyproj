@@ -30,7 +30,45 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Decisions\management\commands\checkcitations.py" />
+    <Compile Include="Decisions\management\commands\citationstatus.py" />
+    <Compile Include="Decisions\management\commands\clear_emptytexts.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\commands\clear_allsupplements.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\commands\clear_supplementswithouttext.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\commands\makesupplements_text_cited.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\commands\supplementstatus.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\commands\supplements_text_addciting.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\supplements\utilities.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\supplements\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\utilities\SupplementaryDBInspector.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\utilities\SupplementDBInspector.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decisions\management\utilities\TextDBInspector.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DecisionViewer\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZZZ__unused__ZZZ\Tests\Whatever.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="__old__toDelete\Analysers__old\AnalyserBase.py">
@@ -70,7 +108,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ZZZ__unused__ZZZ\CitationMapper\models.py" />
-    <Compile Include="ZZZ__unused__ZZZ\CitationMapper\t__tests.py" />
     <Compile Include="ZZZ__unused__ZZZ\CitationMapper\views.py" />
     <Compile Include="ZZZ__unused__ZZZ\CitationMapper\__init__.py" />
     <Compile Include="Classifiers\Base.py">
@@ -104,7 +141,6 @@
     <Compile Include="ZZZ__unused__ZZZ\DecisionAnalyser\templatetags\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ZZZ__unused__ZZZ\DecisionAnalyser\t__tests.py" />
     <Compile Include="DecisionAnalyser\urls.py">
       <SubType>Code</SubType>
     </Compile>
@@ -144,7 +180,7 @@
     <Compile Include="Decisions\management\commands\findcaseswithwrongcitations.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Decisions\management\commands\counttexts.py">
+    <Compile Include="Decisions\management\commands\GetTextsBatch.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Decisions\management\utilities\DBPopulator.py" />
@@ -156,13 +192,13 @@
     <Compile Include="Decisions\management\commands\analyseboards.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Decisions\management\commands\populateDB.py">
+    <Compile Include="Decisions\management\commands\GetBibliographies.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Decisions\management\commands\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Decisions\management\utilities\DBInspector.py">
+    <Compile Include="Decisions\management\utilities\BibliographyDBInspector.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Decisions\management\utilities\__init__.py">
@@ -188,9 +224,6 @@
     <Compile Include="DecisionViewer\ViewModels\__init__.py" />
     <Compile Include="DecisionViewer\views.py" />
     <Compile Include="Decisions\__init__.py" />
-    <Compile Include="ZZZ__unused__ZZZ\Tests\t__test_TrainingTextFinder.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Classifiers\TrainingTexts\TrainingTextBase.py">
       <SubType>Code</SubType>
     </Compile>
@@ -234,15 +267,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ZZZ__unused__ZZZ\Serialisation\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ZZZ__unused__ZZZ\Tests\t__test_Bayes.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ZZZ__unused__ZZZ\Tests\t__test_ClassificationFeatures.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ZZZ__unused__ZZZ\Tests\t__test_ClassifierSetupFeatures.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Decisions\Tests\test_simpleTextSearch.py">
@@ -351,7 +375,9 @@
     <Folder Include="app__old\" />
     <Folder Include="Classifiers\" />
     <Folder Include="DecisionAnalyser\" />
+    <Folder Include="Decisions\management\supplements\" />
     <Folder Include="DecisionViewer\" />
+    <Folder Include="NewFolder1\" />
     <Folder Include="__old__toDelete\ViewModels__old\" />
     <Folder Include="ZZZ__unused__ZZZ\" />
     <Folder Include="ZZZ__unused__ZZZ\Tests\" />

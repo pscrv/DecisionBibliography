@@ -47,15 +47,6 @@ class DecisionGeneric(object):
 
 class DecisionBibliographyManager(models.Manager):
     
-    #def get_or_new(self, **kwargs):
-    #    try:
-    #        self.get(**kwargs)
-    #    except DoesNotExist:
-    #        return DecisionBibliographyModel(**kwargs)
-
-
-
-    #replace with get_or_new?
     def Find_or_create(self, **kwargs):
         caseNumber = kwargs['CaseNumber']
         if not caseNumber:
@@ -80,7 +71,6 @@ class DecisionBibliographyManager(models.Manager):
 
     def FilterOnlyPrLanguage(self, **kwargs):
         return self.filter(DecisionLanguage =  F('ProcedureLanguage'), **kwargs)
-    
         
 
     def IsListAttribute(self, attribute):
@@ -143,23 +133,23 @@ class DecisionBibliographyModel(models.Model):
     #endregion
 
     def __str__(self):
-        return self.CaseNumber
+        return '{} {} {}'.format(self.CaseNumber, self.DecisionLanguage, self.DecisionDate)
         
 
-
-
 class NullBibliographyModel(DecisionBibliographyModel):
-    def __init__(self):
+    def __init__(self, number = 'X xxxx/xx'):
         super().__init__()
-        self.CaseNumber = 'no such case number'
+        self.CaseNumber = number
 
     def save(self, *args, **kwargs):
         pass #do not save a null record
 
 
+
+
 class DecisionTextModel(models.Model):
 
-    Bibliography = models.ForeignKey(DecisionBibliographyModel)
+    Bibliography = models.OneToOneField(DecisionBibliographyModel, related_name = 'TextModel')
     
     FactsHeader = models.TextField(default = "")
     Facts = models.TextField(default = "")
@@ -172,8 +162,7 @@ class DecisionTextModel(models.Model):
 
     
     def __str__(self):
-        return self.Bibliography.CaseNumber
-        
+        return 'DecisionTextModel<{}>'.format(self.Bibliography)     
 
 
 class NullTextModel(DecisionTextModel):
@@ -185,6 +174,39 @@ class NullTextModel(DecisionTextModel):
 
     def save(self, *args, **kwargs):
         pass #do not save a null record 
+
+
+
+
+class DecisionSupplementaryModel(models.Model):
+
+    Bibliography = models.OneToOneField(
+        DecisionBibliographyModel, 
+        related_name = 'SupplementModel',
+        primary_key = True)
+
+    CitedCases_NotInDB =  models.CharField(max_length = 700, default = "")
+    
+    CasesExtractedFromTexts_InDB =  models.CharField(max_length = 700, default = "")
+    CasesExtractedFromTexts_NotInDB =  models.CharField(max_length = 700, default = "")
+   
+    CitingCases_Bibliography =  models.CharField(max_length = 700, default = "")
+    CitingCases_Text =  models.CharField(max_length = 700, default = "")
+
+   
+    def __repr__(self):
+        return 'DecisionSupplementaryModel<{}>'.format(self.Bibliography)
+
+
+class NullSupplementaryModel(DecisionSupplementaryModel):
+
+    def save(self):
+        pass # do not save a null model
+    
+    def __repr__(self):
+        id = self.Bibliography if self.Bibliography else ''
+        return 'NullSupplementaryModel<{}>'.format(id)
+
 
 #endregion
 

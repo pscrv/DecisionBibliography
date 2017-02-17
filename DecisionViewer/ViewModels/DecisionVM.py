@@ -48,11 +48,9 @@ class DecisionViewModel(VMBase):
         
         citingDecisions = self._getCitingDecisionsAsTimeline(self._decisionToShow)
         citedDecisions = self._getCitedDecisions(self._decisionToShow)        
-        self.__downloadTextIfNeeded(self._decisionToShow)
+        #self.__downloadTextIfNeeded(self._decisionToShow)
 
-        #TODO: modifiy this to send just 'decision', which now contains
-        #facts, reasons, etc.
-        #Need to modify template for that.
+        
         self.Context.update( {
             'title': '',
             'message': self._message,
@@ -97,6 +95,7 @@ class DecisionViewModel(VMBase):
             dec = DecisionModelProxy.GetRepresentativeForCaseNumber(case)
             if dec:
                 citedDecisions.append(dec)
+
         return citedDecisions
 
     def _getCitingDecisions(self, decision):
