@@ -17,7 +17,7 @@ class Command(BaseCommand):
         #endcount = DecisionSupplementaryModel.objects.count()
         #self.stdout.write('Done.')
         #self.stdout.write('  Ending with {} records.'.format(endcount))
-
+        pass
 
 
                         

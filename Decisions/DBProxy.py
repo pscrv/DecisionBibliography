@@ -17,7 +17,7 @@ class DecisionModelProxy():
             casenumber = kwargs.get('CaseNumber', 'X xxxx/xx')
             return NullBibliographyModel(casenumber)
         text = DecisionModelProxy.__getTextFromBibliography(bibliography)
-        return DecisionProxy(bibliography, text)
+        return DecisionProxy(bibliography)
 
     
     def __getDecisionListFromBibliographyKeys(onlyprocedurelanguage = False, orderfield = None, howmany = None, **kwargs):
@@ -28,10 +28,7 @@ class DecisionModelProxy():
             bibliographies = bibliographies.filter(DecisionLanguage = F('ProcedureLanguage'))
         if howmany:
             bibliographies = bibliographies[:howmany]
-        decisions = [
-            DecisionProxy(x, DecisionModelProxy.__getTextFromBibliography(x))
-            for x in bibliographies
-            ]
+        decisions = [DecisionProxy(x) for x in bibliographies]
         return decisions
 
 
@@ -61,7 +58,7 @@ class DecisionModelProxy():
 
     def GetListFromTextKeywords(**kwargs):
         result_qset = DecisionTextModel.objects.filter(**kwargs)
-        return [DecisionProxy(t.Bibliography, t) for t in result_qset]
+        return [DecisionProxy(t.Bibliography) for t in result_qset]
 
     
     def GetRepresentativeForCaseNumber(cn):
