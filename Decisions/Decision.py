@@ -10,7 +10,8 @@ class DecisionProxy:
                
         for part in (self.__bibliography, self.__texts, self.__supplement):
             self.__dict__.update(part.__dict__)
-        self.pk = self.id
+        self.pk = self.__bibliography.pk
+       
     
 
     def __getattribute__(self, attr):

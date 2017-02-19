@@ -22,6 +22,9 @@ class DecisionModelProxy():
     
     def __getDecisionListFromBibliographyKeys(onlyprocedurelanguage = False, orderfield = None, howmany = None, **kwargs):
         bibliographies = DecisionBibliographyModel.objects.filter(**kwargs)
+
+        x = [x for x in bibliographies if x.pk == None]
+
         if orderfield:
             bibliographies = bibliographies.order_by(orderfield)
         if onlyprocedurelanguage:
@@ -29,6 +32,9 @@ class DecisionModelProxy():
         if howmany:
             bibliographies = bibliographies[:howmany]
         decisions = [DecisionProxy(x) for x in bibliographies]
+
+        y = [y for y in decisions if y.pk == None]
+
         return decisions
 
 
