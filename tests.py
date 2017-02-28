@@ -13,8 +13,8 @@ class Anything(TestCase):
 
     def test_anything(self):
 
-        from DecisionsPlus.management.commands import copyBib_fromDecisionsDB
-        command = copyBib_fromDecisionsDB.Command()
+        from DecisionsPlus.management.commands import GetDecisionsTextBatch_UpdateDecisionPlus
+        command = GetDecisionsTextBatch_UpdateDecisionPlus.Command()
         command.handle()
         
         x = 1

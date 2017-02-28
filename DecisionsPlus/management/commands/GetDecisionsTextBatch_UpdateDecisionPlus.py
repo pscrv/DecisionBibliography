@@ -4,16 +4,20 @@ from datetime import datetime
 
 from Decisions.models import DecisionBibliographyModel, DecisionTextModel
 from Decisions.DBHelpers.TextHelpers import TextGetter
+from DecisionsPlus.management.utilities import _textsupps
+from DecisionsPlus.models import TextModel
 
 class Command(BaseCommand):
     
     def handle(self, *args, **options):
         
-        HOWMANY = 1
+        HOWMANY = 100
         textgetter = TextGetter()
 
-        starttextcount = DecisionTextModel.objects.count()
-        self.stdout.write('DB has {} texts.'.format(starttextcount))
+        DBstarttextcount = DecisionTextModel.objects.count()
+        Plusstarttextcount = TextModel.objects.count()
+        self.stdout.write('DB has {} texts.'.format(DBstarttextcount))
+        self.stdout.write('DBPlus has {} texts.'.format(Plusstarttextcount))
         self.stdout.write('Getting texts ...\n')
 
         count = 0
@@ -24,8 +28,8 @@ class Command(BaseCommand):
             text = textgetter.Get_Text(bibliography)
             text_ok = text.Facts != '' or text.Reasons != '' or text.Order != ''
             if text_ok:
-                self.stdout.write('     >>> Added {} (bibliography: {}).'.format(text, bibliography))
-                #bibliography.TextModel = text
+                _textsupps.AddDecisionPlusTextAndSuppFromDecisionsDB(bibliography)
+                self.stdout.write('     >>> Added {} to DB (bibliography: {}).'.format(text, bibliography))
             else:
                 text.delete()
                 self.stdout.write('      >>> Could not find text for {}'.format(bibliography))
@@ -34,9 +38,11 @@ class Command(BaseCommand):
             if count >= HOWMANY:
                 endtime = datetime.now()
                 delta = (endtime - starttime).seconds
-                endtextcount = DecisionTextModel.objects.count()
-                self.stdout.write('Done. DB now contains {} texts.)'.format(endtextcount))
-                self.stdout.write('   {} texts added in {} seconds'.format(endtextcount - starttextcount, delta))
+                DBendtextcount = DecisionTextModel.objects.count()
+                Plusendtextcount = DecisionTextModel.objects.count()
+                self.stdout.write('Done. DB now contains {} texts.)'.format(DBendtextcount))
+                self.stdout.write('Done. DBPlus now contains {} texts.)'.format(Plusendtextcount))
+                self.stdout.write('   {} texts added in {} seconds'.format(DBendtextcount - DBstarttextcount, delta))
                 return
             if count % 10 == 0:
                 newtime = datetime.now()

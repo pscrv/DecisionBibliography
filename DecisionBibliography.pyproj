@@ -44,6 +44,9 @@
     <Compile Include="DecisionsPlus\management\commands\deletealltextsandsupps.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DecisionsPlus\management\commands\GetDecisionsTextBatch_UpdateDecisionPlus.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DecisionsPlus\management\commands\makeTxtAndSupps_fromDecisionsDB.py">
       <SubType>Code</SubType>
     </Compile>

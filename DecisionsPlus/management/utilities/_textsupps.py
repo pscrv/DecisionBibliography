@@ -7,6 +7,33 @@ from DecisionsPlus.models import BibliographyBaseModel, BibliographyLanguageVers
 __allCaseNumbers = BibliographyBaseModel.objects.values_list('CaseNumber', flat = True).distinct()
 
 
+def AddDecisionPlusTextAndSuppFromDecisionsDB(oldbib):
+
+        languageModels = BibliographyLanguageVersionModel.objects.filter(
+            BibliographyBase__CaseNumber = oldbib.CaseNumber,
+            BibliographyBase__DecisionDate = oldbib.DecisionDate,
+            DecisionLanguage = oldbib.DecisionLanguage)
+
+        languageModel = languageModels.first()
+        if len(languageModels) > 1:
+            languageModels[1:].delete()
+
+        if hasattr(languageModel, 'TextModel'):
+            languageModel.TextModel.delete()
+                
+        if hasattr(languageModel, 'CitationSupplementModel'):
+            languageModel.CitationSupplementModel.delete()
+            
+        if hasattr(oldbib, 'TextModel'):
+            textdict = {f: getattr(oldbib.TextModel, f) for f in TextModel.FieldNames}
+            text = TextModel(**textdict)
+            text.Bibliography = languageModel
+            text.save()                
+            AddSupp(languageModel)                
+   
+
+
+
 def AddSupp(languagemodel):
     if not hasattr(languagemodel, 'TextModel'):
         raise AttributeError('Cannot add a supplement if there is no text.')
@@ -43,24 +70,7 @@ def AddSupp(languagemodel):
             citing_set.add(decision_base.CaseNumber)
             case.CitationSupplementModel.TextCiting = ','.join(citing_set)
             case.save()
-
-    x = 1
-
-
-
-
-def AddTextAndUpdateSupps(decision_languagemodel, text):
-    decision_text = getattr(decision_base, 'TextModel', TextModel())
-
-    decision_text.Bibliography = decision_languagemodel
-    for field in TextModel.FieldNames:
-        setattr(decision_text, field, getattr(text, field))
-    decision_text.save()
-
-    AddSupp(decicion_languagemodel)
-    x = 1
-
-
+    
 
 def __splitCaseNumbers(cn_list):
     inDB = []
@@ -82,4 +92,6 @@ def __getTextCitations(textmodel):
 
     caseNumbers = set(Formatters.formatCaseNumber(x) for x in matches)
     return __splitCaseNumbers(caseNumbers)
+
+
 
