@@ -18,7 +18,7 @@
     <tbody>
     {% for dec in decisions %}
         <tr>
-            <td> <a href="{% url 'decision' cn=dec %}"> {{ dec }}   </a> </td>
+            <td> <a href="{% url 'decision' cn=dec.CaseNumber %}"> {{ dec.CaseNumber }}   </a> </td>
             <td> {{ dec.Board }} </td>
             <td> {{ dec.DecisionDate }} </td>
         </tr>

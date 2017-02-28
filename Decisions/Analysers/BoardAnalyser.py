@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
-from Decisions.DBProxy import DecisionModelProxy
+#from Decisions.DBProxy import DecisionModelProxy
+from DecisionsPlus import DecisionModelProxy
 
 from Decisions.Analysers import AnalysisHelpers
 from Decisions.Analysers.BoardAnalysis import BoardAnalysis, NullBoardAnalysis

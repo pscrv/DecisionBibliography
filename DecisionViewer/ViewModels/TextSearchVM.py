@@ -1,6 +1,7 @@
 import re
 
-from Decisions.DBProxy import DecisionModelProxy
+#from Decisions.DBProxy import DecisionModelProxy
+from DecisionsPlus import DecisionModelProxy
 from DecisionViewer.ViewModels.Base import VMBase
 from DecisionViewer.TextSearch.SimpleSearch import SimpleTextSearcher
 

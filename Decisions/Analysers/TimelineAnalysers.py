@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 
 from Decisions import DateHelpers
-from Decisions.DBProxy import DecisionModelProxy
+#from Decisions.DBProxy import DecisionModelProxy
+from DecisionsPlus import DecisionModelProxy
 from Decisions.Analysers.TimelineAnalysis import *
 from Decisions.Analysers.AnalyserBase import CachingBase
 

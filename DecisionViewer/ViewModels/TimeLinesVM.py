@@ -1,7 +1,8 @@
 from datetime import date
 from DecisionViewer.ViewModels.Base import VMBase
 from Decisions.AnalysisStorers import BoardTimelineAnalysisToDB
-from Decisions.DBProxy import DecisionModelProxy
+#from Decisions.DBProxy import DecisionModelProxy
+from DecisionsPlus import DecisionModelProxy
 
 class TimeLinesViewModel(VMBase):
         
@@ -28,8 +29,9 @@ class TimeLinesViewModel(VMBase):
             timeline = BoardTimelineAnalysisToDB.GetBoardTimelineAnalysisFromDB(board)             
             self.__boardanalyses[board] = timeline
             self.__timelines[board] = []
-            self.__earliest = min(min(timeline.YearlyDecisions), self.__earliest)
-            self.__latest = max(max(timeline.YearlyDecisions), self.__latest)
+            years = [year for year in timeline.YearlyDecisions]
+            self.__earliest = min(years + [self.__earliest])
+            self.__latest = max(years + [self.__latest])
 
 
     def __assembleYearline_andTimelines(self):

@@ -176,38 +176,6 @@ class NullTextModel(DecisionTextModel):
         pass #do not save a null record 
 
 
-
-
-class DecisionSupplementaryModel(models.Model):
-
-    Bibliography = models.OneToOneField(
-        DecisionBibliographyModel, 
-        related_name = 'SupplementModel',
-        primary_key = True)
-
-    CitedCases_NotInDB =  models.CharField(max_length = 700, default = "")
-    
-    CasesExtractedFromTexts_InDB =  models.CharField(max_length = 700, default = "")
-    CasesExtractedFromTexts_NotInDB =  models.CharField(max_length = 700, default = "")
-   
-    CitingCases_Bibliography =  models.CharField(max_length = 700, default = "")
-    CitingCases_Text =  models.CharField(max_length = 700, default = "")
-
-   
-    def __repr__(self):
-        return 'DecisionSupplementaryModel<{}>'.format(self.Bibliography)
-
-
-class NullSupplementaryModel(DecisionSupplementaryModel):
-
-    def save(self):
-        pass # do not save a null model
-    
-    def __repr__(self):
-        id = self.Bibliography if self.Bibliography else ''
-        return 'NullSupplementaryModel<{}>'.format(id)
-
-
 #endregion
 
 

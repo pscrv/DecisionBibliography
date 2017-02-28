@@ -3,7 +3,8 @@ from django.http import HttpRequest
 from django.template import RequestContext
 
 from Decisions import Formatters
-from Decisions.DBProxy import DecisionModelProxy
+#from Decisions.DBProxy import DecisionModelProxy
+from DecisionsPlus import DecisionModelProxy
 
 from DecisionViewer.ViewModels import BoardVM
 from DecisionViewer.ViewModels import DbStateVM
@@ -33,7 +34,7 @@ def decision(request, pk, highlightterms = '[]'):
     from ast import literal_eval
 
     decision = DecisionModelProxy.GetDecisionFromPrimaryKey(pk)
-    decisions = DecisionModelProxy.GetListFromCaseNumber(decision.CaseNumber)
+    decisions = DecisionModelProxy.GetListFromKeywords(CaseNumber = decision.CaseNumber)
     hlterms = literal_eval(highlightterms)
     viewModel = DecisionVM.DecisionViewModel(decisions, pk=pk, highlightterms=hlterms)
     return render(
@@ -47,7 +48,8 @@ def decisionFromCaseNumber(request, cn):
     assert isinstance(request, HttpRequest)
 
     caseNumber = Formatters.formatCaseNumber(cn)
-    decisions = DecisionModelProxy.GetListFromCaseNumber(caseNumber)
+    #decisions = DecisionModelProxy.GetListFromCaseNumber(caseNumber)
+    decisions = DecisionModelProxy.GetListFromKeywords(CaseNumber = caseNumber)
     viewModel = DecisionVM.DecisionViewModel(decisions)
     return render(
         request,

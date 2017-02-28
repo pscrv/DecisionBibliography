@@ -23,8 +23,6 @@ class DecisionModelProxy():
     def __getDecisionListFromBibliographyKeys(onlyprocedurelanguage = False, orderfield = None, howmany = None, **kwargs):
         bibliographies = DecisionBibliographyModel.objects.filter(**kwargs)
 
-        x = [x for x in bibliographies if x.pk == None]
-
         if orderfield:
             bibliographies = bibliographies.order_by(orderfield)
         if onlyprocedurelanguage:
@@ -33,8 +31,6 @@ class DecisionModelProxy():
             bibliographies = bibliographies[:howmany]
         decisions = [DecisionProxy(x) for x in bibliographies]
 
-        y = [y for y in decisions if y.pk == None]
-
         return decisions
 
 
@@ -42,13 +38,8 @@ class DecisionModelProxy():
         return DecisionBibliographyModel.objects.filter(**kwargs).count()
 
 
-    def __getTextFromBibliography(bibliography):        
-        try:
-            text = DecisionTextModel.objects.get(Bibliography = bibliography)
-        except DecisionTextModel.DoesNotExist:
-            text = NullTextModel()
-            text.Bibliography = bibliography
-        return text
+    def __getTextFromBibliography(bibliography):
+        return bibliography.TextModel if hasattr(bibliography, 'TextModel') else NullTextModel() 
 
 
     def __getDistinctBibliograpyAttributeValueList(attribute):
@@ -78,9 +69,20 @@ class DecisionModelProxy():
     def GetListFromCaseNumber(cn):
         return DecisionModelProxy.__getDecisionListFromBibliographyKeys(CaseNumber = cn)
     
-        
+    # TODO: still neeeded?
     def GetCitingCasesFromCaseNumber(cn):
         result = DecisionModelProxy.__getDecisionListFromBibliographyKeys(CitedCases__contains=cn, onlyprocedurelanguage = True)
+        return result
+        
+
+    # <<< 
+    # <<< working here
+    def GetCitingCasesFromPK(pk):
+        decision = DecisionModelProxy.__getDecisionFromBibliographyKeys(pk = pk)
+        bib_citing = set(filter(bool, decision.CitingCases_Bibliography.split(','))) # filter removes '' entry after the split
+        text_citing = set(filter(bool, decision.CitingCases_Text.split(',')))
+        all_citing = set.union(bib_citing, text_citing)
+        result = [DecisionModelProxy.__getDecisionFromBibliographyKeys(CaseNumber = x) for x in all_citing]
         return result
 
     

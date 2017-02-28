@@ -62,12 +62,14 @@ class DecisionProxyTests(TestCase):
             django.setup()
 
 
-    def test_DecisionProxy_justbibliography(self):
-        from Decisions.Decision import DecisionProxy
-        from Decisions.models import DecisionBibliographyModel
+    def test_AllGoodCited(self):
+        from DecisionsPlus import DecisionModelProxy
 
-        casenumber = 'J 0001/78'
-        bibliography = DecisionBibliographyModel.objects.filter(CaseNumber = casenumber).first()
-        decision = DecisionProxy(bibliography)
-        x = 1
+        casenumber = 'G 0001/83'
+        decision = DecisionModelProxy.GetListFromKeywords(CaseNumber = casenumber)[0]
+        x = decision.CaseNumber
+        y = decision.pk
+        z = decision.AllGoodCited
+        a = 1
+
 

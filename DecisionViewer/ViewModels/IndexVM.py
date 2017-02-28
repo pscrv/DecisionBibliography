@@ -1,5 +1,6 @@
 from DecisionViewer.ViewModels.Base import VMBase
-from Decisions.DBProxy import DecisionModelProxy
+#from Decisions.DBProxy import DecisionModelProxy
+from DecisionsPlus import DecisionModelProxy
 
 
 class  IndexViewModel(VMBase):

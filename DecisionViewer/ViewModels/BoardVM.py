@@ -6,7 +6,7 @@ class  BoardViewModel(VMBase):
     __analyser = PersistentBoardAnalysisCoordinator()
 
     def __init__(self, board):
-        super(BoardViewModel, self).__init__()
+        super().__init__()
 
         analysis = self.__analyser.GetAnalysis(board)
 

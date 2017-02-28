@@ -1,13 +1,13 @@
 from django.db.models import F
 
 from DecisionViewer.ViewModels.Base import VMBase
-from Decisions.DBProxy import DecisionModelProxy
+from DecisionsPlus import DecisionModelProxy
 from Decisions.DBHelpers.TextHelpers import TextGetter
 
 class DecisionViewModel(VMBase):
 
     def __init__(self, decisions, pk = None, msg = '', highlightterms = []):
-        super(DecisionViewModel, self).__init__()
+        super().__init__()
 
         self._decisions = decisions
         self._message = msg
@@ -46,9 +46,8 @@ class DecisionViewModel(VMBase):
         otherLanguages = [x for x in sameDate if not x.pk == self._decisionToShow.pk]
         otherVersions = [x for x in self._decisions if not x.DecisionDate == self._decisionToShow.DecisionDate]
         
-        citingDecisions = self._getCitingDecisionsAsTimeline(self._decisionToShow)
-        citedDecisions = self._getCitedDecisions(self._decisionToShow)        
-        #self.__downloadTextIfNeeded(self._decisionToShow)
+        citedDecisions = self._getCitedDecisions(self._decisionToShow)     
+        citingDecisions = self._getCitingDecisionsAsTimeline(self._decisionToShow)  
 
         
         self.Context.update( {
@@ -88,9 +87,7 @@ class DecisionViewModel(VMBase):
         citedDecisions = []
         if not decision:
             return citedDecisions
-        if decision.CitedCases == "":
-            return citedDecisions
-        for case in decision.CitedCases.split(','):
+        for case in decision.AllGoodCited:
             case = case.strip()
             dec = DecisionModelProxy.GetRepresentativeForCaseNumber(case)
             if dec:
@@ -99,8 +96,9 @@ class DecisionViewModel(VMBase):
         return citedDecisions
 
     def _getCitingDecisions(self, decision):
-        citing = DecisionModelProxy.GetCitingCasesFromCaseNumber(decision.CaseNumber)
-        return citing
+        citing = decision.AllCiting
+        citinglist = [DecisionModelProxy.GetRepresentativeForCaseNumber(x) for x in citing]
+        return citinglist
 
     def _getCitingDecisionsAsTimeline(self, decision):
         citing = self._getCitingDecisions(decision)
@@ -123,16 +121,4 @@ class DecisionViewModel(VMBase):
 
         return {'count': len(citing), 'years': years, 'timeline' : timeline}
 
-
-    #TODO: make this nice
-    def __downloadTextIfNeeded(self, decision):
-        if decision.HasText:
-            return
-        textGetter = TextGetter()
-        text = textGetter.Get_Text(decision)
-        decision.FactsHeader = text.FactsHeader
-        decision.Facts = text.Facts
-        decision.ReasonsHeader = text.ReasonsHeader
-        decision.Reasons = text.Reasons
-        decision.OrderHeader = text.Order
 

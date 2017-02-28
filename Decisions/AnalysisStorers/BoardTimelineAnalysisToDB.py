@@ -1,6 +1,7 @@
 from datetime import datetime
 from Decisions.models import BoardAnalysisModel
-from Decisions.DBProxy import DecisionModelProxy
+#from Decisions.DBProxy import DecisionModelProxy
+from DecisionsPlus import DecisionModelProxy
 
 from Decisions.Analysers.TimelineAnalysis import *
 

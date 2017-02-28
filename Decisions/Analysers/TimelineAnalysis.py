@@ -1,4 +1,5 @@
-from Decisions.DBProxy import DecisionModelProxy
+#from Decisions.DBProxy import DecisionModelProxy
+from DecisionsPlus import DecisionModelProxy
 from Decisions.Analysers.AnalysisBase import TimestampBase
 
 

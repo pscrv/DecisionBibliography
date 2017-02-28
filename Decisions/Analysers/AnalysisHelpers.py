@@ -2,7 +2,8 @@ import re
 
 from decimal import Decimal
 
-from Decisions.DBProxy import DecisionModelProxy
+#from Decisions.DBProxy import DecisionModelProxy
+from DecisionsPlus import DecisionModelProxy
 
 
 def IpcMainFrequencyForBoard_TopN_withPercentage(board, n, total):
@@ -69,6 +70,7 @@ def ArticleFrequencyForBoard_TopN(board, n):
 def CitationFrequency(decisions):
     result = {}
     for decision in decisions:
+        #result[decision] = len(DecisionModelProxy.GetCitingCasesFromCaseNumber(decision.CaseNumber))
         result[decision] = len(DecisionModelProxy.GetCitingCasesFromCaseNumber(decision.CaseNumber))
     return result
 
@@ -83,6 +85,8 @@ def __getAttributeFrequency(attribute, decisions):
     result = {}
     for decision in decisions:
         value = decision.__dict__[attribute]
+
+        # TODO: stop needing IsListAttribute
         if DecisionModelProxy.IsListAttribute(attribute):
             values = [x.strip() for x in value.split(',')]
         else:

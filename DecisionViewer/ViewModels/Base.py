@@ -1,5 +1,6 @@
 import re
-from Decisions.DBProxy import DecisionModelProxy
+#from Decisions.DBProxy import DecisionModelProxy
+from DecisionsPlus import DecisionModelProxy
 
 class  VMBase(object):
 
